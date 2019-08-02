@@ -1,19 +1,20 @@
 Package: igraphUtils
-Title: What the Package Does (One Line, Title Case)
+Title: A Collection of Network Analytic Functions
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "David",
+           family = "Schoch",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           email = "david.schoch@manchester.ac.uk")
+Description: Provides a collection of network analytic functions that may not deserve a package on their own.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 LinkingTo: 
-    Rcpp
+    Rcpp,
+    RcppArmadillo
 Imports: 
-    Rcpp
+    Rcpp,
+    igraph
