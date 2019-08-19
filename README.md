@@ -23,6 +23,11 @@ remotes::install_github("schochastics/igraphUtils")
 
 ## Functions
 
-  - `biggest_component()` extract the biggest connected component of a
-    network.
-  - `triad_census_attr()` calculate triad census with vertex attributes.
+**helpers**  
+`biggest_component()` extract the biggest connected component of a
+network.  
+`delete_isolates()` delete vertices with degree zero.
+
+**new algorithms**  
+`triad_census_attr()` calculate triad census with vertex attributes.  
+`structural_equivalence()` finds structurally equivalent vertices.

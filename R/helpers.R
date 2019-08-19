@@ -14,3 +14,9 @@ biggest_component <- function(g) {
   comps <- igraph::components(g,mode = "weak")
   igraph::induced_subgraph(g,which(comps$membership==which.max(comps$csize)))
 }
+
+#' @rdname helpers
+#' @export
+delete_isolates <- function(g) {
+  igraph::delete_vertices(g,which(igraph::degree(g)==0))
+}

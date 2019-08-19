@@ -6,6 +6,18 @@
 
 using namespace Rcpp;
 
+// mse
+IntegerMatrix mse(List adjList, IntegerVector deg);
+RcppExport SEXP _igraphUtils_mse(SEXP adjListSEXP, SEXP degSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type adjList(adjListSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type deg(degSEXP);
+    rcpp_result_gen = Rcpp::wrap(mse(adjList, deg));
+    return rcpp_result_gen;
+END_RCPP
+}
 // sortxy
 IntegerVector sortxy(IntegerVector x, IntegerVector y);
 RcppExport SEXP _igraphUtils_sortxy(SEXP xSEXP, SEXP ySEXP) {
@@ -34,6 +46,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_igraphUtils_mse", (DL_FUNC) &_igraphUtils_mse, 2},
     {"_igraphUtils_sortxy", (DL_FUNC) &_igraphUtils_sortxy, 2},
     {"_igraphUtils_triadCensusCol", (DL_FUNC) &_igraphUtils_triadCensusCol, 4},
     {NULL, NULL, 0}

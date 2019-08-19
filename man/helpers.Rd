@@ -3,9 +3,12 @@
 \name{helpers}
 \alias{helpers}
 \alias{biggest_component}
+\alias{delete_isolates}
 \title{helper function}
 \usage{
 biggest_component(g)
+
+delete_isolates(g)
 }
 \arguments{
 \item{g}{igraph object.}
