@@ -31,7 +31,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // triadCensusCol
-IntegerVector triadCensusCol(const arma::sp_mat& A, IntegerVector attr, IntegerMatrix orbitClasses, IntegerVector triads);
+NumericVector triadCensusCol(const arma::sp_mat& A, IntegerVector attr, IntegerMatrix orbitClasses, NumericVector triads);
 RcppExport SEXP _igraphUtils_triadCensusCol(SEXP ASEXP, SEXP attrSEXP, SEXP orbitClassesSEXP, SEXP triadsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -39,7 +39,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::sp_mat& >::type A(ASEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type attr(attrSEXP);
     Rcpp::traits::input_parameter< IntegerMatrix >::type orbitClasses(orbitClassesSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type triads(triadsSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type triads(triadsSEXP);
     rcpp_result_gen = Rcpp::wrap(triadCensusCol(A, attr, orbitClasses, triads));
     return rcpp_result_gen;
 END_RCPP
