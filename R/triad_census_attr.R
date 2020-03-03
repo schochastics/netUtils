@@ -17,7 +17,7 @@ triad_census_attr <- function(g,vattr){
   if(!all(is.numeric(attr))){
     stop("vertex attribute must be numeric ")
   }
-  A <- igraph::get.adjacency(g)
+  A <- igraph::as_adj(g)
 
   orbit_classes <- matrix(c(0,0,0,2,3,1,2,1,3,11,12,12,3,2,1,5,5,4,6,7,8,14,15,13,
                             1,2,3,7,6,8,10,10,9,23,24,22,12,11,12,15,14,13,24,23,22,
