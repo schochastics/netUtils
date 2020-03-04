@@ -1,6 +1,6 @@
 Package: igraphUtils
 Title: A Collection of Network Analytic Functions
-Version: 0.0.0.9000
+Version: 0.1.0.9000
 Authors@R: 
     person(given = "David",
            family = "Schoch",
@@ -11,7 +11,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 LinkingTo: 
     Rcpp,
     RcppArmadillo
