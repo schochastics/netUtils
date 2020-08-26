@@ -15,23 +15,6 @@ sage string
 \description{
 convert igraph object to sage format
 }
-\details{
-sage code
-
-gis = g.is_interval(certificate=true)
-
-gis
-
-gisstr=str(gis)
-
-o = open('interval_raw.txt','w')
-
-o.write(gisstr)
-
-o.close()
-
-system('grep -oe "\link{0-9}\\+,\\s\link{0-9}\\+" interval_raw.txt > intervals.txt')
-}
 \author{
 David Schoch
 }

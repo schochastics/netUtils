@@ -24,22 +24,6 @@ graph_kpartite <- function(n=10,grp=c(5,5)){
 #' @description  convert igraph object to sage format
 #'
 #' @param g igraph object
-#' @details
-#' sage code
-#'
-#' gis = g.is_interval(certificate=true)
-#'
-#'gis
-#'
-#'gisstr=str(gis)
-#'
-#'o = open('interval_raw.txt','w')
-#'
-#'o.write(gisstr)
-#'
-#'o.close()
-#'
-#'system('grep -oe "[0-9]\\+,\\s[0-9]\\+" interval_raw.txt > intervals.txt')
 #' @return sage string
 #' @author David Schoch
 #' @export
