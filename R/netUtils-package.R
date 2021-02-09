@@ -1,5 +1,5 @@
 ## usethis namespace: start
 #' @importFrom Rcpp sourceCpp
-#' @useDynLib igraphUtils, .registration = TRUE
+#' @useDynLib netUtils, .registration = TRUE
 ## usethis namespace: end
 NULL

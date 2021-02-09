@@ -5,7 +5,6 @@
 #' @name helpers
 #' @return igraph object
 #' @author David Schoch
-
 NULL
 
 #' @rdname helpers

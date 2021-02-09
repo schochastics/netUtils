@@ -13,7 +13,7 @@ graph_to_sage(g)
 sage string
 }
 \description{
-convert igraph object to sage format
+convert igraph object to sage format to be read in SAGE
 }
 \author{
 David Schoch

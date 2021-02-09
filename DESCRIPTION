@@ -1,12 +1,12 @@
-Package: igraphUtils
-Title: A Collection of Network Analytic Functions
-Version: 0.1.0.9000
+Package: netUtils
+Title: Miscellaneous Functions for network analysis
+Version: 0.5.0.9000
 Authors@R: 
     person(given = "David",
            family = "Schoch",
            role = c("aut", "cre"),
            email = "david.schoch@manchester.ac.uk")
-Description: Provides a collection of network analytic functions that may not deserve a package on their own.
+Description: Provides a collection of network analytic (convenience) functions, missing in other standard packages. This includes forms of dyad and triad census with attributes and equivalence measures. All functions are build upon igraph.  
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

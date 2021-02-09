@@ -6,7 +6,8 @@
 #' @author David Schoch
 #' @export
 structural_equivalence <- function(g) {
-  adj <- lapply(igraph::get.adjlist(g), function(x) x - 1)
+  # adj <- lapply(igraph::get.adjlist(g), function(x) x - 1)
+  adj <- lapply(igraph::neighborhood(g,mindist = 1), function(x) x - 1)
   deg <- igraph::degree(g)
   P <- mse(adj, deg)
   MSE <- which((P + t(P)) == 2, arr.ind = T)

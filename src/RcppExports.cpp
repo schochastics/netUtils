@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // mse
 IntegerMatrix mse(List adjList, IntegerVector deg);
-RcppExport SEXP _igraphUtils_mse(SEXP adjListSEXP, SEXP degSEXP) {
+RcppExport SEXP _netUtils_mse(SEXP adjListSEXP, SEXP degSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -20,7 +20,7 @@ END_RCPP
 }
 // sortxy
 IntegerVector sortxy(IntegerVector x, IntegerVector y);
-RcppExport SEXP _igraphUtils_sortxy(SEXP xSEXP, SEXP ySEXP) {
+RcppExport SEXP _netUtils_sortxy(SEXP xSEXP, SEXP ySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -32,7 +32,7 @@ END_RCPP
 }
 // triadCensusCol
 NumericVector triadCensusCol(const arma::sp_mat& A, IntegerVector attr, IntegerMatrix orbitClasses, NumericVector triads);
-RcppExport SEXP _igraphUtils_triadCensusCol(SEXP ASEXP, SEXP attrSEXP, SEXP orbitClassesSEXP, SEXP triadsSEXP) {
+RcppExport SEXP _netUtils_triadCensusCol(SEXP ASEXP, SEXP attrSEXP, SEXP orbitClassesSEXP, SEXP triadsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -46,13 +46,13 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_igraphUtils_mse", (DL_FUNC) &_igraphUtils_mse, 2},
-    {"_igraphUtils_sortxy", (DL_FUNC) &_igraphUtils_sortxy, 2},
-    {"_igraphUtils_triadCensusCol", (DL_FUNC) &_igraphUtils_triadCensusCol, 4},
+    {"_netUtils_mse", (DL_FUNC) &_netUtils_mse, 2},
+    {"_netUtils_sortxy", (DL_FUNC) &_netUtils_sortxy, 2},
+    {"_netUtils_triadCensusCol", (DL_FUNC) &_netUtils_triadCensusCol, 4},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_igraphUtils(DllInfo *dll) {
+RcppExport void R_init_netUtils(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

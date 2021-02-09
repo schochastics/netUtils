@@ -50,3 +50,19 @@ clique_vertex_mat <- function(g){
   }
   M
 }
+
+
+#' @title Convert a list of graphs to a adjacency matrices
+#' @description Convenience function that turns a list of igraph objects into adjacency matrices.
+#' @param g_lst A list of igraph object
+#' @param attr Either NULL or a character string giving an edge attribute name. If NULL a binary adjacency matrix is returned.
+#' @param sparse Logical scalar, whether to create a sparse matrix. The 'Matrix' package must be installed for creating sparse matrices.
+#' @return List of numeric matrices
+#' @author David Schoch
+#' @export
+as_multi_adj <- function(g_lst,attr=NULL,sparse = FALSE){
+  if(!all(unlist(lapply(g_lst,igraph::is.igraph)))){
+    stop("all entries of g_lst must be igraph objects")
+  }
+  lapply(g_lst,function(x) igraph::as_adj(x,"both",attr=attr,sparse=sparse))
+}

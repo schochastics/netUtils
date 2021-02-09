@@ -2,14 +2,14 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 mse <- function(adjList, deg) {
-    .Call(`_igraphUtils_mse`, adjList, deg)
+    .Call(`_netUtils_mse`, adjList, deg)
 }
 
 sortxy <- function(x, y) {
-    .Call(`_igraphUtils_sortxy`, x, y)
+    .Call(`_netUtils_sortxy`, x, y)
 }
 
 triadCensusCol <- function(A, attr, orbitClasses, triads) {
-    .Call(`_igraphUtils_triadCensusCol`, A, attr, orbitClasses, triads)
+    .Call(`_netUtils_triadCensusCol`, A, attr, orbitClasses, triads)
 }
 
