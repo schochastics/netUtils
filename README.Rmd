@@ -36,12 +36,12 @@ most functions only support igraph objects
 
 **helper/convenience functions**  
 `biggest_component()` extract the biggest connected component of a network.  
-`delete_isolates()` delete vertices with degree zero.
-`bipartite_from_data_frame()` create a two mode network from a data frame.
-`clique_vertex_mat()`
+`delete_isolates()` delete vertices with degree zero.  
+`bipartite_from_data_frame()` create a two mode network from a data frame.  
+`clique_vertex_mat()` compute the clique vertex matrix
 
 **methods**  
-`graph_kpartite()` create a random k-partite network.
-`dyad_census_attr()` calculate dyad census with vertex attributes.
-`triad_census_attr()` calculate triad census with vertex attributes.  
-`structural_equivalence()` finds structurally equivalent vertices.
+`graph_kpartite()` create a random k-partite network.  
+`dyad_census_attr()` calculate dyad census with vertex attributes.  
+`triad_census_attr()` calculate triad census with vertex attributes.    
+`structural_equivalence()` finds structurally equivalent vertices.  
