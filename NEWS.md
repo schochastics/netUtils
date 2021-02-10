@@ -4,6 +4,7 @@
 * added `bipartite_from_data_frame()`
 * added `graph_from_multi_edgelist()` and `as_multi_adj()`
 * added `structural_equivalence()`
+* added `core_periphery()`
 
 # igraphUtils 0.1.0
 
