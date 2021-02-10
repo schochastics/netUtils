@@ -17,4 +17,5 @@ LinkingTo:
     RcppArmadillo
 Imports: 
     Rcpp,
-    igraph
+    igraph,
+    stats
