@@ -17,7 +17,7 @@ core_periphery <- function(graph,method="SA",iter=50000){
     res <- stats::optim(par = cvec, fn = cp_fct1__0, A = A,gr = genperm,method = "SANN",
                  control = list(maxit = iter, temp = 10, tmax = 100, trace = FALSE,
                                 REPORT = 5))
-    return(list(vec=res$par,corr=res$value))
+    return(list(vec=res$par,corr=-res$value))
   } else if(method=="rk1"){
     ev <- igraph::evcent(graph)$vector
 
