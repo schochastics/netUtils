@@ -49,7 +49,7 @@ stable](https://img.shields.io/badge/lifecycle-stable-green.svg)
 ![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-green.svg)  
 `core_periphery()` to fit a discrete core periphery model. ![Lifecycle:
-stable](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
+stable](https://img.shields.io/badge/lifecycle-experimental-orange.svg)  
 `sample_coreseq()` creates a random graph with given coreness sequence.
 ![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
