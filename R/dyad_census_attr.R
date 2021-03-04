@@ -23,5 +23,5 @@ dyad_census_attr <- function(g,vattr){
   # codes <- apply(attrcomb,1,paste0,collapse="")
   # types <- c("asym","mut","null")
   types <- c("asym-11", "mut-11", "null-11", "asym-12", "mut-12", "null-12", "asym-22", "mut-22", "null-22")
-
+  stop("not implemented yet")
 }

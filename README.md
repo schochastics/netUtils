@@ -7,11 +7,13 @@
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Codecov test
+coverage](https://codecov.io/gh/schochastics/netUtils/branch/master/graph/badge.svg)](https://codecov.io/gh/schochastics/netUtils?branch=master)
 <!-- badges: end -->
 
-netUtils is a collection of network analytic (convenience) functions
-that may not deserve a package on their own and/or are missing from
-other network packages.
+netUtils is a collection of tools for network analysis that may not
+deserve a package on their own and/or are missing from other network
+packages.
 
 ## Installation
 
@@ -39,9 +41,7 @@ frame.
 **methods**  
 `graph_kpartite()` create a random k-partite network. ![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-green.svg)  
-`dyad_census_attr()` calculate dyad census with vertex attributes.
-![Lifecycle:
-stable](https://img.shields.io/badge/lifecycle-stable-green.svg)  
+<!-- `dyad_census_attr()` calculate dyad census with vertex attributes. ![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)   -->
 `triad_census_attr()` calculate triad census with vertex attributes.
 ![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-green.svg)  
@@ -49,4 +49,7 @@ stable](https://img.shields.io/badge/lifecycle-stable-green.svg)
 ![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-green.svg)  
 `core_periphery()` to fit a discrete core periphery model. ![Lifecycle:
+stable](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
+`sample_coreseq()` creates a random graph with given coreness sequence.
+![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-experimental-orange.svg)

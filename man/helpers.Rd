@@ -11,7 +11,7 @@ biggest_component(g)
 delete_isolates(g)
 }
 \arguments{
-\item{g}{igraph object.}
+\item{g}{igraph object}
 }
 \value{
 igraph object

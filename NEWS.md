@@ -5,6 +5,8 @@
 * added `graph_from_multi_edgelist()` and `as_multi_adj()`
 * added `structural_equivalence()`
 * added `core_periphery()`
+* added `sample_coreseq()`
+* added tests
 
 # igraphUtils 0.1.0
 

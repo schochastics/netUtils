@@ -3,7 +3,7 @@
 #' @param graph igraph object.
 #' @param method algorithm to use (see details)
 #' @param iter number of iterations for SA optimization
-#' @details The function fits the data to an optimal pattern matrix with simulated annealing (method="SA") or a rank 1 approximation (method="rk1"). The rank 1 approximation is computationally far cheaper but also highly experimental. Best is to compare the results from both models.
+#' @details The function fits the data to an optimal pattern matrix with simulated annealing (method="SA") or a rank 1 approximation (method="rk1"). The rank 1 approximation is computationally far cheaper but also more experimental. Best is to compare the results from both models.
 #' @return list with numeric vector with entries (k1,k2,...ki...) where ki assigns vertex i to either the core (ki=1) or periphery (ki=0), and the maximal correlation with an optimal pattern matrix
 #' @references
 #' Borgatti, Stephen P., and Martin G. Everett. "Models of core/periphery structures." Social networks 21.4 (2000): 375-395.

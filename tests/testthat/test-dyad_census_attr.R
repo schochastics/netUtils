@@ -1,0 +1,10 @@
+test_that("dyad census attr works", {
+  library(igraph)
+  gundir <- graph.full(3,directed = FALSE)
+  gnoatt <- graph.full(3,directed = TRUE)
+  gchatt <- graph.full(3,directed = TRUE)
+  vertex_attr(gchatt,"test") <- c("a","b","c")
+  expect_error(dyad_census_attr(gundir))
+  expect_error(dyad_census_attr(gnoatt))
+  expect_error(dyad_census_attr(gchatt,"test"))
+})
