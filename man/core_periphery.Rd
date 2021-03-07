@@ -4,7 +4,7 @@
 \alias{core_periphery}
 \title{Discrete core-periphery model}
 \usage{
-core_periphery(graph, method = "SA", iter = 50000)
+core_periphery(graph, method = "rk1_dc", iter = 5000)
 }
 \arguments{
 \item{graph}{igraph object.}
@@ -20,7 +20,7 @@ list with numeric vector with entries (k1,k2,...ki...) where ki assigns vertex i
 Fits a discrete core-periphery model to a give network
 }
 \details{
-The function fits the data to an optimal pattern matrix with simulated annealing (method="SA") or a rank 1 approximation (method="rk1"). The rank 1 approximation is computationally far cheaper but also more experimental. Best is to compare the results from both models.
+The function fits the data to an optimal pattern matrix with simulated annealing (method="SA") or a rank 1 approximation, either with degree centrality (method="rk1_dc") or eigenvector centrality (method="rk1_ec") . The rank 1 approximation is computationally far cheaper but also more experimental. Best is to compare the results from both models.
 }
 \references{
 Borgatti, Stephen P., and Martin G. Everett. "Models of core/periphery structures." Social networks 21.4 (2000): 375-395.
