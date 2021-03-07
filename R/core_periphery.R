@@ -9,7 +9,7 @@
 #' Borgatti, Stephen P., and Martin G. Everett. "Models of core/periphery structures." Social networks 21.4 (2000): 375-395.
 #' @author David Schoch
 #' @export
-core_periphery <- function(graph,method="SA",iter=50000){
+core_periphery <- function(graph,method="SA",iter=5000){
   A <- igraph::as_adj(graph,type = "both",sparse = FALSE)
   if(method=="SA"){
     n <- nrow(A)
@@ -19,7 +19,7 @@ core_periphery <- function(graph,method="SA",iter=50000){
                                 REPORT = 5))
     return(list(vec=res$par,corr=-res$value))
   } else if(method=="rk1"){
-    ev <- igraph::evcent(graph)$vector
+    ev <- round(igraph::evcent(graph)$vector,8)
 
     thresh <- unique(ev)
     optcorr <- -2
@@ -29,11 +29,14 @@ core_periphery <- function(graph,method="SA",iter=50000){
       E <- outer(evabs,evabs,"+")
       E[E==1] <- NA
       E[E==2] <- 1
-      diag(E) <- 0
+      diag(E) <- NA
       if(sum(E,na.rm = TRUE)==0){
         next()
       }
-      tmp <- graph_cor(E,A)
+      tmp <- suppressWarnings(graph_cor(E,A))
+      if(is.na(tmp)){
+        next()
+      }
       if(tmp>optcorr){
         optperm <- evabs
         optcorr <- tmp
@@ -56,6 +59,7 @@ cp_fct1__0 <- function(A,cvec){ #core=1 periphery=0
   delta <- outer(cvec,cvec,function(x,y) x+y)
   delta[delta==1] <- NA
   delta[delta==2] <- 1
+  diag(delta) <- NA
   # -sum(A*delta,na.rm = TRUE)
   -graph_cor(delta,A)
 }
