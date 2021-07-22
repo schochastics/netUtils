@@ -36,7 +36,9 @@ network.
 `delete_isolates()` delete vertices with degree zero.  
 `bipartite_from_data_frame()` create a two mode network from a data
 frame.  
-`clique_vertex_mat()` compute the clique vertex matrix
+`clique_vertex_mat()` compute the clique vertex matrix  
+`graph_cartesian()` computes the Cartesian product of two graphs  
+`graph_direct()` computes the direct (or tensor) product of graphs
 
 **methods**  
 `graph_kpartite()` create a random k-partite network. ![Lifecycle:
@@ -52,4 +54,7 @@ stable](https://img.shields.io/badge/lifecycle-stable-green.svg)
 stable](https://img.shields.io/badge/lifecycle-experimental-orange.svg)  
 `sample_coreseq()` creates a random graph with given coreness sequence.
 ![Lifecycle:
-stable](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
+stable](https://img.shields.io/badge/lifecycle-stable-green.svg)  
+`fast_clique()` to calculate cliques with MACE (faster than igraph)
+![Lifecycle:
+stable](https://img.shields.io/badge/lifecycle-stable-green.svg)

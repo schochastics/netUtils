@@ -119,3 +119,49 @@ genperm_switch <- function(A,cvec){
   cvec
 }
 
+
+# Rombach/Porter
+# a <- 0.99
+# b <- 0.2
+# iter <- 5000
+# trans_vec <- trans_fct(a,b,n)
+# plot(trans_vec)
+# perm <- sample(1:n)
+#
+# res <- stats::optim(par = perm, fn = cp_rombach, A = A,trans_vec = trans_vec,gr = genpermN,method = "SANN",
+#                     control = list(maxit = iter, temp = 10, tmax = 100, trace = TRUE,
+#                                    REPORT = 5))
+#
+# plot(trans_vec[res$par],degree(g))
+#
+# genpermN <- function(A,trans_vec,perm){
+#   uv <- sample(perm,2)
+#   u <- uv[1]
+#   v <- uv[2]
+#   tmp <- perm[u]
+#   perm[u] <- perm[v]
+#   perm[v] <- tmp
+#   perm
+# }
+#
+# cp_rombach <- function(A,trans_vec,perm){
+#   -sum(A*outer(trans_vec[perm],trans_vec[perm],"*"))
+# }
+#
+# trans_fct <- function(a,b,n){
+#   csize <- floor(b*n)
+#   nseq <- 1:n
+#   c(nseq[1:csize]*(1-a)/(2*csize),
+#     (nseq[(csize+1):n]-csize)*(1-a)/(2*(n-csize))+(1+a)/2
+#   )
+# }
+
+
+#CONCOR
+# VecFun <- Vectorize( cor )
+# system.time({
+#   for(k in 1:10){
+#     M <- outer(M_rows, M_rows, VecFun)
+#     M_rows <- split(M, row(M))
+#   }
+# })
