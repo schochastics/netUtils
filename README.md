@@ -55,6 +55,6 @@ stable](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
 `sample_coreseq()` creates a random graph with given coreness sequence.
 ![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-green.svg)  
-`fast_clique()` to calculate cliques with MACE (faster than igraph)
-![Lifecycle:
+`fast_clique()` to calculate cliques with MACE (sometimes faster than
+igraph) ![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-green.svg)

@@ -8,7 +8,7 @@
 * added `sample_coreseq()`
 * added tests
 * added graph products `graph_cartesian()` and `graph_direct()`
-* added faster max clique routine `fast_cliques()`
+* added fast max clique routine `fast_cliques()`
 
 # igraphUtils 0.1.0
 

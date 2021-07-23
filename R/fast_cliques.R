@@ -1,5 +1,5 @@
 #' @title Find Cliques, maximal or not, fast
-#' @description Enumerates all (maximal) cliques using MACE. Should be faster than igraph
+#' @description Enumerates all (maximal) cliques using MACE. Can be faster than igraph in some circumstances
 #' @param g An igraph object
 #' @param what either "M" for maximal cliques or "C" for all cliques
 #' @param min Numeric constant, lower limit on the size of the cliques to find. NULL means no limit, ie. it is the same as 0
