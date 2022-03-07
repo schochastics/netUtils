@@ -1,3 +1,7 @@
+# netUtils 0.6.0.9000
+
+added `sample_pa_homophilic()`
+
 # netUtils 0.5.0.9000
 
 * renamed package to `netUtils`

@@ -1,7 +1,7 @@
 #' Generate random graphs with a given coreness sequence
 #' @description Similar to \link[igraph]{sample_degseq} just with \link[igraph]{coreness}
 #' @param cores coreness sequence
-#' @details The code is an adaption of the python code from here: adopted from https://github.com/ktvank/Random-Graphs-with-Prescribed-K-Core-Sequences/
+#' @details The code is an adaption of the python code from https://github.com/ktvank/Random-Graphs-with-Prescribed-K-Core-Sequences/
 #' @return igraph object of graph with the same coreness sequence as the input
 #' @references
 #'Van Koevering, Katherine, Austin R. Benson, and Jon Kleinberg. 2021. ‘Random Graphs with Prescribed K-Core Sequences: A New Null Model for Network Analysis’. ArXiv:2102.12604. https://doi.org/10.1145/3442381.3450001.

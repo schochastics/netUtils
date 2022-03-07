@@ -21,7 +21,7 @@ fast_cliques(g, what = "M", min = NULL, max = NULL, outfile = NA)
 (maximal) cliques as a list
 }
 \description{
-Enumerates all (maximal) cliques using MACE. Should be faster than igraph
+Enumerates all (maximal) cliques using MACE. Can be faster than igraph in some circumstances
 }
 \details{
 C Code downloaded from http://research.nii.ac.jp/~uno/codes.htm. Download the code and run make and then point an environment variable called MACE_PATH to the binary. See http://research.nii.ac.jp/~uno/code/mace.html for more details

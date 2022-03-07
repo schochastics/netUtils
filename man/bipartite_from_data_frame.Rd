@@ -4,7 +4,7 @@
 \alias{bipartite_from_data_frame}
 \title{two-mode network from a data.frame}
 \usage{
-bipartite_from_data_frame(d, type1, type2)
+bipartite_from_data_frame(d, type1, type2, attr = NULL)
 }
 \arguments{
 \item{d}{data.frame}
@@ -12,6 +12,8 @@ bipartite_from_data_frame(d, type1, type2)
 \item{type1}{column name of mode 1}
 
 \item{type2}{column name of mode 2}
+
+\item{attr}{named list of edge attributes}
 }
 \value{
 two mode network as igraph object

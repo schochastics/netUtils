@@ -57,4 +57,7 @@ stable](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
 stable](https://img.shields.io/badge/lifecycle-stable-green.svg)  
 `fast_clique()` to calculate cliques with MACE (sometimes faster than
 igraph) ![Lifecycle:
-stable](https://img.shields.io/badge/lifecycle-stable-green.svg)
+stable](https://img.shields.io/badge/lifecycle-stable-green.svg)  
+`sample_pa_homophilic()` to create a preferential attachment graph with
+two groups of nodes ![Lifecycle:
+stable](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
