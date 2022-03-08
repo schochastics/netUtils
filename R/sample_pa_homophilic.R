@@ -7,13 +7,15 @@
 #' @param minority_fraction fraction of nodes that belong to the minority group
 #' @param h_ab probability to connect a node from group a with groub b
 #' @param h_ba probability to connect a node from group b with groub a. If NULL, h_ab is used.
+#' @param directed should a directed network be created
 #' @details The code is an adaption of the python code from https://github.com/gesiscss/HomophilicNtwMinorities/
 #' @return igraph object
 #' @references
-#' Karimi, F., Génois, M., Wagner, C., Singer, P., & Strohmaier, M. (2018). Homophily influences ranking of minorities in social networks. Scientific reports, 8(1), 1-12. https://www.nature.com/articles/s41598-018-29405-7
+#' Karimi, F., Génois, M., Wagner, C., Singer, P., & Strohmaier, M. (2018). Homophily influences ranking of minorities in social networks. Scientific reports, 8(1), 1-12. (https://www.nature.com/articles/s41598-018-29405-7)
+#' Espín-Noboa, L., Wagner, C., Strohmaier, M., & Karimi, F. (2022). Inequality and inequity in network-based ranking and recommendation algorithms. Scientific reports, 12(1), 1-14. (https://www.nature.com/articles/s41598-022-05434-1)
 #' @author David Schoch
 #' @export
-sample_pa_homophilic <- function(n, m, minority_fraction, h_ab, h_ba = NULL){
+sample_pa_homophilic <- function(n, m, minority_fraction, h_ab, h_ba = NULL,directed = FALSE){
 
   if(is.null(h_ba)){
     h_ba <- h_ab
@@ -26,7 +28,7 @@ sample_pa_homophilic <- function(n, m, minority_fraction, h_ab, h_ba = NULL){
     )
   )
 
-  g <- igraph::graph.empty(n = 0)
+  g <- igraph::graph.empty(n = 0,directed = directed)
   g <- igraph::add.vertices(g, n,attr = list(minority=minority_attr))
 
   dist <- matrix(NA,n,n)

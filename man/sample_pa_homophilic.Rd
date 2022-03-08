@@ -4,7 +4,14 @@
 \alias{sample_pa_homophilic}
 \title{Homophilic random graph using BA preferential attachment model}
 \usage{
-sample_pa_homophilic(n, m, minority_fraction, h_ab, h_ba = NULL)
+sample_pa_homophilic(
+  n,
+  m,
+  minority_fraction,
+  h_ab,
+  h_ba = NULL,
+  directed = FALSE
+)
 }
 \arguments{
 \item{n}{number of nodes}
@@ -16,6 +23,8 @@ sample_pa_homophilic(n, m, minority_fraction, h_ab, h_ba = NULL)
 \item{h_ab}{probability to connect a node from group a with groub b}
 
 \item{h_ba}{probability to connect a node from group b with groub a. If NULL, h_ab is used.}
+
+\item{directed}{should a directed network be created}
 }
 \value{
 igraph object
@@ -29,7 +38,8 @@ degree, depending on the homophily parameters.
 The code is an adaption of the python code from https://github.com/gesiscss/HomophilicNtwMinorities/
 }
 \references{
-Karimi, F., Génois, M., Wagner, C., Singer, P., & Strohmaier, M. (2018). Homophily influences ranking of minorities in social networks. Scientific reports, 8(1), 1-12. https://www.nature.com/articles/s41598-018-29405-7
+Karimi, F., Génois, M., Wagner, C., Singer, P., & Strohmaier, M. (2018). Homophily influences ranking of minorities in social networks. Scientific reports, 8(1), 1-12. (https://www.nature.com/articles/s41598-018-29405-7)
+Espín-Noboa, L., Wagner, C., Strohmaier, M., & Karimi, F. (2022). Inequality and inequity in network-based ranking and recommendation algorithms. Scientific reports, 12(1), 1-14. (https://www.nature.com/articles/s41598-022-05434-1)
 }
 \author{
 David Schoch
