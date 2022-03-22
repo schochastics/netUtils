@@ -105,7 +105,7 @@ graph_from_multi_edgelist <- function(d,from = NULL, to = NULL, type = NULL,weig
 #'
 #' @param n number of nodes
 #' @param grp vector of partition sizes
-#' @return kpartite graph
+#' @return igraph object
 #' @author David Schoch
 #' @export
 
@@ -137,4 +137,25 @@ graph_to_sage <- function(g){
   gstr <- paste(gstr,collapse = ",")
   gstr <- paste0("g=Graph({",gstr,"})")
   gstr
+}
+
+#' @title split graph
+#' @description  Create a random split graph with a perfect core-periphery structure.
+#'
+#' @param n number of nodes
+#' @param p probability of peripheral nodes to connect to the core nodes
+#' @param core fraction of nodes in the core
+#' @return igraph object
+#' @author David Schoch
+#' @export
+split_graph <- function(n,p,core){
+  ncore <- floor(n*core)
+  nperi <- n-ncore
+  Acore <- matrix(1,ncore,ncore)
+  Aperi <- (matrix(stats::runif(ncore*nperi),ncore,nperi)<p) + 0
+  A <- rbind(cbind(Acore,Aperi),cbind(t(Aperi),matrix(0,nperi,nperi)))
+  g <- igraph::graph_from_adjacency_matrix(A,"undirected",diag = FALSE)
+  igraph::V(g)$core <- FALSE
+  igraph::V(g)$core[1:ncore] <- TRUE
+  g
 }

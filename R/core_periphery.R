@@ -165,3 +165,32 @@ genperm_switch <- function(A,cvec){
 #     M_rows <- split(M, row(M))
 #   }
 # })
+
+# https://www.nature.com/articles/srep01467.pdf
+# core_periphery_profile <- function(g){
+#   M <- as_adj(g,sparse=FALSE)
+#   rpi <- Matrix::rowSums(M)
+#   rpi <- rpi/sum(rpi)
+#   M <- M/Matrix::rowSums(M)
+#
+#   alpha <- rep(NA,vcount(g))
+#   P <- c()
+#   alpha[1] <- 0
+#   P <- c(P,which.min(rpi))
+#   nodes <- setdiff(1:vcount(g),P)
+#   for(i in 2:(vcount(g))){
+#     diagP <- diag(rpi[P],nrow = length(P),ncol = length(P))
+#     diagpi <- diag(rpi[nodes],nrow = length(nodes),ncol = length(nodes))
+#     res <- (sum(diagP%*%M[P,P]) +
+#               colSums(diagP%*%M[P,nodes]) +
+#               rowSums(diagpi%*%M[nodes,P]))/
+#       (sum(rpi[P])+rpi[nodes])
+#
+#     idx <- which(res==min(res))
+#     id <- sample(idx,1)
+#     P <- c(P,nodes[id])
+#     alpha[i] <- min(res)
+#     nodes <- nodes[-id]
+#   }
+#   return(alpha)
+# }

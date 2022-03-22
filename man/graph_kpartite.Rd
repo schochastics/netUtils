@@ -12,7 +12,7 @@ graph_kpartite(n = 10, grp = c(5, 5))
 \item{grp}{vector of partition sizes}
 }
 \value{
-kpartite graph
+igraph object
 }
 \description{
 Create a random k-partite graph.
