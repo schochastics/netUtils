@@ -1,9 +1,11 @@
 #' triad census with node attributes
 #'
-#' @param g igraph object. should be a directed graph.
-#' @param vattr name of vertex attribute to be used.
-#' @return triad census with node attributes.
-#' @details The node attribute should be integers from 1 to max(attr).
+#' @param g igraph object. should be a directed graph
+#' @param vattr name of vertex attribute to be used
+#' @return triad census with node attributes
+#' @details The node attribute should be integers from 1 to max(attr). The implemented algorithm is a more efficient version of the algorithm in Lienert et al..
+#' The output is a named vector where the names are of the form Txxx-abc, where xxx corresponds to the standard triad census notation and "abc" are the node attribute of the involved nodes.
+#' @references Lienert, J., Koehly, L., Reed-Tsochas, F., & Marcum, C. S. (2019). An efficient counting method for the colored triad census. Social Networks, 58, 136-142.
 #' @author David Schoch
 #' @export
 triad_census_attr <- function(g,vattr){

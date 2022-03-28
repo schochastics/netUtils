@@ -69,7 +69,7 @@ core_periphery <- function(graph,method="rk1_dc",iter=5000){
     }
     return(list(vec = optperm,corr=optcorr))
   } else{
-    stop("method must be one of 'SA' and 'rk1'")
+    stop("method must be one of 'SA', 'rk1_dc', or 'rk1_ec'")
   }
 }
 
