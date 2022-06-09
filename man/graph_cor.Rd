@@ -6,7 +6,7 @@
 \alias{graph_cor.igraph}
 \alias{graph_cor.matrix}
 \alias{graph_cor.array}
-\title{Convert graphs to graph6 symbols}
+\title{Graph correlation}
 \usage{
 graph_cor(object1, object2)
 
@@ -27,6 +27,6 @@ graph_cor(object1, object2)
 correlation between graphs
 }
 \description{
-This function converts graphs to graph6 symbols. Implemented methods expect
+This function computes the correlation between networks. Implemented methods expect
 the graph to be an adjacency matrix, an igraph, or a network object.
 }

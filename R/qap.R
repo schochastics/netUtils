@@ -1,6 +1,6 @@
-#' Convert graphs to graph6 symbols
+#' Graph correlation
 #'
-#' This function converts graphs to graph6 symbols. Implemented methods expect
+#' This function computes the correlation between networks. Implemented methods expect
 #' the graph to be an adjacency matrix, an igraph, or a network object.
 #'
 #' @param object1  igraph object or adjacency matrix
