@@ -5,6 +5,7 @@
 #'
 #' @param object1  igraph object or adjacency matrix
 #' @param object2  igraph object or adjacency matrix over the same vertex set as object1
+#' @param ... additional arguments
 #'
 #' @return correlation between graphs
 #'
@@ -21,9 +22,9 @@ graph_cor.default <- function(object1,object2) {
 #' @rdname graph_cor
 #' @method graph_cor igraph
 #' @export
-graph_cor.igraph <- function(object1,object2){
-  A1 <- igraph::as_adj(object1,type = "both",sparse = FALSE)
-  A2 <- igraph::as_adj(object2,type = "both",sparse = FALSE)
+graph_cor.igraph <- function(object1,object2,...){
+  A1 <- igraph::as_adj(object1,type = "both",sparse = FALSE,...)
+  A2 <- igraph::as_adj(object2,type = "both",sparse = FALSE,...)
   graph_cor.matrix(A1,A2)
 }
 

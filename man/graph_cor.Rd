@@ -12,7 +12,7 @@ graph_cor(object1, object2)
 
 \method{graph_cor}{default}(object1, object2)
 
-\method{graph_cor}{igraph}(object1, object2)
+\method{graph_cor}{igraph}(object1, object2, ...)
 
 \method{graph_cor}{matrix}(object1, object2)
 
@@ -22,6 +22,8 @@ graph_cor(object1, object2)
 \item{object1}{igraph object or adjacency matrix}
 
 \item{object2}{igraph object or adjacency matrix over the same vertex set as object1}
+
+\item{...}{additional arguments}
 }
 \value{
 correlation between graphs
