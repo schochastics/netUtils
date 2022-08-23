@@ -6,6 +6,16 @@
 #' @references
 #'Van Koevering, Katherine, Austin R. Benson, and Jon Kleinberg. 2021. ‘Random Graphs with Prescribed K-Core Sequences: A New Null Model for Network Analysis’. ArXiv:2102.12604. https://doi.org/10.1145/3442381.3450001.
 #' @author David Schoch
+#' @examples
+#' library(igraph)
+#' g1 <- make_graph("Zachary")
+#' kcores1 <- coreness(g1)
+#' g2 <- sample_coreseq(kcores1)
+#' kcores2 <- coreness(g2)
+#'
+#' #the sorted arrays are the same
+#' all(sort(kcores1)==sort(kcores2))
+#'
 #' @export
 sample_coreseq <- function(cores){
   cores <- sort(cores,decreasing = TRUE)

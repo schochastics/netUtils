@@ -18,6 +18,17 @@ Similar to \link[igraph]{sample_degseq} just with \link[igraph]{coreness}
 \details{
 The code is an adaption of the python code from https://github.com/ktvank/Random-Graphs-with-Prescribed-K-Core-Sequences/
 }
+\examples{
+library(igraph)
+g1 <- make_graph("Zachary")
+kcores1 <- coreness(g1)
+g2 <- sample_coreseq(kcores1)
+kcores2 <- coreness(g2)
+
+#the sorted arrays are the same
+all(sort(kcores1)==sort(kcores2))
+
+}
 \references{
 Van Koevering, Katherine, Austin R. Benson, and Jon Kleinberg. 2021. ‘Random Graphs with Prescribed K-Core Sequences: A New Null Model for Network Analysis’. ArXiv:2102.12604. https://doi.org/10.1145/3442381.3450001.
 }

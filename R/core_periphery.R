@@ -8,6 +8,11 @@
 #' @references
 #' Borgatti, Stephen P., and Martin G. Everett. "Models of core/periphery structures." Social networks 21.4 (2000): 375-395.
 #' @author David Schoch
+#' @examples
+#' set.seed(121)
+#' #split graphs have a perfect core-periphery structure
+#' sg <- split_graph(n = 20, p = 0.3,core = 0.5)
+#' core_periphery(sg)
 #' @export
 core_periphery <- function(graph,method="rk1_dc",iter=5000){
   A <- igraph::as_adj(graph,type = "both",sparse = FALSE)

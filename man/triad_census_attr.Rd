@@ -18,8 +18,18 @@ triad census with node attributes
 triad census with node attributes
 }
 \details{
-The node attribute should be integers from 1 to max(attr). The implemented algorithm is comparable to the algorithm in Lienert et al..
-The output is a named vector where the names are of the form Txxx-abc, where xxx corresponds to the standard triad census notation and "abc" are the node attribute of the involved nodes.
+The node attribute should be integers from 1 to max(attr).
+The output is a named vector where the names are of the form Txxx-abc, where xxx corresponds to the standard triad census notation and "abc" are the attributes of the involved nodes.
+
+The implemented algorithm is comparable to the algorithm in Lienert et al.
+}
+\examples{
+library(igraph)
+set.seed(112)
+g <- sample_gnp(20,p = 0.3,directed = TRUE)
+# add a vertex attribute
+V(g)$type <- rep(1:2,each = 10)
+triad_census_attr(g,"type")
 }
 \references{
 Lienert, J., Koehly, L., Reed-Tsochas, F., & Marcum, C. S. (2019). An efficient counting method for the colored triad census. Social Networks, 58, 136-142.

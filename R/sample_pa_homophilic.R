@@ -12,8 +12,13 @@
 #' @return igraph object
 #' @references
 #' Karimi, F., Génois, M., Wagner, C., Singer, P., & Strohmaier, M. (2018). Homophily influences ranking of minorities in social networks. Scientific reports, 8(1), 1-12. (https://www.nature.com/articles/s41598-018-29405-7)
+#'
 #' Espín-Noboa, L., Wagner, C., Strohmaier, M., & Karimi, F. (2022). Inequality and inequity in network-based ranking and recommendation algorithms. Scientific reports, 12(1), 1-14. (https://www.nature.com/articles/s41598-022-05434-1)
 #' @author David Schoch
+#' #maximally heterophilic network
+#' sample_pa_homophilic(n = 50, m = 2,minority_fraction = 0.2,h_ab = 1)
+#' #maximally homophilic network
+#' sample_pa_homophilic(n = 50, m = 2,minority_fraction = 0.2,h_ab = 0)
 #' @export
 sample_pa_homophilic <- function(n, m, minority_fraction, h_ab, h_ba = NULL,directed = FALSE){
 

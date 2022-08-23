@@ -22,6 +22,12 @@ Fits a discrete core-periphery model to a given network
 \details{
 The function fits the data to an optimal pattern matrix with simulated annealing (method="SA") or a rank 1 approximation, either with degree centrality (method="rk1_dc") or eigenvector centrality (method="rk1_ec") . The rank 1 approximation is computationally far cheaper but also more experimental. Best is to compare the results from both models.
 }
+\examples{
+set.seed(121)
+#split graphs have a perfect core-periphery structure
+sg <- split_graph(n = 20, p = 0.3,core = 0.5)
+core_periphery(sg)
+}
 \references{
 Borgatti, Stephen P., and Martin G. Everett. "Models of core/periphery structures." Social networks 21.4 (2000): 375-395.
 }

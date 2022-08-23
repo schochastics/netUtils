@@ -107,6 +107,9 @@ graph_from_multi_edgelist <- function(d,from = NULL, to = NULL, type = NULL,weig
 #' @param grp vector of partition sizes
 #' @return igraph object
 #' @author David Schoch
+#' @examples
+#' #3-partite graph with equal sized groups
+#' graph_kpartite(n = 15, grp = c(5,5,5))
 #' @export
 
 graph_kpartite <- function(n=10,grp=c(5,5)){
@@ -146,6 +149,9 @@ graph_to_sage <- function(g){
 #' @param core fraction of nodes in the core
 #' @return igraph object
 #' @author David Schoch
+#' @examples
+#' #split graph with 20 nodes and a core size of 10
+#' split_graph(n = 20, p = 0.4, 0.5)
 #' @export
 split_graph <- function(n,p,core){
   ncore <- floor(n*core)

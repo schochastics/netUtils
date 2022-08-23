@@ -17,6 +17,10 @@ igraph object
 \description{
 Create a random k-partite graph.
 }
+\examples{
+#3-partite graph with equal sized groups
+graph_kpartite(n = 15, grp = c(5,5,5))
+}
 \author{
 David Schoch
 }

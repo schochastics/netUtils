@@ -19,6 +19,10 @@ igraph object
 \description{
 Create a random split graph with a perfect core-periphery structure.
 }
+\examples{
+#split graph with 20 nodes and a core size of 10
+split_graph(n = 20, p = 0.4, 0.5)
+}
 \author{
 David Schoch
 }
