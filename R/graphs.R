@@ -128,7 +128,6 @@ graph_kpartite <- function(n=10,grp=c(5,5)){
 #' @param g igraph object
 #' @return sage string
 #' @author David Schoch
-#' @export
 
 graph_to_sage <- function(g){
   igraph::V(g)$name <- 1:igraph::vcount(g)

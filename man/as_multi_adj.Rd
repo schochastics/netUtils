@@ -2,7 +2,7 @@
 % Please edit documentation in R/graph_structures.R
 \name{as_multi_adj}
 \alias{as_multi_adj}
-\title{Convert a list of graphs to a adjacency matrices}
+\title{Convert a list of graphs to an adjacency matrices}
 \usage{
 as_multi_adj(g_lst, attr = NULL, sparse = FALSE)
 }

@@ -52,7 +52,7 @@ clique_vertex_mat <- function(g){
 }
 
 
-#' @title Convert a list of graphs to a adjacency matrices
+#' @title Convert a list of graphs to an adjacency matrices
 #' @description Convenience function that turns a list of igraph objects into adjacency matrices.
 #' @param g_lst A list of igraph object
 #' @param attr Either NULL or a character string giving an edge attribute name. If NULL a binary adjacency matrix is returned.

@@ -31,25 +31,28 @@ remotes::install_github("schochastics/netUtils")
 ```
 
 ## Functions
-
-*(The functions listed below are just a sample of the available methods)*  
 most functions only support igraph objects
 
 **helper/convenience functions**  
-`biggest_component()` extract the biggest connected component of a network.  
-`delete_isolates()` delete vertices with degree zero.  
-`bipartite_from_data_frame()` create a two mode network from a data frame.  
-`clique_vertex_mat()` compute the clique vertex matrix  
-`graph_cartesian()` computes the Cartesian product of two graphs  
-`graph_direct()` computes the direct (or tensor) product of graphs
+`biggest_component()` extracts the biggest connected component of a network.  
+`delete_isolates()` deletes vertices with degree zero.  
+`bipartite_from_data_frame()` creates a two mode network from a data frame.  
+`graph_from_multi_edgelist()` creates multiple graphs from a typed edgelist.  
+`clique_vertex_mat()` computes the clique vertex matrix.  
+`graph_cartesian()` computes the Cartesian product of two graphs.  
+`graph_direct()` computes the direct (or tensor) product of graphs.  
+`str()` extends str to work with igraph objects.  
 
 **methods**  
-`graph_kpartite()` create a random k-partite network. ![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)  
-<!-- `dyad_census_attr()` calculate dyad census with vertex attributes. ![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)   -->
-`triad_census_attr()` calculate triad census with vertex attributes. ![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)    
-`structural_equivalence()` finds structurally equivalent vertices. ![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)    
-`core_periphery()` to fit a discrete core periphery model. ![Lifecycle: stable](https://img.shields.io/badge/lifecycle-experimental-orange.svg)  
-`sample_coreseq()` creates a random graph with given coreness sequence. ![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)  
-`fast_clique()` to calculate cliques with MACE (sometimes faster than igraph) ![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)  
-`sample_pa_homophilic()` to create a preferential attachment graph with two groups of nodes ![Lifecycle: stable](https://img.shields.io/badge/lifecycle-experimental-orange.svg)  
+`triad_census_attr()` calculates triad census with vertex attributes.  
+`core_periphery()` fits a discrete core periphery model.  
+`graph_kpartite()` creates a random k-partite network.  
+`sample_coreseq()` creates a random graph with given coreness sequence.
+`sample_pa_homophilic()` creates a preferential attachment graph with two groups of nodes.  
+`structural_equivalence()` finds structurally equivalent vertices.    
+`fast_clique()` computes cliques with MACE (faster than igraph for dense graphs).  
 
+**methods to use with caution**  
+*(this functions should only be used if you know what you are doing)*  
+`as_adj_list1()` extracts the adjacency list faster, but less stable, from igraph objects.  
+`as_adj_weighted()` extracts the dense weighted adjacency matrix fast.  

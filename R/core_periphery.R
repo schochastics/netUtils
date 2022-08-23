@@ -1,8 +1,8 @@
 #' Discrete core-periphery model
-#' @description Fits a discrete core-periphery model to a give network
-#' @param graph igraph object.
+#' @description Fits a discrete core-periphery model to a given network
+#' @param graph igraph object
 #' @param method algorithm to use (see details)
-#' @param iter number of iterations for SA optimization
+#' @param iter number of iterations if `method=SA`
 #' @details The function fits the data to an optimal pattern matrix with simulated annealing (method="SA") or a rank 1 approximation, either with degree centrality (method="rk1_dc") or eigenvector centrality (method="rk1_ec") . The rank 1 approximation is computationally far cheaper but also more experimental. Best is to compare the results from both models.
 #' @return list with numeric vector with entries (k1,k2,...ki...) where ki assigns vertex i to either the core (ki=1) or periphery (ki=0), and the maximal correlation with an optimal pattern matrix
 #' @references

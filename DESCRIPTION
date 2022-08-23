@@ -1,12 +1,10 @@
 Package: netUtils
-Title: Miscellaneous Functions for network analysis
-Version: 0.6.0.9000
+Title: Miscellaneous Functions for Network Analysis
+Version: 0.7.0
 Authors@R: 
-    person(given = "David",
-           family = "Schoch",
-           role = c("aut", "cre"),
-           email = "david.schoch@manchester.ac.uk")
-Description: Provides a collection of network analytic (convenience) functions, missing in other standard packages. This includes forms of dyad and triad census with attributes and equivalence measures. All functions are build upon igraph.  
+    person("David", "Schoch", email = "david@schochastics.net", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0003-2952-4812"))
+Description: Provides a collection of network analytic (convenience) functions which are missing in other standard packages. This includes triad census with attributes <doi:10.1016/j.socnet.2019.04.003>, core-periphery models <doi:10.1016/S0378-8733(99)00019-2>, and several graph generators. Most functions are build upon 'igraph'.  
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

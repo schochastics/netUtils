@@ -18,13 +18,13 @@ fast_cliques(g, what = "M", min = NULL, max = NULL, outfile = NA)
 \item{outfile}{character. If not NA, cliques are written to file}
 }
 \value{
-(maximal) cliques as a list
+(maximal) cliques as a list if \code{outfile=NA}
 }
 \description{
 Enumerates all (maximal) cliques using MACE. Can be faster than igraph in some circumstances
 }
 \details{
-C Code downloaded from http://research.nii.ac.jp/~uno/codes.htm. Download the code and run make and then point an environment variable called MACE_PATH to the binary. See http://research.nii.ac.jp/~uno/code/mace.html for more details
+C Code downloaded from http://research.nii.ac.jp/~uno/codes.htm. Download the code and run make and then point an environment variable called MACE_PATH to the binary. See http://research.nii.ac.jp/~uno/code/mace.html for more details. MACE is faster than igraph for dense graphs.
 }
 \references{
 Kazuhisa Makino, Takeaki Uno, "New Algorithms for Enumerating All Maximal Cliques", Lecture Notes in Computer Science 3111 (Proceedings of SWAT 2004), Springer, pp.260-272, 2004

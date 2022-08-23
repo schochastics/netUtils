@@ -5,8 +5,8 @@
 #' @param min Numeric constant, lower limit on the size of the cliques to find. NULL means no limit, ie. it is the same as 0
 #' @param max Numeric constant, upper limit on the size of the cliques to find. NULL means no limit
 #' @param outfile character. If not NA, cliques are written to file
-#' @details C Code downloaded from http://research.nii.ac.jp/~uno/codes.htm. Download the code and run make and then point an environment variable called MACE_PATH to the binary. See http://research.nii.ac.jp/~uno/code/mace.html for more details
-#' @return (maximal) cliques as a list
+#' @details C Code downloaded from http://research.nii.ac.jp/~uno/codes.htm. Download the code and run make and then point an environment variable called MACE_PATH to the binary. See http://research.nii.ac.jp/~uno/code/mace.html for more details. MACE is faster than igraph for dense graphs.
+#' @return (maximal) cliques as a list if `outfile=NA`
 #' @author David Schoch
 #' @references Kazuhisa Makino, Takeaki Uno, "New Algorithms for Enumerating All Maximal Cliques", Lecture Notes in Computer Science 3111 (Proceedings of SWAT 2004), Springer, pp.260-272, 2004
 #' @export

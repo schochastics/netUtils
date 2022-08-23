@@ -5,7 +5,6 @@
 #' @return dyad census with node attributes.
 #' @details The node attribute should be integers from 1 to max(attr). Currently only works for 2
 #' @author David Schoch
-#' @export
 
 dyad_census_attr <- function(g,vattr){
   if(!igraph::is_directed(g)){
