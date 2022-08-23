@@ -2,7 +2,6 @@
 
 * fixed documentation 
 * removed unfinished functions
-* added vignettes
 
 # netUtils 0.6.0.9000
 
