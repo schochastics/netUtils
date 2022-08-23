@@ -45,7 +45,8 @@ edgelist.
 `triad_census_attr()` calculates triad census with vertex attributes.  
 `core_periphery()` fits a discrete core periphery model.  
 `graph_kpartite()` creates a random k-partite network.  
-`sample_coreseq()` creates a random graph with given coreness sequence.
+`sample_coreseq()` creates a random graph with given coreness
+sequence.  
 `sample_pa_homophilic()` creates a preferential attachment graph with
 two groups of nodes.  
 `structural_equivalence()` finds structurally equivalent vertices.  
