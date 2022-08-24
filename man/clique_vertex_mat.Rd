@@ -15,6 +15,11 @@ Numeric matrix
 \description{
 Creates the clique vertex matrix with entries (i,j) equal to one if node j is in clique i
 }
+\examples{
+library(igraph)
+g <- sample_gnp(10,0.2)
+clique_vertex_mat(g)
+}
 \author{
 David Schoch
 }

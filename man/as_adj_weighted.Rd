@@ -20,6 +20,12 @@ returns the weighted adjacency matrix in dense format
 \details{
 This method is faster than as_adj from igraph if you need the weighted adjacency matrix in dense format
 }
+\examples{
+library(igraph)
+g <- sample_gnp(10, 0.2)
+E(g)$weight <- runif(ecount(g))
+as_adj_weighted(g, attr="weight")
+}
 \author{
 David Schoch
 }

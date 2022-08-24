@@ -18,7 +18,7 @@ fast_cliques(g, what = "M", min = NULL, max = NULL, outfile = NA)
 \item{outfile}{character. If not NA, cliques are written to file}
 }
 \value{
-(maximal) cliques as a list if \code{outfile=NA}
+a list containing numeric vectors of vertex ids. Each list element is a clique. If outfile!=NA, the output is written to the specified file
 }
 \description{
 Enumerates all (maximal) cliques using MACE. Can be faster than igraph in some circumstances

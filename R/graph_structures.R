@@ -4,6 +4,10 @@
 #' @details The function does not have a mode parameter and only returns the adjacency list comparable to as_adj_list(g,mode="all)
 #' @return A list of numeric vectors.
 #' @author David Schoch
+#' @examples
+#' library(igraph)
+#' g <- make_ring(10)
+#' as_adj_list1(g)
 #' @export
 as_adj_list1 <- function(g){
   n <- igraph::vcount(g)
@@ -23,6 +27,11 @@ as_adj_list1 <- function(g){
 #' @details This method is faster than as_adj from igraph if you need the weighted adjacency matrix in dense format
 #' @return Numeric matrix
 #' @author David Schoch
+#' @examples
+#' library(igraph)
+#' g <- sample_gnp(10, 0.2)
+#' E(g)$weight <- runif(ecount(g))
+#' as_adj_weighted(g, attr="weight")
 #' @export
 as_adj_weighted <- function(g,attr = NULL){
   as.matrix(igraph::as_adj(g,attr=attr,type = "both",sparse=T))
@@ -34,6 +43,10 @@ as_adj_weighted <- function(g,attr = NULL){
 #' @param g An igraph object
 #' @return Numeric matrix
 #' @author David Schoch
+#' @examples
+#' library(igraph)
+#' g <- sample_gnp(10,0.2)
+#' clique_vertex_mat(g)
 #' @export
 clique_vertex_mat <- function(g){
   if(!igraph::is.igraph(g)){
@@ -60,7 +73,7 @@ clique_vertex_mat <- function(g){
 #' @return List of numeric matrices
 #' @author David Schoch
 #' @export
-as_multi_adj <- function(g_lst,attr=NULL,sparse = FALSE){
+as_multi_adj <- function(g_lst,attr = NULL,sparse = FALSE){
   if(!all(unlist(lapply(g_lst,igraph::is.igraph)))){
     stop("all entries of g_lst must be igraph objects")
   }

@@ -20,6 +20,12 @@ Compute the Cartesian product of two graphs
 \details{
 See https://en.wikipedia.org/wiki/Cartesian_product_of_graphs
 }
+\examples{
+library(igraph)
+g <- make_ring(4)
+h <- make_full_graph(2)
+graph_cartesian(g,h)
+}
 \author{
 David Schoch
 }

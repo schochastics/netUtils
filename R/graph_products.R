@@ -5,6 +5,11 @@
 #' @details See https://en.wikipedia.org/wiki/Cartesian_product_of_graphs
 #' @return Cartesian product as igraph object
 #' @author David Schoch
+#' @examples
+#' library(igraph)
+#' g <- make_ring(4)
+#' h <- make_full_graph(2)
+#' graph_cartesian(g,h)
 #' @export
 graph_cartesian <- function(g,h){
   elg <- igraph::get.edgelist(g)
@@ -31,6 +36,11 @@ graph_cartesian <- function(g,h){
 #' @details See https://en.wikipedia.org/wiki/Tensor_product_of_graphs
 #' @return Direct product as igraph object
 #' @author David Schoch
+#' @examples
+#' library(igraph)
+#' g <- make_ring(4)
+#' h <- make_full_graph(2)
+#' graph_direct(g,h)
 #' @export
 graph_direct <- function(g,h){
   elg <- igraph::get.edgelist(g)

@@ -20,6 +20,12 @@ Compute the direct product of two graphs
 \details{
 See https://en.wikipedia.org/wiki/Tensor_product_of_graphs
 }
+\examples{
+library(igraph)
+g <- make_ring(4)
+h <- make_full_graph(2)
+graph_direct(g,h)
+}
 \author{
 David Schoch
 }

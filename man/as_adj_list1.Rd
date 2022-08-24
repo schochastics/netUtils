@@ -18,6 +18,11 @@ Create adjacency lists from a graph, either for adjacent edges or for neighborin
 \details{
 The function does not have a mode parameter and only returns the adjacency list comparable to as_adj_list(g,mode="all)
 }
+\examples{
+library(igraph)
+g <- make_ring(10)
+as_adj_list1(g)
+}
 \author{
 David Schoch
 }
