@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![Codecov test
-coverage](https://codecov.io/gh/schochastics/netUtils/branch/master/graph/badge.svg)](https://codecov.io/gh/schochastics/netUtils?branch=master)
+coverage](https://codecov.io/gh/schochastics/netUtils/branch/master/graph/badge.svg)](https://app.codecov.io/gh/schochastics/netUtils?branch=master)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/netUtils)](https://CRAN.R-project.org/package=netUtils)
 <!-- badges: end -->

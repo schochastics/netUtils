@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 #  netUtils  <img src="man/figures/logo.png" align="right"/>
 
 <!-- badges: start -->
-[![Codecov test coverage](https://codecov.io/gh/schochastics/netUtils/branch/master/graph/badge.svg)](https://codecov.io/gh/schochastics/netUtils?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/schochastics/netUtils/branch/master/graph/badge.svg)](https://app.codecov.io/gh/schochastics/netUtils?branch=master)
 [![CRAN status](https://www.r-pkg.org/badges/version/netUtils)](https://CRAN.R-project.org/package=netUtils)
 <!-- badges: end -->
 
