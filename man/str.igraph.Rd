@@ -11,6 +11,9 @@
 
 \item{...}{additional arguments to print (ignored)}
 }
+\value{
+str does not return anything. The obvious side effect is output to the terminal.
+}
 \description{
 Prints an igraph object to terminal (different than the standard igraph method)
 }

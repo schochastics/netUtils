@@ -2,6 +2,7 @@
 #' @description Prints an igraph object to terminal (different than the standard igraph method)
 #' @param object An igraph object
 #' @param ... additional arguments to print (ignored)
+#' @return str does not return anything. The obvious side effect is output to the terminal.
 #' @author David Schoch
 #' @export
 str.igraph <- function(object,...){
@@ -92,8 +93,6 @@ str.igraph <- function(object,...){
     edges <- ""
   }
   cat(delim,head,delim,gstats,gattr_str,vattr_str,eattr_str,edges,sep="")
-
-
 }
 
 
