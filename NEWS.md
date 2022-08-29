@@ -1,3 +1,7 @@
+# netUtils 0.7.0.9999
+
+* added `reciprocity_cor()`
+
 # netUtils 0.7.0   
 
 * fixed documentation 

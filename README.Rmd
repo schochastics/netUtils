@@ -52,6 +52,7 @@ most functions only support igraph objects
 `sample_pa_homophilic()` creates a preferential attachment graph with two groups of nodes.  
 `structural_equivalence()` finds structurally equivalent vertices.    
 `fast_clique()` computes cliques with MACE (faster than igraph for dense graphs).  
+`reciprocity_cor()` reciprocity as a correlation coefficient.
 
 **methods to use with caution**  
 *(this functions should only be used if you know what you are doing)*  

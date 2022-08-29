@@ -52,7 +52,8 @@ sequence.
 two groups of nodes.  
 `structural_equivalence()` finds structurally equivalent vertices.  
 `fast_clique()` computes cliques with MACE (faster than igraph for dense
-graphs).
+graphs).  
+`reciprocity_cor()` reciprocity as a correlation coefficient.
 
 **methods to use with caution**  
 *(this functions should only be used if you know what you are doing)*  
