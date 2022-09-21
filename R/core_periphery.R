@@ -15,8 +15,8 @@
 #' core_periphery(sg)
 #' @export
 core_periphery <- function(graph,method="rk1_dc",iter=5000){
-  A <- igraph::as_adj(graph,type = "both",sparse = FALSE)
   if(method=="SA"){
+    A <- igraph::as_adj(graph,type = "both",sparse = FALSE)
     n <- nrow(A)
     cvec <- sample(0:1,n,replace = TRUE)
     res <- stats::optim(par = cvec, fn = cp_fct1__0, A = A,gr = genperm,method = "SANN",
