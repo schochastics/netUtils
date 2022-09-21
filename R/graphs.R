@@ -28,9 +28,9 @@ bipartite_from_data_frame <- function(d,type1,type2,attr=NULL){
   }
   el <- cbind(d[[type1]],d[[type2]])
 
-  g <- igraph::graph.empty(directed=F)
-  g <- igraph::add_vertices(g,nv=length(mode1),attr = list(name=mode1,type=T))
-  g <- igraph::add_vertices(g,nv=length(mode2),attr = list(name=mode2,type=F))
+  g <- igraph::graph.empty(directed=FALSE)
+  g <- igraph::add_vertices(g,nv=length(mode1),attr = list(name=mode1,type=TRUE))
+  g <- igraph::add_vertices(g,nv=length(mode2),attr = list(name=mode2,type=FALSE))
   if(!is.null(attr)){
     g <- igraph::add_edges(g,c(t(el)),attr = attr)
   } else{
