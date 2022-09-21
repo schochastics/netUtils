@@ -82,7 +82,7 @@ str.igraph <- function(object,...){
   }
   if(igraph::ecount(object)>0){
     edges <- igraph::get.edgelist(object)[1:min(c(10,igraph::ecount(object))),]
-    edges <- strwrap(paste0(apply(edges,1,paste0,collapse=c("->","--")[igraph::is.directed(object)+1]),collapse=" "))
+    edges <- strwrap(paste0(apply(edges,1,paste0,collapse=c("->","--")[igraph::is.directed(object)+0]),collapse=" "))
     edges <- paste(edges,collapse = "\n")
     if(igraph::ecount(object)>10){
       edges <- c("-Edges (first 10): \n ",edges)
