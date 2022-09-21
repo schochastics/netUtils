@@ -18,10 +18,10 @@ core_periphery <- function(graph,method="rk1_dc",iter=5000){
   A <- igraph::as_adj(graph,type = "both",sparse = FALSE)
   if(method=="SA"){
     n <- nrow(A)
-    cvec <- sample(0:1,n,replace = TRUE)
+    cvec <- sample(c(0,1),n,replace = TRUE)
     res <- stats::optim(par = cvec, fn = cp_fct1__0, A = A,gr = genperm,method = "SANN",
-                 control = list(maxit = iter, temp = 10, tmax = 100, trace = FALSE,
-                                REPORT = 5))
+                 control = list(maxit = iter, temp = 10, tmax = 100, trace = FALSE))
+
     return(list(vec=res$par,corr=-res$value))
   } else if(method=="rk1_dc"){
     ev <- igraph::degree(graph,mode="all",loops = FALSE)
@@ -86,11 +86,10 @@ cp_fct1110 <- function(A,cvec){ #core=1 periphery=0
 }
 
 cp_fct1__0 <- function(A,cvec){ #core=1 periphery=0
-  delta <- outer(cvec,cvec,function(x,y) x+y)
+  delta <- outer(cvec,cvec,"+")
   delta[delta==1] <- NA
   delta[delta==2] <- 1
   diag(delta) <- NA
-  # -sum(A*delta,na.rm = TRUE)
   -graph_cor(delta,A)
 }
 
