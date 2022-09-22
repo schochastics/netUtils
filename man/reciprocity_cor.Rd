@@ -21,7 +21,7 @@ The useful information from reciprocity is not the value itself, but whether mut
 
 To overcome this issue, reciprocity can be defined as the correlation coefficient between the entries of the adjacency matrix of a directed graph:
 \deqn{
- \frac{\sum_{i\neq j} (a_{ij} - a')((a_{ji} - a'))}{\sum_{i\neq j} (a_{ij} - a')^2}
+ \frac{\sum_{i\neq j} (a_{ij} - a')((a_{ji} - a')}{\sum_{i\neq j} (a_{ij} - a')^2}
 }
 where a' is the density of g.
 

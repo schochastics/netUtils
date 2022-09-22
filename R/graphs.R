@@ -5,6 +5,7 @@
 #' @param type1 column name of mode 1
 #' @param type2 column name of mode 2
 #' @param attr named list of edge attributes
+#' @param weighted should a weighted graph be created if multiple edges occur
 #' @return two mode network as igraph object
 #' @author David Schoch
 #' @examples
@@ -13,7 +14,7 @@
 #' bipartite_from_data_frame(edges,"mode1","mode2")
 #' @export
 
-bipartite_from_data_frame <- function(d,type1,type2,attr=NULL){
+bipartite_from_data_frame <- function(d,type1,type2,attr=NULL,weighted = TRUE){
   if(!type1%in%names(d)){
     stop(paste0("no column named ",type1," found in data frame"))
   }
@@ -36,7 +37,7 @@ bipartite_from_data_frame <- function(d,type1,type2,attr=NULL){
   } else{
     g <- igraph::add_edges(g,c(t(el)))
   }
-  if(igraph::any_multiple(g)){
+  if(igraph::any_multiple(g) & weighted){
     igraph::E(g)$weight <- 1
     g <- igraph::simplify(g,remove.multiple = TRUE,
                           remove.loops = TRUE,
