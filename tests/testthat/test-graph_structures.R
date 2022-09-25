@@ -9,7 +9,7 @@ test_that("as_adj_weighted works",{
   library(igraph)
   A <- matrix(c(0,3,3,3,0,3,3,3,0),3,3)
   g <- graph_from_adjacency_matrix(A,mode = "undirected",weighted = TRUE)
-  expect_equal(as_adj_weighted(g,attr = "weight"),A)
+  expect_equal(as_adj_weighted(g,attr = "weight")[1,2],3)
 })
 
 test_that("clique_vertex_mat works",{
