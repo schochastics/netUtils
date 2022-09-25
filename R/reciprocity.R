@@ -30,5 +30,9 @@ reciprocity_cor <- function(g){
   }
   r <- igraph::reciprocity(g)
   d <- igraph::graph.density(g)
-  (r-d)/(1-d)
+  if(d==1){
+    return(0)
+  } else{
+    (r-d)/(1-d)
+  }
 }
