@@ -4,14 +4,16 @@
 \alias{core_periphery}
 \title{Discrete core-periphery model}
 \usage{
-core_periphery(graph, method = "rk1_dc", iter = 5000)
+core_periphery(graph, method = "rk1_dc", iter = 500, ...)
 }
 \arguments{
 \item{graph}{igraph object}
 
 \item{method}{algorithm to use (see details)}
 
-\item{iter}{number of iterations if \code{method=SA}}
+\item{iter}{number of iterations if \code{method=GA}}
+
+\item{...}{other parameters for GA}
 }
 \value{
 list with numeric vector with entries (k1,k2,...ki...) where ki assigns vertex i to either the core (ki=1) or periphery (ki=0), and the maximal correlation with an optimal pattern matrix
@@ -20,7 +22,7 @@ list with numeric vector with entries (k1,k2,...ki...) where ki assigns vertex i
 Fits a discrete core-periphery model to a given network
 }
 \details{
-The function fits the data to an optimal pattern matrix with simulated annealing (method="SA") or a rank 1 approximation, either with degree centrality (method="rk1_dc") or eigenvector centrality (method="rk1_ec") . The rank 1 approximation is computationally far cheaper but also more experimental. Best is to compare the results from both models.
+The function fits the data to an optimal pattern matrix with a genetic algorithm (method="GA") or a rank 1 approximation, either with degree centrality (method="rk1_dc") or eigenvector centrality (method="rk1_ec") . The rank 1 approximation is computationally far cheaper but also more experimental. Best is to compare the results from both models.
 }
 \examples{
 set.seed(121)

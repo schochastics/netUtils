@@ -2,6 +2,7 @@
 
 * added `reciprocity_cor()`
 * fixed wrong str print (#5)
+* switched from Simulated Annealing to Genetic Algorithm (#4)
 
 # netUtils 0.7.0   
 

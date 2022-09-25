@@ -2,8 +2,9 @@
 #' @description Fits a discrete core-periphery model to a given network
 #' @param graph igraph object
 #' @param method algorithm to use (see details)
-#' @param iter number of iterations if `method=SA`
-#' @details The function fits the data to an optimal pattern matrix with simulated annealing (method="SA") or a rank 1 approximation, either with degree centrality (method="rk1_dc") or eigenvector centrality (method="rk1_ec") . The rank 1 approximation is computationally far cheaper but also more experimental. Best is to compare the results from both models.
+#' @param iter number of iterations if `method=GA`
+#' @param ... other parameters for GA
+#' @details The function fits the data to an optimal pattern matrix with a genetic algorithm (method="GA") or a rank 1 approximation, either with degree centrality (method="rk1_dc") or eigenvector centrality (method="rk1_ec") . The rank 1 approximation is computationally far cheaper but also more experimental. Best is to compare the results from both models.
 #' @return list with numeric vector with entries (k1,k2,...ki...) where ki assigns vertex i to either the core (ki=1) or periphery (ki=0), and the maximal correlation with an optimal pattern matrix
 #' @references
 #' Borgatti, Stephen P., and Martin G. Everett. "Models of core/periphery structures." Social networks 21.4 (2000): 375-395.
@@ -14,15 +15,25 @@
 #' sg <- split_graph(n = 20, p = 0.3,core = 0.5)
 #' core_periphery(sg)
 #' @export
-core_periphery <- function(graph,method="rk1_dc",iter=5000){
+core_periphery <- function(graph,method="rk1_dc",iter=500,...){
   A <- igraph::as_adj(graph,type = "both",sparse = FALSE)
   if(method=="SA"){
+    warning("method='SA' is deprecated, using 'GA' instead")
+    method <- "GA"
+  } else if(method=="GA"){
+    if(!requireNamespace("GA", quietly = TRUE)){
+      stop("The package 'GA' is needed for method='GA'")
+    }
+
     n <- nrow(A)
     cvec <- sample(c(0,1),n,replace = TRUE)
-    res <- stats::optim(par = cvec, fn = cp_fct1__0, A = A,gr = genperm,method = "SANN",
-                 control = list(maxit = iter, temp = 10, tmax = 100, trace = FALSE))
-
-    return(list(vec=res$par,corr=-res$value))
+    # res <- stats::optim(par = cvec, fn = cp_fct1__0, A = A,gr = genperm,method = "SANN",
+    #              control = list(maxit = iter, temp = 10, tmax = 100, trace = FALSE))
+    res <- GA::ga("real-valued",fitness = cp_fct1__0,A=A,
+                  lower = rep(0,n),upper = rep(1,n),
+                  monitor = FALSE,maxiter = iter,maxFitness = 1,...)
+    return(list(vec=unname(round(res@solution[nrow(res@solution),])),
+                corr=res@fitnessValue))
   } else if(method=="rk1_dc"){
     ev <- igraph::degree(graph,mode="all",loops = FALSE)
 
@@ -80,48 +91,57 @@ core_periphery <- function(graph,method="rk1_dc",iter=5000){
 
 
 #helper functions ----
-cp_fct1110 <- function(A,cvec){ #core=1 periphery=0
-  delta <- outer(cvec,cvec,function(x,y) x==1 | y==1 )
-  -sum(A*delta,na.rm = TRUE)
-}
-
 cp_fct1__0 <- function(A,cvec){ #core=1 periphery=0
+  cvec <- round(cvec)
   delta <- outer(cvec,cvec,"+")
   delta[delta==1] <- NA
   delta[delta==2] <- 1
   diag(delta) <- NA
-  -graph_cor(delta,A)
+  suppressWarnings(graph_cor(delta,A))
 }
 
-genperm <- function(A,cvec){
-  # 1=switch between values, 2= switch two nodes
-  what <- sample(1:2,1,prob = c(0.5,0.5))
-  if(what==1){
-    v <- sample(1:length(cvec),1)
-    cvec[v] <- 1-cvec[v]
-  } else if(what==2){
-    core <- which(cvec==1)
-    pery <- which(cvec==0)
-    v <- sample(core,1)
-    w <- sample(pery,1)
-    cvec[v] <- 0
-    cvec[w] <- 1
-  } else{
-
-  }
-  cvec
-}
-
-
-genperm_switch <- function(A,cvec){
-  core <- which(cvec==1)
-  pery <- which(cvec==0)
-  v <- sample(core,1)
-  w <- sample(pery,1)
-  cvec[v] <- 0
-  cvec[w] <- 1
-  cvec
-}
+# cp_fct1110 <- function(A,cvec){ #core=1 periphery=0
+#   delta <- outer(cvec,cvec,function(x,y) x==1 | y==1 )
+#   -sum(A*delta,na.rm = TRUE)
+# }
+#
+# cp_fct1__0 <- function(A,cvec){ #core=1 periphery=0
+#   delta <- outer(cvec,cvec,"+")
+#   delta[delta==1] <- NA
+#   delta[delta==2] <- 1
+#   diag(delta) <- NA
+#   -graph_cor(delta,A)
+# }
+#
+# genperm <- function(A,cvec){
+#   # 1=switch between values, 2= switch two nodes
+#   what <- sample(1:2,1,prob = c(0.5,0.5))
+#   if(what==1){
+#     v <- sample(1:length(cvec),1)
+#     cvec[v] <- 1-cvec[v]
+#   } else if(what==2){
+#     core <- which(cvec==1)
+#     pery <- which(cvec==0)
+#     v <- sample(core,1)
+#     w <- sample(pery,1)
+#     cvec[v] <- 0
+#     cvec[w] <- 1
+#   } else{
+#
+#   }
+#   cvec
+# }
+#
+#
+# genperm_switch <- function(A,cvec){
+#   core <- which(cvec==1)
+#   pery <- which(cvec==0)
+#   v <- sample(core,1)
+#   w <- sample(pery,1)
+#   cvec[v] <- 0
+#   cvec[w] <- 1
+#   cvec
+# }
 
 
 # Rombach/Porter
