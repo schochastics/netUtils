@@ -9,6 +9,8 @@
 coverage](https://codecov.io/gh/schochastics/netUtils/branch/master/graph/badge.svg)](https://app.codecov.io/gh/schochastics/netUtils?branch=master)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/netUtils)](https://CRAN.R-project.org/package=netUtils)
+[![CRAN
+Downloads](http://cranlogs.r-pkg.org/badges/netUtils)](https://CRAN.R-project.org/package=netUtils)
 <!-- badges: end -->
 
 netUtils is a collection of tools for network analysis that may not
