@@ -46,7 +46,7 @@ NumericVector triadCensusCol(const arma::sp_mat& A,
   for(int u=0;u<n;++u){
     for(int v=0;v<n;++v){
       for(int w=0;w<n;++w){
-        if((u<v) & (v<w)){
+        if((u<v) && (v<w)){
           code = A(u,v)+2*A(u,w)+4*A(v,u)+8*A(v,w)+16*A(w,u)+32*A(w,v);
           orbits = orbitClasses(code,_);
 
