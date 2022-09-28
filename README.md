@@ -44,7 +44,8 @@ edgelist.
 `str()` extends str to work with igraph objects.
 
 **methods**  
-`triad_census_attr()` calculates triad census with vertex attributes.  
+`dyad_census_attr()` calculates dyad census with node attributes.  
+`triad_census_attr()` calculates triad census with node attributes.  
 `core_periphery()` fits a discrete core periphery model.  
 `graph_kpartite()` creates a random k-partite network.  
 `split_graph()` sample graph with perfect core periphery structure.  
