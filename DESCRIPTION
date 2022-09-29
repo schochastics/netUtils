@@ -22,5 +22,6 @@ Imports:
 Suggests: 
     covr,
     GA,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    VGAM
 Config/testthat/edition: 3
