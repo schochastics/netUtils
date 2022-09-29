@@ -53,6 +53,7 @@ edgelist.
 sequence.  
 `sample_pa_homophilic()` creates a preferential attachment graph with
 two groups of nodes.  
+`sample_lfr()` create LFR benchmark graph for community detection.  
 `structural_equivalence()` finds structurally equivalent vertices.  
 `fast_clique()` computes cliques with MACE (faster than igraph for dense
 graphs).  
