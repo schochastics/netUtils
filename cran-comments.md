@@ -1,7 +1,6 @@
-## Initial submission
+## Update from 0.7.0 to 0.8.0
 
-* Fixed links in README
-* added return value for str.igraph
+* added new functions and fixed existing bugs
 
 ## Test environments
 * ubuntu 20.04, R 4.2.1
@@ -9,6 +8,4 @@
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
-
-* This is a new release.
+0 errors | 0 warnings | 0 note

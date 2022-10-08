@@ -7,14 +7,14 @@ IntegerVector sortxy(IntegerVector x, IntegerVector y) {
   IntegerVector idx = seq_along(x) - 1;
   std::sort(idx.begin(), idx.end(), [&](int i, int j){return y[i] < y[j];});
   for(int i=0; i<2;i++){
-    if((y[idx[i]]==y[idx[i+1]]) & (x[idx[i]]>x[idx[i+1]])){
+    if((y[idx[i]]==y[idx[i+1]]) && (x[idx[i]]>x[idx[i+1]])){
       int tmp= idx[i+1];
       idx[i+1]=idx[i];
       idx[i]=tmp;
     }
   }
   for(int i=0; i<2;i++){
-    if((y[idx[i]]==y[idx[i+1]]) & (x[idx[i]]>x[idx[i+1]])){
+    if((y[idx[i]]==y[idx[i+1]]) && (x[idx[i]]>x[idx[i+1]])){
       int tmp= idx[i+1];
       idx[i+1]=idx[i];
       idx[i]=tmp;

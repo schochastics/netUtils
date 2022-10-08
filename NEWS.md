@@ -1,4 +1,4 @@
-# netUtils 0.7.0.9999
+# netUtils 0.8.0
 
 * added `reciprocity_cor()`
 * fixed wrong str print (#5)
