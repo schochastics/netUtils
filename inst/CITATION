@@ -4,13 +4,6 @@ citEntry(
   entry    = "Manual",
   title    = "Miscellaneous Functions for Network Analysis",
   author   = "David Schoch",
-  journal  = ,
   year     = "2022",
-  volume   = ,
-  number   = ,
-  pages    = ,
-  url      = ,
-  textVersion = paste("David Schoch (2022). netUtils: Miscellaneous Functions for Network Analysis"
-
-  )
+  textVersion = "David Schoch (2022). netUtils: Miscellaneous Functions for Network Analysis"
 )
