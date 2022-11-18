@@ -1,3 +1,7 @@
+# netUtils 0.8.0.9000
+
+* fixed a bug that prevented `str.igraph` from working (#10)
+
 # netUtils 0.8.0
 
 * added `reciprocity_cor()`
