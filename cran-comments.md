@@ -1,9 +1,9 @@
-## Update from 0.7.0 to 0.8.0
+## Update from 0.8.0 to 0.8.1
 
-* added new functions and fixed existing bugs
+* fixed existing bugs
 
 ## Test environments
-* ubuntu 20.04, R 4.2.1
+* ubuntu 22.04, R 4.2.2
 * win-builder (devel and release)
 
 ## R CMD check results

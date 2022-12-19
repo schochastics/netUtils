@@ -1,4 +1,4 @@
-# netUtils 0.8.0.9000
+# netUtils 0.8.1
 
 * fixed a bug that prevented `str.igraph` from working (#10)
 
