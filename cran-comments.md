@@ -1,9 +1,9 @@
-## Update from 0.8.0 to 0.8.1
+## Update from 0.8.1 to 0.8.2
 
-* fixed existing bugs
+* refactored code of `sample_lfr` in C++
 
 ## Test environments
-* ubuntu 22.04, R 4.2.2
+* ubuntu 22.04, R 4.3
 * win-builder (devel and release)
 
 ## R CMD check results

@@ -1,4 +1,4 @@
-# netUtils 0.8.1.9000
+# netUtils 0.8.2
 
 * refactored `sample_lfr()` in C++ (#9)
 

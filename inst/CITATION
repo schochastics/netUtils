@@ -1,7 +1,7 @@
 citHeader("To cite netUtils in publications use:")
 
-citEntry(
-  entry    = "Manual",
+bibentry(
+  bibtype    = "Manual",
   title    = "netUtils: A Collection of Tools for Network Analysis",
   author   = "David Schoch",
   year     = "2023",
