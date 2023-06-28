@@ -2,8 +2,8 @@ citHeader("To cite netUtils in publications use:")
 
 citEntry(
   entry    = "Manual",
-  title    = "netUtils: Miscellaneous Functions for Network Analysis",
+  title    = "netUtils: A Collection of Tools for Network Analysis",
   author   = "David Schoch",
-  year     = "2022",
-  textVersion = "David Schoch (2022). netUtils: Miscellaneous Functions for Network Analysis"
+  year     = "2023",
+  textVersion = "David Schoch (2023). netUtils: A Collection of Tools for Network Analysis"
 )

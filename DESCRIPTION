@@ -1,5 +1,5 @@
 Package: netUtils
-Title: Miscellaneous Functions for Network Analysis
+Title: A Collection of Tools for Network Analysis
 Version: 0.8.1.9000
 Authors@R: 
     person("David", "Schoch", email = "david@schochastics.net", role = c("aut", "cre"),
