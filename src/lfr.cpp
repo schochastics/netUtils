@@ -2625,11 +2625,11 @@ Rcpp::List benchmark(bool excess, bool defect, int num_nodes, double  average_k,
 	deque<deque<int> > member_list;		// row i cointains the memberships of node i
 	deque<deque<int> > link_list;		// row i cointains degree of the node i respect to member_list[i][j]; there is one more number that is the external degree
 
-	Rcout<<"building communities... "<<endl;
+	// Rcout<<"building communities... "<<endl;
 	if(build_subgraphs(E, member_matrix, member_list, link_list, internal_degree_seq, degree_seq, excess, defect)==-1)
 		return -1;	
 	
-	Rcout<<"connecting communities... "<<endl;
+	// Rcout<<"connecting communities... "<<endl;
 	connect_all_the_parts(E, member_list, link_list);
 	
 	if(erase_links(E, member_list, excess, defect, mixing_parameter)==-1)

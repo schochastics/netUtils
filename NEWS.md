@@ -1,3 +1,7 @@
+# netUtils 0.8.1.9000
+
+* refactored `sample_lfr()` in C++ (#9)
+
 # netUtils 0.8.1
 
 * fixed a bug that prevented `str.igraph` from working (#10)
