@@ -15,7 +15,9 @@
 #' @details code adapted from <https://github.com/synwalk/synwalk-analysis/tree/master/lfr_generator>
 #' @examples 
 #' # Simple Girven-Newman benchmark graphs
-#' g <- sample_lfr(n = 128,average_degree = 16,max_degree = 16,mu = 0.1,min_community = 32,max_community = 32)
+#' g <- sample_lfr(n = 128,average_degree = 16,
+#'                 max_degree = 16,mu = 0.1,
+#'                 min_community = 32,max_community = 32)
 #' @export
 sample_lfr <- function(n,
                        tau1,

@@ -49,7 +49,9 @@ code adapted from \url{https://github.com/synwalk/synwalk-analysis/tree/master/l
 }
 \examples{
 # Simple Girven-Newman benchmark graphs
-g <- sample_lfr(n = 128,average_degree = 16,max_degree = 16,mu = 0.1,min_community = 32,max_community = 32)
+g <- sample_lfr(n = 128,average_degree = 16,
+                max_degree = 16,mu = 0.1,
+                min_community = 32,max_community = 32)
 }
 \references{
 A. Lancichinetti, S. Fortunato, and F. Radicchi.(2008) Benchmark graphs for testing community detection algorithms. Physical Review E, 78. arXiv:0805.4770

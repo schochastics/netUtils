@@ -44,8 +44,6 @@ using namespace Rcpp;
 #include <iterator>
 #include <algorithm>
 
-
-
 using namespace std;
 
 
@@ -64,9 +62,6 @@ using namespace std;
 #define R2_NDIV (1+R2_IMM1/R2_NTAB)
 #define R2_EPS 1.2e-7
 #define R2_RNMX (1.0-R2_EPS)
-
-
-
 
 double ran2(long *idum) {
 	int j;
@@ -101,8 +96,6 @@ double ran2(long *idum) {
 	if((temp=R2_AM*iy)>R2_RNMX) return R2_RNMX;
 	else return temp;
 }
-
-
 
 double ran4(bool t, long s) {
 	
@@ -143,8 +136,6 @@ void srand5(int rank) {
 	
 }
 
-
-
 int irand(int n) {
 
 	return (int(ran4()*(n+1)));
@@ -173,16 +164,13 @@ int irand(int n) {
 
 // }
 
-
-
-
 int configuration_model(std::deque<set<int> > & en, std::deque<int> & degrees) {
 	
 	
 	// this function is to build a network with the degree seq in degrees which is sorted (correspondence is based on the vectorial index)
 	if(degrees.size()<3) {
 		
-		cerr<<"it seems that some communities should have only 2 nodes! This does not make much sense (in my opinion) Please change some parameters!"<<endl;
+		Rcerr<<"it seems that some communities should have only 2 nodes! This does not make much sense (in my opinion) Please change some parameters!"<<endl;
 		return -1;
 	
 	}
@@ -193,7 +181,7 @@ int configuration_model(std::deque<set<int> > & en, std::deque<int> & degrees) {
 
 	{
 		set<int> first;
-		for(int i=0; i<degrees.size(); i++) 
+		for(std::deque<int>::size_type i=0; i<degrees.size(); i++) 
 			en.push_back(first);
 	}
 	
@@ -237,7 +225,7 @@ int configuration_model(std::deque<set<int> > & en, std::deque<int> & degrees) {
 		}
 		
 		
-		for (int i=0; i<erasenda.size(); i++) {
+		for (long unsigned int i=0; i<erasenda.size(); i++) {
 			
 			
 			if(erasenda[i]->first>1)
@@ -257,11 +245,11 @@ int configuration_model(std::deque<set<int> > & en, std::deque<int> & degrees) {
 	
 	// this is to randomize the subgraph -------------------------------------------------------------------
 	
-	for(int node_a=0; node_a<degrees.size(); node_a++) for(int krm=0; krm<en[node_a].size(); krm++) {
+	for(long unsigned int node_a=0; node_a<degrees.size(); node_a++) for(long unsigned int krm=0; krm<en[node_a].size(); krm++) {
 	
 					
 				
-		int random_mate=irand(degrees.size()-1);
+		long unsigned int random_mate=irand(degrees.size()-1);
 		while (random_mate==node_a)
 			random_mate=irand(degrees.size()-1);
 				
@@ -269,7 +257,7 @@ int configuration_model(std::deque<set<int> > & en, std::deque<int> & degrees) {
 		if (en[node_a].insert(random_mate).second) {
 			
 			std::deque <int> out_nodes;
-			for (set<int>::iterator it_est=en[node_a].begin(); it_est!=en[node_a].end(); it_est++) if ((*it_est)!=random_mate)
+			for (set<int>::iterator it_est=en[node_a].begin(); it_est!=en[node_a].end(); it_est++) if ((*it_est)!= (const int) random_mate)
 				out_nodes.push_back(*it_est);
 						
 										
@@ -317,8 +305,6 @@ double average_func(Seq &sq) {
 	
 }
 
-
-
 template <typename Seq>
 double variance_func(Seq &sq) {
 	
@@ -350,8 +336,6 @@ double variance_func(Seq &sq) {
 	
 }
 
-
-
 // this returns the average of the discrete probability function stored in Seq
 template <typename Seq>
 double average_pf(Seq &sq) {
@@ -372,8 +356,6 @@ double average_pf(Seq &sq) {
 	return av;
 	
 }
-
-
 
 template <typename Seq>
 double variance_pf(Seq &sq) {
@@ -402,13 +384,6 @@ double variance_pf(Seq &sq) {
 	
 }
 
-
-
-
-
-
-
-
 double log_factorial (int num) {
 	
 	double log_result=0;
@@ -418,10 +393,6 @@ double log_factorial (int num) {
 	return (log_result);
  
 }
-
-
-
-
 
 double log_combination (int n, int k) {
 	
@@ -444,30 +415,30 @@ double log_combination (int n, int k) {
 	return log_c;
 }
 
-
-
 double binomial(int n, int x, double p) {		//	returns the binomial distribution, n trials, x successes, p probability
 
-	if (p==0)
-		if (x==0)
+	if (p==0) {
+		if (x==0) {
 			return 1;
-		else
+		}
+		else {
 			return 0;
-	
-	if (p>=1)
-		if (x==n)
+		}
+	}
+	if (p>=1){
+		if (x==n){
 			return 1;
-		else
+		}
+		else{
 			return 0;
-
+		}
+	}
 		
 	
 	
 	double log_b=0;
 	log_b+=log_combination(n, x)+x*log(p)+(n-x)*log(1-p);
 	return (exp(log_b));
-	
-
 
 }
 
@@ -529,20 +500,15 @@ int powerlaw (int n, int min, double tau, deque<double> &cumulative) {
 	
 }
 
-
-
 int distribution_from_cumulative(const deque<double> &cum, deque<double> &distr) {		// cum is the cumulative, distr is set equal to the distribution
 	
 	
 	distr.clear();
 	double previous=0;
-	for (int i=0; i<cum.size(); i++) {
+	for (long unsigned int i=0; i<cum.size(); i++) {
 		distr.push_back(cum[i]-previous);
 		previous=cum[i];
 	}
-
-
-
 
 	return 0;
 
@@ -553,7 +519,7 @@ int cumulative_from_distribution (deque<double> &cum, const deque<double> &distr
 	
 	cum.clear();
 	double sum=0;
-	for (int i=0; i<distr.size(); i++) {
+	for (long unsigned int i=0; i<distr.size(); i++) {
 		sum+=distr[i];
 		cum.push_back(sum);
 	}
@@ -562,17 +528,12 @@ int cumulative_from_distribution (deque<double> &cum, const deque<double> &distr
 
 }
 
-
-
 double poisson (int x, double mu) {
 
 	
 	return (exp(-mu+x*log(mu)- log_factorial(x)));
 
 }
-
-
-
 
 int shuffle_and_set(int *due, int dim) {		// it sets due as a random sequence of integers from 0 to dim-1
 	
@@ -586,17 +547,10 @@ int shuffle_and_set(int *due, int dim) {		// it sets due as a random sequence of
 	int h=0;
 	for (it=uno.begin(); it!=uno.end(); it++)
 		due[h++]=it->second;
-	
-
 
 	return 0;
 
 }
-
-
-
-
-
 
 int shuffle_s(deque<int> & sq) {
 	
@@ -605,7 +559,7 @@ int shuffle_s(deque<int> & sq) {
 	if(siz==0)
 		return -1;
 	
-	for (int i=0; i<sq.size(); i++) {
+	for (long unsigned int i=0; i<sq.size(); i++) {
 		
 		int random_pos=irand(siz-1);
 	
@@ -623,8 +577,6 @@ int shuffle_s(deque<int> & sq) {
 	
 	
 }
-
-
 
 template <typename type_>
 int shuffle_s(type_ *a, int b) {
@@ -651,10 +603,6 @@ int shuffle_s(type_ *a, int b) {
 	return 0;
 }
 
-
-
-
-
 double compute_r(int x, int k, int kout, int m) {
 
 	double r=0;
@@ -662,19 +610,13 @@ double compute_r(int x, int k, int kout, int m) {
 	
 	for (int i=x; i<=k; i++)
 		r+=binomial(k, i, double(kout)/double(m));	
-	
-	
 
-	
 	return r;
 
 }
 
 int add_factors (deque<double> & num, deque<double> &den, int  n, int k) {
 
-
-	
-	
 	if (n<k)
 		return -1;
 	
@@ -698,8 +640,6 @@ int add_factors (deque<double> & num, deque<double> &den, int  n, int k) {
 
 
 }
-
-
 
 double compute_hypergeometric(int i, int k, int kout, int m) {
 	
@@ -728,32 +668,28 @@ double compute_hypergeometric(int i, int k, int kout, int m) {
 	
 	//prints(den);
 	
-	for(int h=0; h<den.size(); h++) if(den[h]<=0) {
-		cerr<<"denominator has zero or less (in the hypergeometric)"<<endl;
+	for(long unsigned int h=0; h<den.size(); h++) if(den[h]<=0) {
+		Rcerr<<"denominator has zero or less (in the hypergeometric)"<<endl;
 		return 0;
 	
 	}
 	
-	for(int h=0; h<num.size(); h++) if(num[h]<=0) {
-		cerr<<"numerator has zero or less (in the hypergeometric)"<<endl;
+	for(long unsigned int h=0; h<num.size(); h++) if(num[h]<=0) {
+		Rcerr<<"numerator has zero or less (in the hypergeometric)"<<endl;
 		return 0;
 	
 	}
 	
 	
 	
-	//cout<<"sizes: "<<num.size()<<" "<<den.size()<<endl;
+	//Rcout<<"sizes: "<<num.size()<<" "<<den.size()<<endl;
 	
-	for (int i=0; i<num.size(); i++)
+	for (long unsigned int i=0; i<num.size(); i++)
 		prod=prod*num[i]/den[i];
 
 	return prod;
 
-
-
 }
-
-
 
 /*
 double compute_self_links(int k, int n, int x) {
@@ -780,12 +716,7 @@ int random_from_set(set<int> & s) {
 	
 	return *it1;
 
-
-
 }
-
-
-
 
 //#include "histograms.cpp"
 bool cast_string_to_double (std::string &b, double &h) {		
@@ -812,15 +743,15 @@ bool cast_string_to_double (std::string &b, double &h) {
 	
 	
 	
-	int digits_before=0;
-	for(int i=0; i<b.size(); i++)
+	long unsigned int digits_before=0;
+	for(long unsigned int i=0; i<b.size(); i++)
 		if(b[i]!='.')
 			digits_before++;
 		else
 			break;
 	
 	
-	int j=0;
+	long unsigned int j=0;
 	
 	while (j!=digits_before) {
 	
@@ -870,7 +801,7 @@ int cast_int(double u) {
 
 int cast_string_to_char(std::string &file_name, char *b) {
 
-	for (int i=0; i<file_name.size(); i++)
+	for (long unsigned int i=0; i<file_name.size(); i++)
 		b[i]=file_name[i];
 	b[file_name.size()]='\0';	
 
@@ -882,12 +813,10 @@ int cast_string_to_char(std::string &file_name, char *b) {
 
 //#include "set_parameters.cpp"
 
-
-
 bool they_are_mate(int a, int b, const deque<deque<int> > & member_list) {
 
 
-	for(int i=0; i<member_list[a].size(); i++) {
+	for(long unsigned int i=0; i<member_list[a].size(); i++) {
 		
 		if(binary_search(member_list[b].begin(), member_list[b].end(), member_list[a][i]))
 			return true;
@@ -914,16 +843,12 @@ int common_neighbors(int a, int b, deque<set<int> > & en) {
 	
 	return number_of_triangles;
 
-
-
 }
 
 
 //*
 double compute_cc(deque<set<int> > & en, int i) {
 
-
-		
 	double number_of_triangles=0;
 	for (set<int>::iterator iti=en[i].begin(); iti!=en[i].end(); iti++) {
 		number_of_triangles+=common_neighbors(i, *iti, en);
@@ -936,15 +861,13 @@ double compute_cc(deque<set<int> > & en, int i) {
 	
 }
 
-
-
 double compute_cc(deque<set<int> > & en) {
 
 
 	double cc=0;
 	
 
-	for(int i=0; i<en.size(); i++) {
+	for(long unsigned int i=0; i<en.size(); i++) {
 		
 		
 		double number_of_triangles=0;
@@ -965,12 +888,7 @@ double compute_cc(deque<set<int> > & en) {
 	
 	return cc;
 
-
-
-
 }
-
-
 
 double compute_tot_t(deque<set<int> > & en) {
 
@@ -978,14 +896,12 @@ double compute_tot_t(deque<set<int> > & en) {
 	double number_of_triangles=0;
 	
 
-	for(int i=0; i<en.size(); i++)
+	for(long unsigned int i=0; i<en.size(); i++)
 		for (set<int>::iterator iti=en[i].begin(); iti!=en[i].end(); iti++)
 			number_of_triangles+=common_neighbors(i, *iti, en);
 	
 
 	return number_of_triangles;
-
-
 
 }
 
@@ -998,7 +914,7 @@ int choose_the_least(deque<set<int> > & en, deque<int> & A, int a, int & cn_a_o)
 	
 	cn_a_o=en[a].size();
 				
-	for(int i=0; i<A.size(); i++) {
+	for(long unsigned int i=0; i<A.size(); i++) {
 		
 		int nec=common_neighbors(a, A[i], en);
 		if(nec < cn_a_o) {
@@ -1017,20 +933,17 @@ int choose_the_least(deque<set<int> > & en, deque<int> & A, int a, int & cn_a_o)
 
 }
 
-
-
-
 int cclu(deque<set<int> > & en, const deque<deque<int> > & member_list, const deque<deque<int> > & member_matrix, double ca) {
 
 	
 		
 	
 	double cc0=compute_cc(en);
-	cout<<"Average Clustering coefficient... "<<cc0<<" trying to reach "<<ca<<endl;
+	Rcout<<"Average Clustering coefficient... "<<cc0<<" trying to reach "<<ca<<endl;
 	
 	
 	deque<double> ccs;
-	for(int i=0; i<en.size(); i++)
+	for(long unsigned int i=0; i<en.size(); i++)
 		ccs.push_back(compute_cc(en, i));
 	
 	
@@ -1046,7 +959,7 @@ int cclu(deque<set<int> > & en, const deque<deque<int> > & member_list, const de
 		double ccold=cc0;
 		
 		
-		for(int y=0; y<num_p; y++) for(int Ai=0; Ai<en.size(); Ai++) {
+		for(int y=0; y<num_p; y++) for(long unsigned int Ai=0; Ai<en.size(); Ai++) {
 			
 			
 			
@@ -1068,10 +981,7 @@ int cclu(deque<set<int> > & en, const deque<deque<int> > & member_list, const de
 				int random_mate=not_ra[irand(not_ra.size()-1)];
 				
 				bool b1=they_are_mate(a, random_mate, member_list);
-				
 
-							
-				
 				deque <int> out_nodes;
 				for (set<int>::iterator it_est=en[a].begin(); it_est!=en[a].end(); it_est++) if(they_are_mate(a, *it_est, member_list)==b1)
 					out_nodes.push_back(*it_est);
@@ -1160,7 +1070,7 @@ int cclu(deque<set<int> > & en, const deque<deque<int> > & member_list, const de
 		
 		if(cc0-ccold < min_relative_inc * cc0) {
 			
-			cout<<"It seems I cannot reach the wished value. I'll stop here..."<<endl;
+			Rcout<<"It seems I cannot reach the wished value. I'll stop here..."<<endl;
 			break;
 		
 		
@@ -1175,32 +1085,20 @@ int cclu(deque<set<int> > & en, const deque<deque<int> > & member_list, const de
 			num_p=50;
 
 		
-		cout<<"Average Clustering coefficient... "<<cc0<<" trying to reach "<<ca<<"\t\t expected "<<num_p<<" more step(s) "<<endl;
+		Rcout<<"Average Clustering coefficient... "<<cc0<<" trying to reach "<<ca<<"\t\t expected "<<num_p<<" more step(s) "<<endl;
 
 	}
-	
 
-	
-	
-	
 	return 0;
 
-
-
 }
-
-
-
-
-
-
 
 // it computes the sum of a deque<int>
 
 int deque_int_sum(const deque<int> & a) {
 	
 	int s=0;
-	for(int i=0; i<a.size(); i++)
+	for(long unsigned int i=0; i<a.size(); i++)
 		s+=a[i];
 
 	return s;
@@ -1239,16 +1137,16 @@ double solve_dmin(const double& dmax, const double &dmed, const double &gamma) {
 	
 	if ((average_k1-dmed>0) || (average_k2-dmed<0)) {
 		
-		cerr<<"\n***********************\nERROR: the average degree is out of range:";
+		Rcerr<<"\n***********************\nERROR: the average degree is out of range:";
 		
 		if (average_k1-dmed>0) {
-			cerr<<"\nyou should increase the average degree (bigger than "<<average_k1<<")"<<endl; 
-			cerr<<"(or decrease the maximum degree...)"<<endl;
+			Rcerr<<"\nyou should increase the average degree (bigger than "<<average_k1<<")"<<endl; 
+			Rcerr<<"(or decrease the maximum degree...)"<<endl;
 		}
 		
 		if (average_k2-dmed<0) {
-			cerr<<"\nyou should decrease the average degree (smaller than "<<average_k2<<")"<<endl; 
-			cerr<<"(or increase the maximum degree...)"<<endl;
+			Rcerr<<"\nyou should decrease the average degree (smaller than "<<average_k2<<")"<<endl; 
+			Rcerr<<"(or increase the maximum degree...)"<<endl;
 		}
 		
 		return -1;	
@@ -1271,16 +1169,11 @@ double solve_dmin(const double& dmax, const double &dmed, const double &gamma) {
 			
 		
 		}
-			
-		
 
-	
 	}
 	
 	return dmin_l;
 }
-
-
 
 // it computes the correct (i.e. discrete) average of a power law
 double integer_average (int n, int min, double tau) {
@@ -1299,8 +1192,6 @@ double integer_average (int n, int min, double tau) {
 
 }
 
-
-
 // this function changes the community sizes merging the smallest communities
 int change_community_size(deque<int> &seq) {
 
@@ -1312,19 +1203,17 @@ int change_community_size(deque<int> &seq) {
 	int min1=0;
 	int min2=0;
 	
-	for (int i=0; i<seq.size(); i++)		
+	for (long unsigned int i=0; i<seq.size(); i++)		
 		if (seq[i]<=seq[min1])
 			min1=i;
 	
 	if (min1==0)
 		min2=1;
 	
-	for (int i=0; i<seq.size(); i++)		
+	for (long unsigned int i=0; i<seq.size(); i++)		
 		if (seq[i]<=seq[min2] && seq[i]>seq[min1])
 			min2=i;
-	
 
-	
 	seq[min1]+=seq[min2];
 	
 	int c=seq[0];
@@ -1335,10 +1224,6 @@ int change_community_size(deque<int> &seq) {
 	
 	return 0;
 }
-
-
-
-
 
 int build_bipartite_network(deque<deque<int> >  & member_matrix, const deque<int> & member_numbers, const deque<int> &num_seq) {
 
@@ -1355,14 +1240,14 @@ int build_bipartite_network(deque<deque<int> >  & member_matrix, const deque<int
 	
 	{
 		set<int> first;
-		for(int i=0; i<member_numbers.size(); i++) {
+		for(long unsigned int i=0; i<member_numbers.size(); i++) {
 			en_in.push_back(first);
 		}
 	}
 	
 	{
 		set<int> first;
-		for(int i=0; i<num_seq.size(); i++) {
+		for(long unsigned int i=0; i<num_seq.size(); i++) {
 			en_out.push_back(first);
 		}
 	}
@@ -1372,10 +1257,10 @@ int build_bipartite_network(deque<deque<int> >  & member_matrix, const deque<int
 	multimap <int, int> degree_node_out;
 	deque<pair<int, int> > degree_node_in;
 	
-	for(int i=0; i<num_seq.size(); i++)
+	for(long unsigned int i=0; i<num_seq.size(); i++)
 		degree_node_out.insert(make_pair(num_seq[i], i));
 	
-	for(int i=0; i<member_numbers.size(); i++)
+	for(long unsigned int i=0; i<member_numbers.size(); i++)
 		degree_node_in.push_back(make_pair(member_numbers[i], i));
 	
 	
@@ -1387,7 +1272,7 @@ int build_bipartite_network(deque<deque<int> >  & member_matrix, const deque<int
 	
 	/*
 	for (int i=0; i<degree_node_in.size(); i++)
-		cout<<degree_node_in[i].first<<" "<<degree_node_in[i].second<<endl;
+		Rcout<<degree_node_in[i].first<<" "<<degree_node_in[i].second<<endl;
 	*/
 	
 	
@@ -1420,10 +1305,10 @@ int build_bipartite_network(deque<deque<int> >  & member_matrix, const deque<int
 		}
 		
 		
-		//cout<<"degree node out before"<<endl;
+		//Rcout<<"degree node out before"<<endl;
 		//prints(degree_node_out);
 		
-		for (int i=0; i<erasenda.size(); i++) {
+		for (long unsigned int i=0; i<erasenda.size(); i++) {
 			
 			
 			if(erasenda[i]->first>1)
@@ -1436,7 +1321,7 @@ int build_bipartite_network(deque<deque<int> >  & member_matrix, const deque<int
 		
 		}
 		
-		//cout<<"degree node out after"<<endl;
+		//Rcout<<"degree node out after"<<endl;
 		//prints(degree_node_out);
 		
 	}
@@ -1446,12 +1331,14 @@ int build_bipartite_network(deque<deque<int> >  & member_matrix, const deque<int
     
     
     deque<int> degree_list;
-    for(int kk=0; kk<member_numbers.size(); kk++)
-        for(int k2=0; k2<member_numbers[kk]; k2++)
+    for(long unsigned int kk=0; kk<member_numbers.size(); kk++){
+        for(int k2=0; k2<member_numbers[kk]; k2++){
             degree_list.push_back(kk); 
+		}
+	}
 
 	
-	for(int run=0; run<10; run++) for(int node_a=0; node_a<num_seq.size(); node_a++) for(int krm=0; krm<en_out[node_a].size(); krm++) {
+	for(long unsigned int run=0; run<10; run++) for(long unsigned int node_a=0; node_a<num_seq.size(); node_a++) for(long unsigned int krm=0; krm<en_out[node_a].size(); krm++) {
 				
         int random_mate=degree_list[irand(degree_list.size()-1)];
 		
@@ -1498,7 +1385,7 @@ int build_bipartite_network(deque<deque<int> >  & member_matrix, const deque<int
 	member_matrix.clear();
 	deque <int> first;
 	
-	for (int i=0; i<en_out.size(); i++) { 
+	for (long unsigned int i=0; i<en_out.size(); i++) { 
 		
 		member_matrix.push_back(first);
 		for (set<int>::iterator its=en_out[i].begin(); its!=en_out[i].end(); its++)
@@ -1512,8 +1399,6 @@ int build_bipartite_network(deque<deque<int> >  & member_matrix, const deque<int
 
 }
 
-
-
 int internal_degree_and_membership (double mixing_parameter, int overlapping_nodes, int max_mem_num, int num_nodes, deque<deque<int> >  & member_matrix, 
 bool excess, bool defect,  deque<int> & degree_seq, deque<int> &num_seq, deque<int> &internal_degree_seq, bool fixed_range, int nmin, int nmax, double tau2) {
 	
@@ -1523,7 +1408,7 @@ bool excess, bool defect,  deque<int> & degree_seq, deque<int> &num_seq, deque<i
 	
 	if(num_nodes< overlapping_nodes) {
 		
-		cerr<<"\n***********************\nERROR: there are more overlapping nodes than nodes in the whole network! Please, decrease the former ones or increase the latter ones"<<endl;
+		Rcerr<<"\n***********************\nERROR: there are more overlapping nodes than nodes in the whole network! Please, decrease the former ones or increase the latter ones"<<endl;
 		return -1;
 	}
 	
@@ -1537,7 +1422,7 @@ bool excess, bool defect,  deque<int> & degree_seq, deque<int> &num_seq, deque<i
 	// it assigns the internal degree to each node -------------------------------------------------------------------------
 	int max_degree_actual=0;		// maximum internal degree
 
-	for (int i=0; i<degree_seq.size(); i++) {
+	for (long unsigned int i=0; i<degree_seq.size(); i++) {
 		
 		double interno=(1-mixing_parameter)*degree_seq[i];
 		int int_interno=int(interno);
@@ -1613,84 +1498,16 @@ bool excess, bool defect,  deque<int> & degree_seq, deque<int> &num_seq, deque<i
 		
 	}
 	
-	
-	//cout<<"num_seq"<<endl;
-	//prints(num_seq);
-	
-	int ncom=num_seq.size();
-	
-	//cout<<"\n----------------------------------------------------------"<<endl;
-
-	/*
-	cout<<"community sizes"<<endl;
-	for (int i=0; i<num_seq.size(); i++)
-		cout<<num_seq[i]<<" ";
-	cout<<endl<<endl;
-	//*/
+	//int ncom=num_seq.size();
 	
 
-	/*
-	deque <int> first;
-	for (int i=0; i<ncom; i++)
-		member_matrix.push_back(first);
-	
-	
-	
-	// it puts the overlapping_nodes inside
-	cout<<ncom<<endl;
-	for (int i=degree_seq.size() - overlapping_nodes; i<degree_seq.size(); i++) {
-		
-		cout<<i<<endl;
-		set<int> members;
-		int hh=0;
-			
-		while(members.size()<max_mem_num) {
-				
-			int random_module=irand(ncom-1);
-				
-			if(member_matrix[random_module].size()!=num_seq[random_module])
-				members.insert(random_module);
-				
-			hh++;
-				
-			if(hh>3*num_nodes) {
-				cerr<<"it seems that the overlapping nodes need more communities that those I provided. Please increase the number of communities or decrease the number of overlapping nodes"<<endl;
-				return -1;				
-			}
-	
-		}
-			
-				
-		for (set<int>::iterator its=members.begin(); its!=members.end(); its++)
-			member_matrix[*its].push_back(i);
-				
-	}
-	
-	
-	
-	// it decides the memberships for the not overlapping nodes		
-	
-	int moment_module=0;
-	for (int i=0; i<num_nodes - overlapping_nodes; i++) {
-	
-		while(member_matrix[moment_module].size()==num_seq[moment_module])
-			 moment_module++;
-
-		member_matrix[moment_module].push_back(i);
-		
-	}
-		
-		
-	
-	*/
-	
 	// I have to assign the degree to the nodes
 	
 	
 	deque<int> member_numbers;
 	for(int i=0; i<overlapping_nodes; i++)
 		member_numbers.push_back(max_mem_num);
-	for(int i=overlapping_nodes; i<degree_seq.size(); i++)
+	for(long unsigned int i=overlapping_nodes; i<degree_seq.size(); i++)
 		member_numbers.push_back(1);
 	
 	//prints(member_numbers);
@@ -1698,29 +1515,29 @@ bool excess, bool defect,  deque<int> & degree_seq, deque<int> &num_seq, deque<i
 	
 	if(build_bipartite_network(member_matrix, member_numbers, num_seq)==-1) {
 		
-		cerr<<"it seems that the overlapping nodes need more communities that those I provided. Please increase the number of communities or decrease the number of overlapping nodes"<<endl;
+		Rcerr<<"it seems that the overlapping nodes need more communities that those I provided. Please increase the number of communities or decrease the number of overlapping nodes"<<endl;
 		return -1;			
 	
 	}
 		
 	//printm(member_matrix);
 	
-	//cout<<"degree_seq"<<endl;
+	//Rcout<<"degree_seq"<<endl;
 	//prints(degree_seq);
 	
-	//cout<<"internal_degree_seq"<<endl;
+	//Rcout<<"internal_degree_seq"<<endl;
 	//prints(internal_degree_seq);
 
 	deque<int> available;
 	for (int i=0; i<num_nodes; i++)
 		available.push_back(0);
 	
-	for (int i=0; i<member_matrix.size(); i++) {
-		for (int j=0; j<member_matrix[i].size(); j++)
+	for (long unsigned int i=0; i<member_matrix.size(); i++) {
+		for (long unsigned int j=0; j<member_matrix[i].size(); j++)
 			available[member_matrix[i][j]]+=member_matrix[i].size()-1;
 	}
 	
-	//cout<<"available"<<endl;
+	//Rcout<<"available"<<endl;
 	//prints(available);
 	
 	
@@ -1736,7 +1553,7 @@ bool excess, bool defect,  deque<int> & degree_seq, deque<int> &num_seq, deque<i
 	
 	for (int i=degree_seq.size()-1; i>=0; i--) {
 		
-		int & degree_here=internal_degree_seq[i];
+		//int & degree_here=internal_degree_seq[i];
 		int try_this = irand(available_nodes.size()-1);
 		
 		int kr=0;
@@ -1748,17 +1565,17 @@ bool excess, bool defect,  deque<int> & degree_seq, deque<int> &num_seq, deque<i
 			
 				if(change_community_size(num_seq)==-1) {
 					
-					cerr<<"\n***********************\nERROR: this program needs more than one community to work fine"<<endl;
+					Rcerr<<"\n***********************\nERROR: this program needs more than one community to work fine"<<endl;
 					return -1;
 				
 				}
 				
-				cout<<"it took too long to decide the memberships; I will try to change the community sizes"<<endl;
+				Rcout<<"it took too long to decide the memberships; I will try to change the community sizes"<<endl;
 
-				cout<<"new community sizes"<<endl;
-				for (int i=0; i<num_seq.size(); i++)
-					cout<<num_seq[i]<<" ";
-				cout<<endl<<endl;
+				Rcout<<"new community sizes"<<endl;
+				for (long unsigned int i=0; i<num_seq.size(); i++)
+					Rcout<<num_seq[i]<<" ";
+				Rcout<<endl<<endl;
 				
 				return (internal_degree_and_membership(mixing_parameter, overlapping_nodes, max_mem_num, num_nodes, member_matrix, excess, defect, degree_seq, num_seq, internal_degree_seq, fixed_range, nmin, nmax, tau2));
 			
@@ -1780,22 +1597,20 @@ bool excess, bool defect,  deque<int> & degree_seq, deque<int> &num_seq, deque<i
 	}
 	
 	
-	for (int i=0; i<member_matrix.size(); i++) {
-		for (int j=0; j<member_matrix[i].size(); j++)
+	for (long unsigned int i=0; i<member_matrix.size(); i++) {
+		for (long unsigned int j=0; j<member_matrix[i].size(); j++)
 			member_matrix[i][j]=map_nodes[member_matrix[i][j]];	
 	}
 	
 	
 	
-	for (int i=0; i<member_matrix.size(); i++)
+	for (long unsigned int i=0; i<member_matrix.size(); i++)
 		sort(member_matrix[i].begin(), member_matrix[i].end());
 
 		
 	return 0;
 
 }
-
-
 
 int compute_internal_degree_per_node(int d, int m, deque<int> & a) {
 	
@@ -1818,8 +1633,6 @@ int compute_internal_degree_per_node(int d, int m, deque<int> & a) {
 
 }
 
-
-
 /*
 int check_link_list(const deque<deque<int> > & link_list, const deque<int> & degree_seq) {
 
@@ -1833,7 +1646,7 @@ int check_link_list(const deque<deque<int> > & link_list, const deque<int> & deg
 		if(s!=degree_seq[i]) {
 			
 			int ok;
-			cerr<<"wrong link list"<<endl;
+			Rcerr<<"wrong link list"<<endl;
 			cin>>ok;
 		
 		}
@@ -1842,9 +1655,6 @@ int check_link_list(const deque<deque<int> > & link_list, const deque<int> & deg
 	
 	
 	}
-
-
-
 
 }
 
@@ -1855,18 +1665,16 @@ int build_subgraph(deque<set<int> > & E, const deque<int> & nodes, const deque<i
 	
 	
 	/*
-	cout<<"nodes"<<endl;
+	Rcout<<"nodes"<<endl;
 	prints(nodes);
 	
-	cout<<"degrees"<<endl;
+	Rcout<<"degrees"<<endl;
 	prints(degrees);
 	*/
-	
 
-	
 	if(degrees.size()<3) {
 		
-		cerr<<"it seems that some communities should have only 2 nodes! This does not make much sense (in my opinion) Please change some parameters!"<<endl;
+		Rcerr<<"it seems that some communities should have only 2 nodes! This does not make much sense (in my opinion) Please change some parameters!"<<endl;
 		return -1;
 	
 	}
@@ -1881,7 +1689,7 @@ int build_subgraph(deque<set<int> > & E, const deque<int> & nodes, const deque<i
 
 	{
 		set<int> first;
-		for(int i=0; i<nodes.size(); i++) 
+		for(long unsigned int i=0; i<nodes.size(); i++) 
 			en.push_back(first);
 	}
 	
@@ -1889,7 +1697,7 @@ int build_subgraph(deque<set<int> > & E, const deque<int> & nodes, const deque<i
 	
 	multimap <int, int> degree_node;
 	
-	for(int i=0; i<degrees.size(); i++)
+	for(long unsigned int i=0; i<degrees.size(); i++)
 		degree_node.insert(degree_node.end(), make_pair(degrees[i], i));
 	
 	int var=0;
@@ -1925,7 +1733,7 @@ int build_subgraph(deque<set<int> > & E, const deque<int> & nodes, const deque<i
 		}
 		
 		
-		for (int i=0; i<erasenda.size(); i++) {
+		for (long unsigned int i=0; i<erasenda.size(); i++) {
 			
 			
 			if(erasenda[i]->first>1)
@@ -1943,16 +1751,18 @@ int build_subgraph(deque<set<int> > & E, const deque<int> & nodes, const deque<i
     
     // ----------------------------------------------------------
     deque<int> degree_list;
-    for(int kk=0; kk<degrees.size(); kk++)
-        for(int k2=0; k2<degrees[kk]; k2++)
+    for(long unsigned int kk=0; kk<degrees.size(); kk++){
+        for(int k2=0; k2<degrees[kk]; k2++){
             degree_list.push_back(kk); 
+		}
+	}
 	
     
 	// this is to randomize the subgraph -------------------------------------------------------------------
 	
-	for(int run=0; run<10; run++) for(int node_a=0; node_a<degrees.size(); node_a++) for(int krm=0; krm<en[node_a].size(); krm++) {
+	for(long unsigned int run=0; run<10; run++) for(long unsigned int node_a=0; node_a<degrees.size(); node_a++) for(long unsigned int krm=0; krm<en[node_a].size(); krm++) {
 	
-		int random_mate=degree_list[irand(degree_list.size()-1)];
+		long unsigned int random_mate=degree_list[irand(degree_list.size()-1)];
 		while (random_mate==node_a)
 			random_mate=degree_list[irand(degree_list.size()-1)];
 				
@@ -1960,7 +1770,7 @@ int build_subgraph(deque<set<int> > & E, const deque<int> & nodes, const deque<i
 		if (en[node_a].insert(random_mate).second) {
 			
 			deque <int> out_nodes;
-			for (set<int>::iterator it_est=en[node_a].begin(); it_est!=en[node_a].end(); it_est++) if ((*it_est)!=random_mate)
+			for (set<int>::iterator it_est=en[node_a].begin(); it_est!=en[node_a].end(); it_est++) if ((*it_est)!=(const int) random_mate)
 				out_nodes.push_back(*it_est);
 						
 					
@@ -1992,9 +1802,9 @@ int build_subgraph(deque<set<int> > & E, const deque<int> & nodes, const deque<i
 	// now I try to insert the new links into the already done network. If some multiple links come out, I try to rewire them
 	
 	deque < pair<int, int> > multiple_edge;
-	for (int i=0; i<en.size(); i++) {
+	for (long unsigned int i=0; i<en.size(); i++) {
 		
-		for(set<int>::iterator its=en[i].begin(); its!=en[i].end(); its++) if(i<*its ) {
+		for(set<int>::iterator its=en[i].begin(); its!=en[i].end(); its++) if((const int) i<*its ) {
 		
 			bool already = !(E[nodes[i]].insert(nodes[*its]).second);		// true is the insertion didn't take place
 			if (already)
@@ -2009,8 +1819,8 @@ int build_subgraph(deque<set<int> > & E, const deque<int> & nodes, const deque<i
 	}
 	
 	
-	//cout<<"multiples "<<multiple_edge.size()<<endl;
-	for (int i=0; i<multiple_edge.size(); i++) {
+	//Rcout<<"multiples "<<multiple_edge.size()<<endl;
+	for (long unsigned int i=0; i<multiple_edge.size(); i++) {
 		
 		
 		int &a = multiple_edge[i].first;
@@ -2018,7 +1828,7 @@ int build_subgraph(deque<set<int> > & E, const deque<int> & nodes, const deque<i
 		
 	
 		// now, I'll try to rewire this multiple link among the nodes stored in nodes.
-		int stopper_ml=0;
+		long unsigned int stopper_ml=0;
 		
 		while (true) {
 					
@@ -2061,7 +1871,7 @@ int build_subgraph(deque<set<int> > & E, const deque<int> & nodes, const deque<i
 			
 			if(stopper_ml==2*E.size()) {
 	
-				cout<<"sorry, I need to change the degree distribution a little bit (one less link)"<<endl;
+				Rcout<<"sorry, I need to change the degree distribution a little bit (one less link)"<<endl;
 				break;
 	
 			}
@@ -2072,19 +1882,10 @@ int build_subgraph(deque<set<int> > & E, const deque<int> & nodes, const deque<i
 	
 	
 	}
-	
-	
 
-
-	
-	
 	return 0;
 
 }
-
-
-
-
 
 int build_subgraphs(deque<set<int> > & E, const deque<deque<int> > & member_matrix, deque<deque<int> > & member_list, 
 	deque<deque<int> > & link_list, const deque<int> & internal_degree_seq, const deque<int> & degree_seq, const bool excess, const bool defect) {
@@ -2112,19 +1913,19 @@ int build_subgraphs(deque<set<int> > & E, const deque<deque<int> > & member_matr
 	
 	
 	
-	for (int i=0; i<member_matrix.size(); i++)
-		for (int j=0; j<member_matrix[i].size(); j++)
+	for (long unsigned int i=0; i<member_matrix.size(); i++)
+		for (long unsigned int j=0; j<member_matrix[i].size(); j++)
 			member_list[member_matrix[i][j]].push_back(i);
 	
 	
 	//printm(member_list);
 	
-	for (int i=0; i<member_list.size(); i++) {
+	for (long unsigned int i=0; i<member_list.size(); i++) {
 		
 		deque<int> liin;
 
 		
-		for (int j=0; j<member_list[i].size(); j++) {
+		for (long unsigned int j=0; j<member_list[i].size(); j++) {
 			
 			compute_internal_degree_per_node(internal_degree_seq[i], member_list[i].size(), liin);
 			liin.push_back(degree_seq[i] - internal_degree_seq[i]);
@@ -2147,11 +1948,11 @@ int build_subgraphs(deque<set<int> > & E, const deque<deque<int> > & member_matr
 	
 	
 			
-	for (int i=0; i<member_matrix.size(); i++) {
+	for (long unsigned int i=0; i<member_matrix.size(); i++) {
 	
 		
 		int internal_cluster=0;
-		for (int j=0; j<member_matrix[i].size(); j++) {
+		for (long unsigned int j=0; j<member_matrix[i].size(); j++) {
 			
 			int right_index= lower_bound(member_list[member_matrix[i][j]].begin(), member_list[member_matrix[i][j]].end(), i) - member_list[member_matrix[i][j]].begin();
 			
@@ -2178,7 +1979,7 @@ int build_subgraphs(deque<set<int> > & E, const deque<deque<int> > & member_matr
 				
 				// if this does not work in a reasonable time the degree sequence will be changed
 				
-				for (int j=0; j<member_matrix[i].size(); j++) {		
+				for (long unsigned int j=0; j<member_matrix[i].size(); j++) {		
 					
 					
 					int random_mate=member_matrix[i][irand(member_matrix[i].size()-1)];
@@ -2186,7 +1987,7 @@ int build_subgraphs(deque<set<int> > & E, const deque<deque<int> > & member_matr
 					int right_index= lower_bound(member_list[random_mate].begin(), member_list[random_mate].end(), i) - member_list[random_mate].begin();
 					
 					
-					if ((link_list[random_mate][right_index]<member_matrix[i].size()-1) && (link_list[random_mate][link_list[random_mate].size()-1] > 0 )) {
+					if ((link_list[random_mate][right_index]<(int) member_matrix[i].size()-1) && (link_list[random_mate][link_list[random_mate].size()-1] > 0 )) {
 						
 						link_list[random_mate][right_index]++;
 						link_list[random_mate][link_list[random_mate].size()-1]--;
@@ -2203,7 +2004,7 @@ int build_subgraphs(deque<set<int> > & E, const deque<deque<int> > & member_matr
 			
 			else {
 				
-				for (int j=0; j<member_matrix[i].size(); j++) {
+				for (long unsigned int j=0; j<member_matrix[i].size(); j++) {
 
 					int random_mate=member_matrix[i][irand(member_matrix[i].size()-1)];
 
@@ -2245,11 +2046,11 @@ int build_subgraphs(deque<set<int> > & E, const deque<deque<int> > & member_matr
 	
 	}
 	
-	for (int i=0; i<member_matrix.size(); i++) {
+	for (long unsigned int i=0; i<member_matrix.size(); i++) {
 		
 		
 		deque<int> internal_degree_i;
-		for (int j=0; j<member_matrix[i].size(); j++) {
+		for (long unsigned int j=0; j<member_matrix[i].size(); j++) {
 		
 		
 			int right_index= lower_bound(member_list[member_matrix[i][j]].begin(), member_list[member_matrix[i][j]].end(), i) - member_list[member_matrix[i][j]].begin();
@@ -2267,20 +2068,15 @@ int build_subgraphs(deque<set<int> > & E, const deque<deque<int> > & member_matr
 	
 	}
 
-
-
-
 	return 0;
 	
 }
-
-
 
 int connect_all_the_parts(deque<set<int> > & E, const deque<deque<int> > & member_list, const deque<deque<int> > & link_list) {
 
 	
 	deque<int> degrees;
-	for(int i=0; i<link_list.size(); i++)
+	for(long unsigned int i=0; i<link_list.size(); i++)
 		degrees.push_back(link_list[i][link_list[i].size()-1]);
 	
 	
@@ -2290,7 +2086,7 @@ int connect_all_the_parts(deque<set<int> > & E, const deque<deque<int> > & membe
 
 	{
 		set<int> first;
-		for(int i=0; i<member_list.size(); i++) 
+		for(long unsigned int i=0; i<member_list.size(); i++) 
 			en.push_back(first);
 	}
 	
@@ -2298,7 +2094,7 @@ int connect_all_the_parts(deque<set<int> > & E, const deque<deque<int> > & membe
 	
 	multimap <int, int> degree_node;
 	
-	for(int i=0; i<degrees.size(); i++)
+	for(long unsigned int i=0; i<degrees.size(); i++)
 		degree_node.insert(degree_node.end(), make_pair(degrees[i], i));
 	
 	int var=0;
@@ -2334,7 +2130,7 @@ int connect_all_the_parts(deque<set<int> > & E, const deque<deque<int> > & membe
 		}
 		
 		
-		for (int i=0; i<erasenda.size(); i++) {
+		for (long unsigned int i=0; i<erasenda.size(); i++) {
 			
 			
 			if(erasenda[i]->first>1)
@@ -2343,27 +2139,26 @@ int connect_all_the_parts(deque<set<int> > & E, const deque<deque<int> > & membe
 			degree_node.erase(erasenda[i]);
 		
 		}
-
 		
 		var+= itlast->first - inserted;
 		degree_node.erase(itlast);
 		
 	}
-
 		
 	// this is to randomize the subgraph -------------------------------------------------------------------
 	
     // ----------------------------------------------------------
     deque<int> degree_list;
-    for(int kk=0; kk<degrees.size(); kk++)
-        for(int k2=0; k2<degrees[kk]; k2++)
+    for(long unsigned int kk=0; kk<degrees.size(); kk++){
+        for(int k2=0; k2<degrees[kk]; k2++){
             degree_list.push_back(kk); 
-
+		}
+	}
     
-	for(int run=0; run<10; run++) for(int node_a=0; node_a<degrees.size(); node_a++) for(int krm=0; krm<en[node_a].size(); krm++) {
+	for(long unsigned int run=0; run<10; run++) for(long unsigned int node_a=0; node_a<degrees.size(); node_a++) for(long unsigned int krm=0; krm<en[node_a].size(); krm++) {
         
         
-		int random_mate=degree_list[irand(degree_list.size()-1)];
+		long unsigned int random_mate=degree_list[irand(degree_list.size()-1)];
 		while (random_mate==node_a)
 			random_mate=degree_list[irand(degree_list.size()-1)];
 		
@@ -2372,7 +2167,7 @@ int connect_all_the_parts(deque<set<int> > & E, const deque<deque<int> > & membe
 		if (en[node_a].insert(random_mate).second) {
 			
 			deque <int> out_nodes;
-			for (set<int>::iterator it_est=en[node_a].begin(); it_est!=en[node_a].end(); it_est++) if ((*it_est)!=random_mate)
+			for (set<int>::iterator it_est=en[node_a].begin(); it_est!=en[node_a].end(); it_est++) if ((*it_est)!= (const int)random_mate)
 				out_nodes.push_back(*it_est);
 						
 										
@@ -2382,7 +2177,6 @@ int connect_all_the_parts(deque<set<int> > & E, const deque<deque<int> > & membe
 			en[node_a].erase(old_node);
 			en[random_mate].insert(node_a);
 			en[old_node].erase(node_a);
-
 										
 			deque <int> not_common;
 			for (set<int>::iterator it_est=en[random_mate].begin(); it_est!=en[random_mate].end(); it_est++)
@@ -2411,11 +2205,11 @@ int connect_all_the_parts(deque<set<int> > & E, const deque<deque<int> > & membe
 	// now there is a rewiring process to avoid "mate nodes" (nodes with al least one membership in common) to link each other
 	
 	int var_mate=0;
-	for(int i=0; i<degrees.size(); i++) for(set<int>::iterator itss= en[i].begin(); itss!=en[i].end(); itss++) if(they_are_mate(i, *itss, member_list)) {
+	for(long unsigned int i=0; i<degrees.size(); i++) for(set<int>::iterator itss= en[i].begin(); itss!=en[i].end(); itss++) if(they_are_mate(i, *itss, member_list)) {
 		var_mate++;
 	}
 	
-	//cout<<"var mate = "<<var_mate<<endl;
+	//Rcout<<"var mate = "<<var_mate<<endl;
 	
 	int stopper_mate=0;
 	int mate_trooper=10;
@@ -2423,7 +2217,7 @@ int connect_all_the_parts(deque<set<int> > & E, const deque<deque<int> > & membe
 	while(var_mate>0) {
 	
 		
-		//cout<<"var mate = "<<var_mate<<endl;
+		//Rcout<<"var mate = "<<var_mate<<endl;
 
 		
 		int best_var_mate=var_mate;
@@ -2431,18 +2225,18 @@ int connect_all_the_parts(deque<set<int> > & E, const deque<deque<int> > & membe
 		// ************************************************  rewiring
 		
 		
-		for(int a=0; a<degrees.size(); a++) for(set<int>::iterator its= en[a].begin(); its!=en[a].end(); its++) if(they_are_mate(a, *its, member_list)) {
+		for(long unsigned int a=0; a<degrees.size(); a++) for(set<int>::iterator its= en[a].begin(); its!=en[a].end(); its++) if(they_are_mate(a, *its, member_list)) {
 				
 			
 			
-			int b=*its;
-			int stopper_m=0;
+			long unsigned int b=*its;
+			long unsigned int stopper_m=0;
 			
 			while (true) {
 						
 				stopper_m++;
 				
-				int random_mate =  degree_list[irand(degree_list.size()-1)];
+				long unsigned int random_mate =  degree_list[irand(degree_list.size()-1)];
 				while (random_mate==a || random_mate==b)
 					random_mate = degree_list[irand(degree_list.size()-1)];
 				
@@ -2451,7 +2245,7 @@ int connect_all_the_parts(deque<set<int> > & E, const deque<deque<int> > & membe
 					
 					deque <int> not_common;
 					for (set<int>::iterator it_est=en[random_mate].begin(); it_est!=en[random_mate].end(); it_est++)
-						if ((b!=(*it_est)) && (en[b].find(*it_est)==en[b].end()))
+						if (((const int) b!=(*it_est)) && (en[b].find(*it_est)==en[b].end()))
 							not_common.push_back(*it_est);
 					
 					if(not_common.size()>0) {
@@ -2519,30 +2313,24 @@ int connect_all_the_parts(deque<set<int> > & E, const deque<deque<int> > & membe
 		
 		
 		
-		//cout<<"var mate = "<<var_mate<<endl;
+		//Rcout<<"var mate = "<<var_mate<<endl;
 
 	
 	}
 	
 	
 	
-	//cout<<"var mate = "<<var_mate<<endl;
+	//Rcout<<"var mate = "<<var_mate<<endl;
 
-	for (int i=0; i<en.size(); i++) {
+	for (long unsigned int i=0; i<en.size(); i++) {
 		
-		for(set<int>::iterator its=en[i].begin(); its!=en[i].end(); its++) if(i<*its) {
+		for(set<int>::iterator its=en[i].begin(); its!=en[i].end(); its++) if((const int) i<*its) {
 		
 			E[i].insert(*its);
 			E[*its].insert(i);
-			
 		
 		}
-	
-	
 	}
-	
-	
-	
 	return 0;
 
 }
@@ -2556,9 +2344,6 @@ int internal_kin(deque<set<int> > & E, const deque<deque<int> > & member_list, i
 	return var_mate2;
 	
 }
-
-
-
 
 int internal_kin_only_one(set<int> & E, const deque<int> & member_matrix_j) {		// return the overlap between E and member_matrix_j
 	
@@ -2592,7 +2377,7 @@ int erase_links(deque<set<int> > & E, const deque<deque<int> > & member_list, co
 			//---------------------------------------------------------------------------------
 				
 				
-				cout<<"degree sequence changed to respect the option -sup ... "<<++eras_add_times<<endl;
+				Rcout<<"degree sequence changed to respect the option -sup ... "<<++eras_add_times<<endl;
 				
 				deque<int> deqar;
 				for (set<int>::iterator it_est=E[i].begin(); it_est!=E[i].end(); it_est++)
@@ -2602,7 +2387,7 @@ int erase_links(deque<set<int> > & E, const deque<deque<int> > & member_list, co
 				
 				if(deqar.size()==E[i].size()) {	// this shouldn't happen...
 				
-					cerr<<"sorry, something went wrong: there is a node which does not respect the constraints. (option -sup)"<<endl;
+					Rcerr<<"sorry, something went wrong: there is a node which does not respect the constraints. (option -sup)"<<endl;
 					return -1;
 				
 				}
@@ -2628,7 +2413,7 @@ int erase_links(deque<set<int> > & E, const deque<deque<int> > & member_list, co
 				//---------------------------------------------------------------------------------
 					
 				
-				cout<<"degree sequence changed to respect the option -inf ... "<<++eras_add_times<<endl;
+				Rcout<<"degree sequence changed to respect the option -inf ... "<<++eras_add_times<<endl;
 
 
 				int stopper_here=num_nodes;
@@ -2645,7 +2430,7 @@ int erase_links(deque<set<int> > & E, const deque<deque<int> > & member_list, co
 				
 				if(stopper_==stopper_here) {	// this shouldn't happen...
 				
-					cerr<<"sorry, something went wrong: there is a node which does not respect the constraints. (option -inf)"<<endl;
+					Rcerr<<"sorry, something went wrong: there is a node which does not respect the constraints. (option -inf)"<<endl;
 					return -1;
 				
 				}
@@ -2663,9 +2448,6 @@ int erase_links(deque<set<int> > & E, const deque<deque<int> > & member_list, co
 	}
 
 	//------------------------------------ Erasing links   ------------------------------------------------------
-
-	
-
 
 	return 0;
 	
@@ -2691,8 +2473,8 @@ int erase_links(deque<set<int> > & E, const deque<deque<int> > & member_list, co
 // 	}
 	
 	
-// 	//cout<<"\n----------------------------------------------------------"<<endl;
-// 	//cout<<endl;
+// 	//Rcout<<"\n----------------------------------------------------------"<<endl;
+// 	//Rcout<<endl;
 	
 	
 	
@@ -2727,10 +2509,6 @@ int erase_links(deque<set<int> > & E, const deque<deque<int> > & member_list, co
 	
 // 	density=density/member_matrix.size();
 // 	sparsity=sparsity/member_matrix.size();
-	
-	
-	
-
 
 // 	ofstream out1(p.path_to_network_file);
 // 	for (int u=0; u<E.size(); u++) {
@@ -2743,9 +2521,7 @@ int erase_links(deque<set<int> > & E, const deque<deque<int> > & member_list, co
 		
 
 // 	}
-		
 
-	
 // 	ofstream out2(p.path_to_community_file);
 
 // 	for (int i=0; i<member_list.size(); i++) {
@@ -2757,12 +2533,12 @@ int erase_links(deque<set<int> > & E, const deque<deque<int> > & member_list, co
 	
 // 	}
 
-// 	cout<<"\n\n---------------------------------------------------------------------------"<<endl;
+// 	Rcout<<"\n\n---------------------------------------------------------------------------"<<endl;
 	
 	
-// 	cout<<"network of "<<num_nodes<<" vertices and "<<edges/2<<" edges"<<";\t average degree = "<<double(edges)/num_nodes<<endl;
-// 	cout<<"\naverage mixing parameter: "<<average_func(double_mixing)<<" +/- "<<sqrt(variance_func(double_mixing))<<endl;
-// 	cout<<"p_in: "<<density<<"\tp_out: "<<sparsity<<endl;
+// 	Rcout<<"network of "<<num_nodes<<" vertices and "<<edges/2<<" edges"<<";\t average degree = "<<double(edges)/num_nodes<<endl;
+// 	Rcout<<"\naverage mixing parameter: "<<average_func(double_mixing)<<" +/- "<<sqrt(variance_func(double_mixing))<<endl;
+// 	Rcout<<"p_in: "<<density<<"\tp_out: "<<sparsity<<endl;
 
 	
 	
@@ -2786,20 +2562,12 @@ int erase_links(deque<set<int> > & E, const deque<deque<int> > & member_list, co
 // 	statout<<"mixing parameter"<<endl;
 // 	not_norm_histogram(double_mixing, statout, 20, 0, 0);
 // 	statout<<endl<<"--------------------------------------"<<endl;
-	
-	
-	
 
-
-// 	cout<<endl<<endl;
+// 	Rcout<<endl<<endl;
 
 // 	return 0;
 
 // }
-
-
-	
-
 
 //[[Rcpp::export]]
 Rcpp::List benchmark(bool excess, bool defect, int num_nodes, double  average_k, int  max_degree, double  tau, double  tau2, 
@@ -2821,8 +2589,8 @@ Rcpp::List benchmark(bool excess, bool defect, int num_nodes, double  average_k,
 	if (!fixed_range) {
 		nmax=max_degree;
 		nmin=max(int(min_degree), 3);
-		cout<<"-----------------------------------------------------------"<<endl;
-		cout<<"community size range automatically set equal to ["<<nmin<<" , "<<nmax<<"]"<<endl;
+		Rcout<<"-----------------------------------------------------------"<<endl;
+		Rcout<<"community size range automatically set equal to ["<<nmin<<" , "<<nmax<<"]"<<endl;
 	}
 
 	//--------------------------------------------------------------------------------------------------
@@ -2873,8 +2641,6 @@ Rcpp::List benchmark(bool excess, bool defect, int num_nodes, double  average_k,
 	
 }
 
-
-
 // void erase_file_if_exists(string s) {
 
 // 	char b[100];
@@ -2901,7 +2667,7 @@ Rcpp::List benchmark(bool excess, bool defect, int num_nodes, double  average_k,
 // 	if(set_parameters(argc, argv, p)==false) {
 		
 // 		if (argc>1)
-// 			cerr<<"Please, look at ReadMe.txt..."<<endl;
+// 			Rcerr<<"Please, look at ReadMe.txt..."<<endl;
 		
 // 		return -1;
 	
