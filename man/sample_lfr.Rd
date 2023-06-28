@@ -10,12 +10,11 @@ sample_lfr(
   tau2,
   mu,
   average_degree = NULL,
-  min_degree = NULL,
   max_degree = NULL,
   min_community = NULL,
   max_community = NULL,
-  tol = 1e-07,
-  max_iters = 500
+  on = 0,
+  om = 0
 )
 }
 \arguments{
@@ -29,17 +28,15 @@ sample_lfr(
 
 \item{average_degree}{Desired average degree of nodes in the created graph. This value must be in the interval 0 to n. Exactly one of this and \code{min_degree} must be specified, otherwise an error is raised}
 
-\item{min_degree}{Minimum degree of nodes in the created graph. This value must be in the interval 0 to n. Exactly one of this and \code{average_degree} must be specified, otherwise an error is raised.}
-
 \item{max_degree}{Maximum degree of nodes in the created graph. If not specified, this is set to n-1.}
 
 \item{min_community}{Minimum size of communities in the graph. If not specified, this is set to \code{min_degree}}
 
 \item{max_community}{Maximum size of communities in the graph. If not specified, this is set to n, the total number of nodes in the graph.}
 
-\item{tol}{Tolerance when comparing floats, specifically when comparing average degree values.}
+\item{on}{number of overlapping nodes}
 
-\item{max_iters}{Maximum number of iterations to try to create the community sizes, degree distribution, and community affiliations.}
+\item{om}{number of memberships of the overlapping nodes}
 }
 \value{
 an igraph object
@@ -48,11 +45,12 @@ an igraph object
 Generates benchmark networks for clustering tasks with a priori known communities. The algorithm accounts for the heterogeneity in the distributions of node degrees and of community sizes.
 }
 \details{
-code adapted from the implementation in NetworkX: https://networkx.org/documentation/stable/_modules/networkx/generators/community.html#LFR_benchmark_graph
+code adapted from \url{https://github.com/synwalk/synwalk-analysis/tree/master/lfr_generator}
+}
+\examples{
+# Simple Girven-Newman benchmark graphs
+g <- sample_lfr(n = 128,average_degree = 16,max_degree = 16,mu = 0.1,min_community = 32,max_community = 32)
 }
 \references{
 A. Lancichinetti, S. Fortunato, and F. Radicchi.(2008) Benchmark graphs for testing community detection algorithms. Physical Review E, 78. arXiv:0805.4770
-}
-\author{
-David Schoch
 }
