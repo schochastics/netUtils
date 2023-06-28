@@ -11,6 +11,7 @@ coverage](https://codecov.io/gh/schochastics/netUtils/branch/master/graph/badge.
 status](https://www.r-pkg.org/badges/version/netUtils)](https://CRAN.R-project.org/package=netUtils)
 [![CRAN
 Downloads](http://cranlogs.r-pkg.org/badges/netUtils)](https://CRAN.R-project.org/package=netUtils)
+[![R-CMD-check](https://github.com/schochastics/netUtils/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/schochastics/netUtils/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 netUtils is a collection of tools for network analysis that may not
@@ -55,8 +56,6 @@ sequence.
 two groups of nodes.  
 `sample_lfr()` create LFR benchmark graph for community detection.  
 `structural_equivalence()` finds structurally equivalent vertices.  
-`fast_clique()` computes cliques with MACE (faster than igraph for dense
-graphs).  
 `reciprocity_cor()` reciprocity as a correlation coefficient.
 
 **methods to use with caution**  
