@@ -5,7 +5,7 @@ Authors@R:
     person("David", "Schoch", email = "david@schochastics.net", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-2952-4812"))
 Description: Provides a collection of network analytic (convenience) functions which are missing in other standard packages. This includes triad census with attributes <doi:10.1016/j.socnet.2019.04.003>, core-periphery models <doi:10.1016/S0378-8733(99)00019-2>, and several graph generators. Most functions are build upon 'igraph'.  
-URL: https://github.com/schochastics/netUtils/
+URL: https://github.com/schochastics/netUtils/, https://schochastics.github.io/netUtils/
 BugReports: https://github.com/schochastics/netUtils/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
