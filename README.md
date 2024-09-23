@@ -10,7 +10,7 @@ coverage](https://codecov.io/gh/schochastics/netUtils/branch/master/graph/badge.
 [![CRAN
 status](https://www.r-pkg.org/badges/version/netUtils)](https://CRAN.R-project.org/package=netUtils)
 [![CRAN
-Downloads](http://cranlogs.r-pkg.org/badges/netUtils)](https://CRAN.R-project.org/package=netUtils)
+Downloads](https://cranlogs.r-pkg.org/badges/netUtils)](https://CRAN.R-project.org/package=netUtils)
 [![R-CMD-check](https://github.com/schochastics/netUtils/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/schochastics/netUtils/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
