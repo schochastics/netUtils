@@ -1,93 +1,33 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://schochastics.github.io/netUtils/404.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/index.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/reference/as_adj_list1.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/reference/as_adj_weighted.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/reference/as_multi_adj.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/reference/bipartite_from_data_frame.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/reference/clique_vertex_mat.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/reference/core_periphery.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/reference/dyad_census_attr.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/reference/fast_cliques.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/reference/graph_cartesian.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/reference/graph_cor.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/reference/graph_direct.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/reference/graph_from_multi_edgelist.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/reference/graph_kpartite.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/reference/graph_to_sage.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/reference/helpers.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/reference/reciprocity_cor.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/reference/sample_coreseq.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/reference/sample_lfr.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/reference/sample_pa_homophilic.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/reference/split_graph.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/reference/str.igraph.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/reference/structural_equivalence.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/netUtils/reference/triad_census_attr.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://schochastics.github.io/netUtils/404.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/LICENSE-text.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/LICENSE.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/authors.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/index.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/news/index.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/reference/as_adj_list1.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/reference/as_adj_weighted.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/reference/as_multi_adj.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/reference/bipartite_from_data_frame.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/reference/clique_vertex_mat.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/reference/core_periphery.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/reference/dyad_census_attr.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/reference/fast_cliques.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/reference/graph_cartesian.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/reference/graph_cor.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/reference/graph_direct.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/reference/graph_from_multi_edgelist.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/reference/graph_kpartite.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/reference/graph_to_sage.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/reference/helpers.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/reference/index.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/reference/reciprocity_cor.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/reference/sample_coreseq.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/reference/sample_lfr.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/reference/sample_pa_homophilic.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/reference/split_graph.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/reference/str.igraph.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/reference/structural_equivalence.html</loc></url>
+<url><loc>https://schochastics.github.io/netUtils/reference/triad_census_attr.html</loc></url>
 </urlset>
+
