@@ -22,26 +22,15 @@
 #' )
 #' @export
 sample_lfr <- function(n,
-                       tau1,
-                       tau2,
-                       mu,
-                       average_degree = NULL,
-                       max_degree = NULL,
+                       tau1 = 2,
+                       tau2 = 1,
+                       mu = 0.1,
+                       average_degree,
+                       max_degree,
                        min_community = NULL,
                        max_community = NULL,
                        on = 0,
                        om = 0) {
-    if (missing(tau1)) {
-        tau1 <- 2
-    }
-
-    if (missing(tau2)) {
-        tau2 <- 1
-    }
-    if (missing(mu)) {
-        mu <- 0.1
-    }
-
     if (missing(average_degree)) {
         stop("average_degree must be specified")
     }

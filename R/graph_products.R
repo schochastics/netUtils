@@ -9,23 +9,23 @@
 #' library(igraph)
 #' g <- make_ring(4)
 #' h <- make_full_graph(2)
-#' graph_cartesian(g,h)
+#' graph_cartesian(g, h)
 #' @export
-graph_cartesian <- function(g,h){
-  elg <- igraph::get.edgelist(g)
-  elh <- igraph::get.edgelist(h)
-  vg <- 1:igraph::vcount(g)
-  vh <- 1:igraph::vcount(h)
-  el <- matrix(0,0,2)
-  for(i in 1:nrow(elg)){
-    el_tmp <- matrix(apply(expand.grid(elg[i,],vh),1,function(x) paste(x,collapse="-")),ncol=2,byrow = T)
-    el <- rbind(el,el_tmp)
-  }
-  for(i in 1:nrow(elh)){
-    el_tmp <- matrix(apply(expand.grid(elh[i,],vg),1,function(x) paste(rev(x),collapse="-")),ncol=2,byrow = T)
-    el <- rbind(el,el_tmp)
-  }
-  igraph::graph_from_edgelist(el,F)
+graph_cartesian <- function(g, h) {
+    elg <- igraph::get.edgelist(g)
+    elh <- igraph::get.edgelist(h)
+    vg <- 1:igraph::vcount(g)
+    vh <- 1:igraph::vcount(h)
+    el <- matrix(0, 0, 2)
+    for (i in seq_len(nrow(elg))) {
+        el_tmp <- matrix(apply(expand.grid(elg[i, ], vh), 1, function(x) paste(x, collapse = "-")), ncol = 2, byrow = TRUE)
+        el <- rbind(el, el_tmp)
+    }
+    for (i in seq_len(nrow(elh))) {
+        el_tmp <- matrix(apply(expand.grid(elh[i, ], vg), 1, function(x) paste(rev(x), collapse = "-")), ncol = 2, byrow = TRUE)
+        el <- rbind(el, el_tmp)
+    }
+    igraph::graph_from_edgelist(el, F)
 }
 
 # direct graph product ----
@@ -40,19 +40,19 @@ graph_cartesian <- function(g,h){
 #' library(igraph)
 #' g <- make_ring(4)
 #' h <- make_full_graph(2)
-#' graph_direct(g,h)
+#' graph_direct(g, h)
 #' @export
-graph_direct <- function(g,h){
-  elg <- igraph::get.edgelist(g)
-  elh <- igraph::get.edgelist(h)
-  el <- matrix(0,0,2)
-  for(i in 1:nrow(elg)){
-    for(j in 1:nrow(elh)){
-      edg <- c(paste0(elg[i,1],"-",elh[j,1]),paste0(elg[i,2],"-",elh[j,2]))
-      el <- rbind(el,edg)
-      edg <- c(paste0(elg[i,2],"-",elh[j,1]),paste0(elg[i,1],"-",elh[j,2]))
-      el <- rbind(el,edg)
+graph_direct <- function(g, h) {
+    elg <- igraph::get.edgelist(g)
+    elh <- igraph::get.edgelist(h)
+    el <- matrix(0, 0, 2)
+    for (i in seq_len(nrow(elg))) {
+        for (j in seq_len(nrow(elh))) {
+            edg <- c(paste0(elg[i, 1], "-", elh[j, 1]), paste0(elg[i, 2], "-", elh[j, 2]))
+            el <- rbind(el, edg)
+            edg <- c(paste0(elg[i, 2], "-", elh[j, 1]), paste0(elg[i, 1], "-", elh[j, 2]))
+            el <- rbind(el, edg)
+        }
     }
-  }
-  igraph::graph_from_edgelist(el,F)
+    igraph::graph_from_edgelist(el, directed = FALSE)
 }
