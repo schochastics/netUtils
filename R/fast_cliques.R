@@ -9,50 +9,49 @@
 #' @return a list containing numeric vectors of vertex ids. Each list element is a clique. If outfile!=NA, the output is written to the specified file
 #' @author David Schoch
 #' @references Kazuhisa Makino, Takeaki Uno, "New Algorithms for Enumerating All Maximal Cliques", Lecture Notes in Computer Science 3111 (Proceedings of SWAT 2004), Springer, pp.260-272, 2004
-#' @export
-fast_cliques <- function(g,what="M",min=NULL,max=NULL,outfile = NA){
-  if(!igraph::is.igraph(g)){
-    stop("g must be an igraph object")
-  }
-  what <- match.arg(what,c("M","C"))
-  what <- paste0(what,"_")
-  ##########
-  binary <- Sys.getenv("MACE_PATH")
-  if(binary == ""){
-    stop("MACE not found. Please set the MACE_PATH as environment variable.")
-  }
-  ##########
-  fin <- tempfile()
-  if(is.na(outfile)){
-    fout <- tempfile()
-  } else{
-    fout <- outfile
-  }
-  # adj <- igraph::get.adjlist(g)
-  adj <- as_adj_list1(g)
-  adj <- lapply(1:length(adj),function(x){
-    neigh <- adj[[x]]
-    neigh[neigh>x]-1
-  })
-  writeLines(sapply(adj,paste,collapse=","),fin)
-  if(!is.null(min)){
-    what <- paste(what,"-l",min)
-  }
-  if(!is.null(max)){
-    what <- paste(what,"-u",max)
-  }
-  cmd <- paste(binary,what,fin,fout)
-  a <- system(cmd,intern = TRUE)
+fast_cliques <- function(g, what = "M", min = NULL, max = NULL, outfile = NA) {
+    if (!igraph::is.igraph(g)) {
+        stop("g must be an igraph object")
+    }
+    what <- match.arg(what, c("M", "C"))
+    what <- paste0(what, "_")
+    ##########
+    binary <- Sys.getenv("MACE_PATH")
+    if (binary == "") {
+        stop("MACE not found. Please set the MACE_PATH as environment variable.")
+    }
+    ##########
+    fin <- tempfile()
+    if (is.na(outfile)) {
+        fout <- tempfile()
+    } else {
+        fout <- outfile
+    }
+    # adj <- igraph::get.adjlist(g)
+    adj <- as_adj_list1(g)
+    adj <- lapply(1:length(adj), function(x) {
+        neigh <- adj[[x]]
+        neigh[neigh > x] - 1
+    })
+    writeLines(sapply(adj, paste, collapse = ","), fin)
+    if (!is.null(min)) {
+        what <- paste(what, "-l", min)
+    }
+    if (!is.null(max)) {
+        what <- paste(what, "-u", max)
+    }
+    cmd <- paste(binary, what, fin, fout)
+    a <- system(cmd, intern = TRUE)
 
-  unlink(fin)
-  if(is.na(outfile)){
-    clix <- readLines(fout)
-    lst <- sapply(clix,function(x) strsplit(x,split=" "))
-    lst <- lapply(lst,function(x) as.integer(x)+1)
-    lst <- unname(lst)
-    unlink(fout)
-    return(lst)
-  } else{
-    invisible(g)
-  }
+    unlink(fin)
+    if (is.na(outfile)) {
+        clix <- readLines(fout)
+        lst <- sapply(clix, function(x) strsplit(x, split = " "))
+        lst <- lapply(lst, function(x) as.integer(x) + 1)
+        lst <- unname(lst)
+        unlink(fout)
+        return(lst)
+    } else {
+        invisible(g)
+    }
 }
