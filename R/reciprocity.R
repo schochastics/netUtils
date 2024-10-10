@@ -22,14 +22,14 @@
 #' reciprocity_cor(g)
 #' @export
 reciprocity_cor <- function(g) {
-    if (!igraph::is.igraph(g)) {
+    if (!igraph::is_igraph(g)) {
         stop("g must be an igraph object")
     }
-    if (!igraph::is.directed(g)) {
+    if (!igraph::is_directed(g)) {
         stop("g must be directed")
     }
     r <- igraph::reciprocity(g)
-    d <- igraph::graph.density(g)
+    d <- igraph::edge_density(g)
     if (d == 1) {
         return(0)
     } else {

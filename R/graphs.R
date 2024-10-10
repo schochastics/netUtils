@@ -124,7 +124,7 @@ graph_kpartite <- function(n = 10, grp = c(5, 5)) {
     for (i in 1:(length(grp) - 1)) {
         add_nodes <- cur_node:(cur_node + grp[i] - 1)
         add_edges <- c(t(expand.grid(add_nodes, nodes[nodes > max(add_nodes)])))
-        g <- igraph::add.edges(g, add_edges)
+        g <- igraph::add_edges(g, add_edges)
         cur_node <- cur_node + grp[i]
     }
     return(g)

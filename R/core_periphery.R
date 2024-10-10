@@ -62,7 +62,7 @@ core_periphery <- function(graph, method = "rk1_dc", iter = 500, ...) {
         }
         return(list(vec = optperm, corr = optcorr))
     } else if (method == "rk1_ec") {
-        ev <- round(igraph::evcent(graph)$vector, 8)
+        ev <- round(igraph::eigen_centrality(graph)$vector, 8)
 
         thresh <- unique(ev)
         optcorr <- -2

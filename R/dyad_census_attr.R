@@ -18,7 +18,7 @@ dyad_census_attr <- function(g, vattr) {
     if (!vattr %in% igraph::vertex_attr_names(g)) {
         stop(paste0("there is no vertex attribute called ", vattr))
     }
-    attr <- igraph::get.vertex.attribute(g, vattr)
+    attr <- igraph::vertex_attr(g, vattr)
     if (!all(is.numeric(attr))) {
         stop("vertex attribute must be numeric ")
     }
@@ -30,7 +30,7 @@ dyad_census_attr <- function(g, vattr) {
 
     edges["from_attr"] <- nodes[[vattr]][edges[["from"]]]
     edges["to_attr"] <- nodes[[vattr]][edges[["to"]]]
-    edges[["reci"]] <- igraph::is.mutual(g)
+    edges[["reci"]] <- igraph::which_mutual(g)
     edges[["count"]] <- 1
 
     asym <- tryCatch(stats::aggregate(count ~ from_attr + to_attr, data = edges[!edges[["reci"]], ], FUN = sum),

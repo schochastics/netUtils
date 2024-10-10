@@ -12,8 +12,8 @@
 #' graph_cartesian(g, h)
 #' @export
 graph_cartesian <- function(g, h) {
-    elg <- igraph::get.edgelist(g)
-    elh <- igraph::get.edgelist(h)
+    elg <- igraph::as_edgelist(g)
+    elh <- igraph::as_edgelist(h)
     vg <- 1:igraph::vcount(g)
     vh <- 1:igraph::vcount(h)
     el <- matrix(0, 0, 2)
@@ -43,8 +43,8 @@ graph_cartesian <- function(g, h) {
 #' graph_direct(g, h)
 #' @export
 graph_direct <- function(g, h) {
-    elg <- igraph::get.edgelist(g)
-    elh <- igraph::get.edgelist(h)
+    elg <- igraph::as_edgelist(g)
+    elh <- igraph::as_edgelist(h)
     el <- matrix(0, 0, 2)
     for (i in seq_len(nrow(elg))) {
         for (j in seq_len(nrow(elh))) {

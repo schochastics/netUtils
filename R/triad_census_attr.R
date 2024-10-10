@@ -24,7 +24,7 @@ triad_census_attr <- function(g, vattr) {
     if (!vattr %in% igraph::vertex_attr_names(g)) {
         stop(paste0("there is no vertex attribute called ", vattr))
     }
-    attr <- igraph::get.vertex.attribute(g, vattr)
+    attr <- igraph::vertex_attr(g, vattr)
     if (!all(is.numeric(attr))) {
         stop("vertex attribute must be numeric ")
     }

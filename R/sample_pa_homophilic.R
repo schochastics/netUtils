@@ -33,8 +33,8 @@ sample_pa_homophilic <- function(n, m, minority_fraction, h_ab, h_ba = NULL, dir
         )
     )
 
-    g <- igraph::graph.empty(n = 0, directed = directed)
-    g <- igraph::add.vertices(g, n, attr = list(minority = minority_attr))
+    g <- igraph::make_empty_graph(n = 0, directed = directed)
+    g <- igraph::add_vertices(g, n, attr = list(minority = minority_attr))
 
     dist <- matrix(NA, n, n)
     dist[outer(minority_attr, minority_attr, "&")] <- h_aa # within minority
@@ -50,7 +50,7 @@ sample_pa_homophilic <- function(n, m, minority_fraction, h_ab, h_ba = NULL, dir
         targets <- pick_targets(deg, source, target_list, dist, m)
         if (length(targets != 0)) {
             el <- rbind(source, targets)
-            g <- igraph::add.edges(g, c(el))
+            g <- igraph::add_edges(g, c(el))
         }
         target_list <- c(target_list, source)
         source <- source + 1

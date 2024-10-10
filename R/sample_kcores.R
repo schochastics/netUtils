@@ -29,22 +29,22 @@ sample_coreseq <- function(cores) {
 
     if (K == 0) {
         n0 <- length(indices[[1]])
-        g <- igraph::graph.empty(n = n0, directed = FALSE)
+        g <- igraph::make_empty_graph(n = n0, directed = FALSE)
         return(g)
     } else if (K == 1) {
         n0 <- length(indices[[1]])
         n1 <- length(indices[[2]])
-        g <- igraph::graph.empty(n = n1, directed = FALSE)
-        g <- igraph::add.edges(g, edges = c(t(cbind(1:(n1 - 1), 2:n1))))
-        g <- igraph::add.vertices(g, nv = n0)
+        g <- igraph::make_empty_graph(n = n1, directed = FALSE)
+        g <- igraph::add_edges(g, edges = c(t(cbind(1:(n1 - 1), 2:n1))))
+        g <- igraph::add_vertices(g, nv = n0)
         return(g)
     } else if (K == 2) {
         n0 <- length(indices[[1]])
         n1 <- length(indices[[2]])
         n2 <- length(indices[[3]])
         g <- igraph::graph.empty(n = n2, directed = FALSE)
-        g <- igraph::add.edges(g, edges = c(t(cbind(1:(n2 - 1), 2:n2))))
-        g <- igraph::add.edges(g, edges = c(1, n2))
+        g <- igraph::add_edges(g, edges = c(t(cbind(1:(n2 - 1), 2:n2))))
+        g <- igraph::add_edges(g, edges = c(1, n2))
         g <- add_lower_nodes(cores, indices, g, 1)
         return(g)
     } else {
@@ -64,7 +64,7 @@ is_kcoreseq <- function(cores) {
 add_lower_nodes <- function(cores, indices, g, k) {
     K <- cores[1]
     higher_nodes <- sort(unname(unlist(indices[(k + 2):(K + 1)])))
-    g <- igraph::add.vertices(g, nv = length(indices[[k + 1]]))
+    g <- igraph::add_vertices(g, nv = length(indices[[k + 1]]))
     if (k == 0) {
         return(g)
     }
@@ -78,8 +78,8 @@ add_lower_nodes <- function(cores, indices, g, k) {
 generate_k_graph <- function(C, N, g) {
     if (!((C %% 2) == (N %% 2))) {
         g <- igraph::add_vertices(g, nv = N)
-        g <- igraph::add.edges(g, edges = c(t(cbind(1:(N - 1), 2:N))))
-        g <- igraph::add.edges(g, edges = c(1, N))
+        g <- igraph::add_edges(g, edges = c(t(cbind(1:(N - 1), 2:N))))
+        g <- igraph::add_edges(g, edges = c(1, N))
         z <- ceiling((N - C + 1) / 2)
         for (i in 0:(N - 1)) {
             start <- (i + z + 1) %% (N) # BUG POTENTIAL!!!
@@ -92,7 +92,7 @@ generate_k_graph <- function(C, N, g) {
                 listv <- c((0:(N - 1))[0:(stop)], (0:(N - 1))[(start + 1):N])
                 edges <- c(t(cbind(listv, i)))
             }
-            g <- igraph::add.edges(g, edges + 1)
+            g <- igraph::add_edges(g, edges + 1)
             g <- igraph::simplify(g)
         }
     } else {

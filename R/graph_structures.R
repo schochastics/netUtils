@@ -49,10 +49,10 @@ as_adj_weighted <- function(g, attr = NULL) {
 #' clique_vertex_mat(g)
 #' @export
 clique_vertex_mat <- function(g) {
-    if (!igraph::is.igraph(g)) {
+    if (!igraph::is_igraph(g)) {
         stop("g must be an igraph object")
     }
-    if (igraph::is.directed(g)) {
+    if (igraph::is_directed(g)) {
         warning("g is directed. Underlying undirected graph is used")
         g <- igraph::as.undirected(g)
     }
