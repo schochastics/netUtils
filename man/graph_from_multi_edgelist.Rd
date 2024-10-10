@@ -34,9 +34,11 @@ Create a list of igraph objects from an edgelist according to a type attribute
 }
 \examples{
 library(igraph)
-d <- data.frame(from=rep(c(1,2,3),3),to=rep(c(2,3,1),3),
-                type=rep(c("a","b","c"),each=3),weight=1:9)
-graph_from_multi_edgelist(d,"from","to","type","weight")
+d <- data.frame(
+    from = rep(c(1, 2, 3), 3), to = rep(c(2, 3, 1), 3),
+    type = rep(c("a", "b", "c"), each = 3), weight = 1:9
+)
+graph_from_multi_edgelist(d, "from", "to", "type", "weight")
 }
 \author{
 David Schoch

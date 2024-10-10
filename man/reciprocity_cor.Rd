@@ -29,7 +29,7 @@ This definition gives an absolute quantity which directly allows one to distingu
 }
 \examples{
 library(igraph)
-g <- sample_gnp(20,p = 0.3,directed = TRUE)
+g <- sample_gnp(20, p = 0.3, directed = TRUE)
 reciprocity(g)
 reciprocity_cor(g)
 }

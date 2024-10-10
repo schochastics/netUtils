@@ -24,7 +24,7 @@ See https://en.wikipedia.org/wiki/Tensor_product_of_graphs
 library(igraph)
 g <- make_ring(4)
 h <- make_full_graph(2)
-graph_direct(g,h)
+graph_direct(g, h)
 }
 \author{
 David Schoch

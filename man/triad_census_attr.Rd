@@ -26,10 +26,10 @@ The implemented algorithm is comparable to the algorithm in Lienert et al.
 \examples{
 library(igraph)
 set.seed(112)
-g <- sample_gnp(20,p = 0.3,directed = TRUE)
+g <- sample_gnp(20, p = 0.3, directed = TRUE)
 # add a vertex attribute
-V(g)$type <- rep(1:2,each = 10)
-triad_census_attr(g,"type")
+V(g)$type <- rep(1:2, each = 10)
+triad_census_attr(g, "type")
 }
 \references{
 Lienert, J., Koehly, L., Reed-Tsochas, F., & Marcum, C. S. (2019). An efficient counting method for the colored triad census. Social Networks, 58, 136-142.
