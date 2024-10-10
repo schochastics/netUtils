@@ -25,8 +25,8 @@ Create a two-mode network from a data.frame
 }
 \examples{
 library(igraph)
-edges <- data.frame(mode1=1:5,mode2=letters[1:5])
-bipartite_from_data_frame(edges,"mode1","mode2")
+edges <- data.frame(mode1 = 1:5, mode2 = letters[1:5])
+bipartite_from_data_frame(edges, "mode1", "mode2")
 }
 \author{
 David Schoch

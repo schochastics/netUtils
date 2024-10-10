@@ -17,22 +17,22 @@
 #' @author David Schoch
 #' @examples
 #' library(igraph)
-#' g <- sample_gnp(20,p = 0.3,directed = TRUE)
+#' g <- sample_gnp(20, p = 0.3, directed = TRUE)
 #' reciprocity(g)
 #' reciprocity_cor(g)
 #' @export
-reciprocity_cor <- function(g){
-  if(!igraph::is.igraph(g)){
-    stop("g must be an igraph object")
-  }
-  if(!igraph::is.directed(g)){
-    stop("g must be directed")
-  }
-  r <- igraph::reciprocity(g)
-  d <- igraph::graph.density(g)
-  if(d==1){
-    return(0)
-  } else{
-    (r-d)/(1-d)
-  }
+reciprocity_cor <- function(g) {
+    if (!igraph::is_igraph(g)) {
+        stop("g must be an igraph object")
+    }
+    if (!igraph::is_directed(g)) {
+        stop("g must be directed")
+    }
+    r <- igraph::reciprocity(g)
+    d <- igraph::edge_density(g)
+    if (d == 1) {
+        return(0)
+    } else {
+        (r - d) / (1 - d)
+    }
 }

@@ -20,52 +20,51 @@
 #' #maximally homophilic network
 #' sample_pa_homophilic(n = 50, m = 2,minority_fraction = 0.2,h_ab = 0)
 #' @export
-sample_pa_homophilic <- function(n, m, minority_fraction, h_ab, h_ba = NULL,directed = FALSE){
-
-  if(is.null(h_ba)){
-    h_ba <- h_ab
-  }
-  h_aa <- 1 - h_ab
-  h_bb <- 1 - h_ba
-  minority_attr <- sample(
-    c(rep(T,floor(minority_fraction * n)),
-      rep(F,n-floor(minority_fraction * n))
-    )
-  )
-
-  g <- igraph::graph.empty(n = 0,directed = directed)
-  g <- igraph::add.vertices(g, n,attr = list(minority=minority_attr))
-
-  dist <- matrix(NA,n,n)
-  dist[outer(minority_attr,minority_attr,"&")] <- h_aa #within minority
-  dist[outer(!minority_attr,!minority_attr,"&")] <- h_bb #within majority
-  dist[outer(minority_attr,!minority_attr,"&")] <- h_ab #min->maj
-  dist[outer(!minority_attr,minority_attr,"&")] <- h_ba #maj->min
-
-
-  target_list <- seq_len(m)
-  source  <-  m + 1
-  while(source<=n){
-    deg <- igraph::degree(g)
-    targets <- pick_targets(deg,source,target_list,dist,m)
-    if(length(targets!=0)){
-      el <- rbind(source,targets)
-      g <- igraph::add.edges(g,c(el))
+sample_pa_homophilic <- function(n, m, minority_fraction, h_ab, h_ba = NULL, directed = FALSE) {
+    if (is.null(h_ba)) {
+        h_ba <- h_ab
     }
-    target_list <- c(target_list,source)
-    source <- source + 1
-  }
-  return(g)
+    h_aa <- 1 - h_ab
+    h_bb <- 1 - h_ba
+    minority_attr <- sample(
+        c(
+            rep(TRUE, floor(minority_fraction * n)),
+            rep(FALSE, n - floor(minority_fraction * n))
+        )
+    )
+
+    g <- igraph::make_empty_graph(n = 0, directed = directed)
+    g <- igraph::add_vertices(g, n, attr = list(minority = minority_attr))
+
+    dist <- matrix(NA, n, n)
+    dist[outer(minority_attr, minority_attr, "&")] <- h_aa # within minority
+    dist[outer(!minority_attr, !minority_attr, "&")] <- h_bb # within majority
+    dist[outer(minority_attr, !minority_attr, "&")] <- h_ab # min->maj
+    dist[outer(!minority_attr, minority_attr, "&")] <- h_ba # maj->min
+
+
+    target_list <- seq_len(m)
+    source <- m + 1
+    while (source <= n) {
+        deg <- igraph::degree(g)
+        targets <- pick_targets(deg, source, target_list, dist, m)
+        if (length(targets != 0)) {
+            el <- rbind(source, targets)
+            g <- igraph::add_edges(g, c(el))
+        }
+        target_list <- c(target_list, source)
+        source <- source + 1
+    }
+    return(g)
 }
 
-pick_targets <- function(deg,source,target_list,dist,m){
-  target_prob <- dist[source,target_list] * (deg[target_list]+1e-5)
+pick_targets <- function(deg, source, target_list, dist, m) {
+    target_prob <- dist[source, target_list] * (deg[target_list] + 1e-5)
 
-  if(sum(target_prob>0)<m){
-    return(c())
-  } else{
-    targets <- sample(target_list,m,prob = target_prob)
-    return(targets)
-  }
+    if (sum(target_prob > 0) < m) {
+        return(c())
+    } else {
+        targets <- sample(target_list, m, prob = target_prob)
+        return(targets)
+    }
 }
-

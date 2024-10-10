@@ -25,8 +25,8 @@ kcores1 <- coreness(g1)
 g2 <- sample_coreseq(kcores1)
 kcores2 <- coreness(g2)
 
-#the sorted arrays are the same
-all(sort(kcores1)==sort(kcores2))
+# the sorted arrays are the same
+all(sort(kcores1) == sort(kcores2))
 
 }
 \references{

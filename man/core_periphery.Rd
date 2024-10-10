@@ -26,8 +26,8 @@ The function fits the data to an optimal pattern matrix with a genetic algorithm
 }
 \examples{
 set.seed(121)
-#split graphs have a perfect core-periphery structure
-sg <- split_graph(n = 20, p = 0.3,core = 0.5)
+# split graphs have a perfect core-periphery structure
+sg <- split_graph(n = 20, p = 0.3, core = 0.5)
 core_periphery(sg)
 }
 \references{

@@ -9,15 +9,15 @@
 #' g <- make_ring(10)
 #' as_adj_list1(g)
 #' @export
-as_adj_list1 <- function(g){
-  n <- igraph::vcount(g)
-  lapply(1:n,function(i){
-    x <- g[[i]][[1]]
-    attr(x,"env") <- NULL
-    attr(x,"graph") <- NULL
-    class(x) <- NULL
-    x
-  })
+as_adj_list1 <- function(g) {
+    n <- igraph::vcount(g)
+    lapply(1:n, function(i) {
+        x <- g[[i]][[1]]
+        attr(x, "env") <- NULL
+        attr(x, "graph") <- NULL
+        class(x) <- NULL
+        x
+    })
 }
 
 #' @title weighted dense adjacency matrix
@@ -31,10 +31,10 @@ as_adj_list1 <- function(g){
 #' library(igraph)
 #' g <- sample_gnp(10, 0.2)
 #' E(g)$weight <- runif(ecount(g))
-#' as_adj_weighted(g, attr="weight")
+#' as_adj_weighted(g, attr = "weight")
 #' @export
-as_adj_weighted <- function(g,attr = NULL){
-  as.matrix(igraph::as_adj(g,attr=attr,type = "both",sparse=T))
+as_adj_weighted <- function(g, attr = NULL) {
+    as.matrix(igraph::as_adj(g, attr = attr, type = "both", sparse = TRUE))
 }
 
 
@@ -45,23 +45,23 @@ as_adj_weighted <- function(g,attr = NULL){
 #' @author David Schoch
 #' @examples
 #' library(igraph)
-#' g <- sample_gnp(10,0.2)
+#' g <- sample_gnp(10, 0.2)
 #' clique_vertex_mat(g)
 #' @export
-clique_vertex_mat <- function(g){
-  if(!igraph::is.igraph(g)){
-    stop("g must be an igraph object")
-  }
-  if(igraph::is.directed(g)){
-    warning("g is directed. Underlying undirected graph is used")
-    g <- igraph::as.undirected(g)
-  }
-  mcl <- igraph::max_cliques(g)
-  M <- matrix(0,length(mcl),igraph::vcount(g))
-  for(i in 1:length(mcl)){
-    M[i,mcl[[i]]] <- 1
-  }
-  M
+clique_vertex_mat <- function(g) {
+    if (!igraph::is_igraph(g)) {
+        stop("g must be an igraph object")
+    }
+    if (igraph::is_directed(g)) {
+        warning("g is directed. Underlying undirected graph is used")
+        g <- igraph::as.undirected(g)
+    }
+    mcl <- igraph::max_cliques(g)
+    M <- matrix(0, length(mcl), igraph::vcount(g))
+    for (i in seq_len(length(mcl))) {
+        M[i, mcl[[i]]] <- 1
+    }
+    M
 }
 
 
@@ -73,9 +73,9 @@ clique_vertex_mat <- function(g){
 #' @return List of numeric matrices
 #' @author David Schoch
 #' @export
-as_multi_adj <- function(g_lst,attr = NULL,sparse = FALSE){
-  if(!all(unlist(lapply(g_lst,igraph::is.igraph)))){
-    stop("all entries of g_lst must be igraph objects")
-  }
-  lapply(g_lst,function(x) igraph::as_adj(x,"both",attr=attr,sparse=sparse))
+as_multi_adj <- function(g_lst, attr = NULL, sparse = FALSE) {
+    if (!all(unlist(lapply(g_lst, igraph::is.igraph)))) {
+        stop("all entries of g_lst must be igraph objects")
+    }
+    lapply(g_lst, function(x) igraph::as_adj(x, "both", attr = attr, sparse = sparse))
 }
