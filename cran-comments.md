@@ -1,10 +1,11 @@
-## Update from 0.8.1 to 0.8.2
+## Update from 0.8.2 to 0.8.3
 
-* refactored code of `sample_lfr` in C++
+* added more tests
+* require igraph 2.0.0
 
 ## Test environments
-* ubuntu 22.04, R 4.3
-* win-builder (devel and release)
+* ubuntu 24.04, R 4.4.1
+
 
 ## R CMD check results
 

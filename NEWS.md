@@ -1,6 +1,7 @@
-# netUtils 0.8.2.900
+# netUtils 0.8.3
 
 * added more tests #14
+* require igraph 2.0.0
 
 # netUtils 0.8.2
 
