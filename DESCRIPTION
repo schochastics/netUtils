@@ -1,6 +1,6 @@
 Package: netUtils
 Title: A Collection of Tools for Network Analysis
-Version: 0.8.3
+Version: 0.8.3.9000
 Authors@R: 
     person("David", "Schoch", email = "david@schochastics.net", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-2952-4812"))
