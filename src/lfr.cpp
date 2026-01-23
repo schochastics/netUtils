@@ -1121,7 +1121,7 @@ double integral (double a, double b) {
 // it returns the average degree of a power law
 double average_degree(const double &dmax, const double &dmin, const double &gamma) {
 
-	return (1./(integral(gamma, dmax)-integral(gamma, dmin)))*(integral(gamma+1, dmax)-integral(gamma+1, dmin));
+	return (1./(::integral(gamma, dmax)-::integral(gamma, dmin)))*(::integral(gamma+1, dmax)-::integral(gamma+1, dmin));
 
 }
 
