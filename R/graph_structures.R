@@ -34,7 +34,12 @@ as_adj_list1 <- function(g) {
 #' as_adj_weighted(g, attr = "weight")
 #' @export
 as_adj_weighted <- function(g, attr = NULL) {
-    as.matrix(igraph::as_adj(g, attr = attr, type = "both", sparse = TRUE))
+    as.matrix(igraph::as_adjacency_matrix(
+        g,
+        attr = attr,
+        type = "both",
+        sparse = TRUE
+    ))
 }
 
 
@@ -77,5 +82,7 @@ as_multi_adj <- function(g_lst, attr = NULL, sparse = FALSE) {
     if (!all(unlist(lapply(g_lst, igraph::is.igraph)))) {
         stop("all entries of g_lst must be igraph objects")
     }
-    lapply(g_lst, function(x) igraph::as_adj(x, "both", attr = attr, sparse = sparse))
+    lapply(g_lst, function(x) {
+        igraph::as_adjacency_matrix(x, "both", attr = attr, sparse = sparse)
+    })
 }
