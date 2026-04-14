@@ -27,7 +27,6 @@ fast_cliques <- function(g, what = "M", min = NULL, max = NULL, outfile = NA) {
     } else {
         fout <- outfile
     }
-    # adj <- igraph::get.adjlist(g)
     adj <- as_adj_list1(g)
     adj <- lapply(1:length(adj), function(x) {
         neigh <- adj[[x]]
