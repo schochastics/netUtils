@@ -75,29 +75,24 @@ graph_from_multi_edgelist <- function(d, from = NULL, to = NULL, type = NULL, we
     }
     dnames <- names(d)
 
-    if (is.null(from)) {
-        from <- dnames[1]
+    if (!is.null(from) && !from %in% dnames) {
+        stop(paste0(from, " is not a valid column name"))
     }
-    if (is.null(to)) {
-        to <- dnames[2]
+    if (!is.null(to) && !to %in% dnames) {
+        stop(paste0(to, " is not a valid column name"))
     }
-    if (is.null(type)) {
-        type <- dnames[3]
+    if (!is.null(type) && !type %in% dnames) {
+        stop(paste0(type, " is not a valid column name"))
     }
+
+    if (is.null(from)) from <- dnames[1]
+    if (is.null(to)) to <- dnames[2]
+    if (is.null(type)) type <- dnames[3]
+
     if (is.null(weight)) {
         d <- d[, c(from, to, type)]
     } else {
         d <- d[, c(from, to, weight, type)]
-    }
-
-    if (!from %in% dnames) {
-        stop(paste0(from, " is not a valid column name"))
-    }
-    if (!to %in% dnames) {
-        stop(paste0(to, " is not a valid column name"))
-    }
-    if (!type %in% dnames) {
-        stop(paste0(type, " is not a valid column name"))
     }
 
     d_lst <- split(d, d[[type]])
