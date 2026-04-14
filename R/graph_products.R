@@ -16,15 +16,14 @@ graph_cartesian <- function(g, h) {
     elh <- igraph::as_edgelist(h)
     vg <- 1:igraph::vcount(g)
     vh <- 1:igraph::vcount(h)
-    el <- matrix(0, 0, 2)
+    el_list <- vector("list", nrow(elg) + nrow(elh))
     for (i in seq_len(nrow(elg))) {
-        el_tmp <- matrix(apply(expand.grid(elg[i, ], vh), 1, function(x) paste(x, collapse = "-")), ncol = 2, byrow = TRUE)
-        el <- rbind(el, el_tmp)
+        el_list[[i]] <- matrix(apply(expand.grid(elg[i, ], vh), 1, function(x) paste(x, collapse = "-")), ncol = 2, byrow = TRUE)
     }
     for (i in seq_len(nrow(elh))) {
-        el_tmp <- matrix(apply(expand.grid(elh[i, ], vg), 1, function(x) paste(rev(x), collapse = "-")), ncol = 2, byrow = TRUE)
-        el <- rbind(el, el_tmp)
+        el_list[[nrow(elg) + i]] <- matrix(apply(expand.grid(elh[i, ], vg), 1, function(x) paste(rev(x), collapse = "-")), ncol = 2, byrow = TRUE)
     }
+    el <- do.call(rbind, el_list)
     igraph::graph_from_edgelist(el, F)
 }
 
@@ -45,14 +44,16 @@ graph_cartesian <- function(g, h) {
 graph_direct <- function(g, h) {
     elg <- igraph::as_edgelist(g)
     elh <- igraph::as_edgelist(h)
-    el <- matrix(0, 0, 2)
+    el_list <- vector("list", nrow(elg) * nrow(elh) * 2)
+    idx <- 1L
     for (i in seq_len(nrow(elg))) {
         for (j in seq_len(nrow(elh))) {
-            edg <- c(paste0(elg[i, 1], "-", elh[j, 1]), paste0(elg[i, 2], "-", elh[j, 2]))
-            el <- rbind(el, edg)
-            edg <- c(paste0(elg[i, 2], "-", elh[j, 1]), paste0(elg[i, 1], "-", elh[j, 2]))
-            el <- rbind(el, edg)
+            el_list[[idx]] <- c(paste0(elg[i, 1], "-", elh[j, 1]), paste0(elg[i, 2], "-", elh[j, 2]))
+            idx <- idx + 1L
+            el_list[[idx]] <- c(paste0(elg[i, 2], "-", elh[j, 1]), paste0(elg[i, 1], "-", elh[j, 2]))
+            idx <- idx + 1L
         }
     }
+    el <- do.call(rbind, el_list)
     igraph::graph_from_edgelist(el, directed = FALSE)
 }
