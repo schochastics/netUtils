@@ -16,7 +16,7 @@
 #' core_periphery(sg)
 #' @export
 core_periphery <- function(graph, method = "rk1_dc", iter = 500, ...) {
-    A <- igraph::as_adj(graph, type = "both", sparse = FALSE)
+    A <- igraph::as_adjacency_matrix(graph, type = "both", sparse = FALSE)
     if (method == "SA") {
         warning("method='SA' is deprecated, using 'GA' instead")
         method <- "GA"
@@ -27,10 +27,16 @@ core_periphery <- function(graph, method = "rk1_dc", iter = 500, ...) {
 
         n <- nrow(A)
 
-        res <- GA::ga("real-valued",
-            fitness = cp_fct1__0, A = A,
-            lower = rep(0, n), upper = rep(1, n),
-            monitor = FALSE, maxiter = iter, maxFitness = 1, ...
+        res <- GA::ga(
+            "real-valued",
+            fitness = cp_fct1__0,
+            A = A,
+            lower = rep(0, n),
+            upper = rep(1, n),
+            monitor = FALSE,
+            maxiter = iter,
+            maxFitness = 1,
+            ...
         )
         return(list(
             vec = unname(round(res@solution[nrow(res@solution), ])),
@@ -38,54 +44,10 @@ core_periphery <- function(graph, method = "rk1_dc", iter = 500, ...) {
         ))
     } else if (method == "rk1_dc") {
         ev <- igraph::degree(graph, mode = "all", loops = FALSE)
-
-        thresh <- unique(ev)
-        optcorr <- -2
-
-        for (tr in thresh) {
-            evabs <- (ev >= tr) + 0
-            E <- outer(evabs, evabs, "+")
-            E[E == 1] <- NA
-            E[E == 2] <- 1
-            diag(E) <- NA
-            if (sum(E, na.rm = TRUE) == 0) {
-                next()
-            }
-            tmp <- suppressWarnings(graph_cor(E, A))
-            if (is.na(tmp)) {
-                next()
-            }
-            if (tmp > optcorr) {
-                optperm <- evabs
-                optcorr <- tmp
-            }
-        }
-        return(list(vec = optperm, corr = optcorr))
+        return(cp_rk1_optimize(ev, A))
     } else if (method == "rk1_ec") {
         ev <- round(igraph::eigen_centrality(graph)$vector, 8)
-
-        thresh <- unique(ev)
-        optcorr <- -2
-
-        for (tr in thresh) {
-            evabs <- (ev >= tr) + 0
-            E <- outer(evabs, evabs, "+")
-            E[E == 1] <- NA
-            E[E == 2] <- 1
-            diag(E) <- NA
-            if (sum(E, na.rm = TRUE) == 0) {
-                next()
-            }
-            tmp <- suppressWarnings(graph_cor(E, A))
-            if (is.na(tmp)) {
-                next()
-            }
-            if (tmp > optcorr) {
-                optperm <- evabs
-                optcorr <- tmp
-            }
-        }
-        return(list(vec = optperm, corr = optcorr))
+        return(cp_rk1_optimize(ev, A))
     } else {
         stop("method must be one of 'SA', 'rk1_dc', or 'rk1_ec'")
     }
@@ -93,7 +55,33 @@ core_periphery <- function(graph, method = "rk1_dc", iter = 500, ...) {
 
 
 # helper functions ----
-cp_fct1__0 <- function(A, cvec) { # core=1 periphery=0
+cp_rk1_optimize <- function(ev, A) {
+    thresh <- unique(ev)
+    optcorr <- -2
+    optperm <- NULL
+    for (tr in thresh) {
+        evabs <- (ev >= tr) + 0
+        E <- outer(evabs, evabs, "+")
+        E[E == 1] <- NA
+        E[E == 2] <- 1
+        diag(E) <- NA
+        if (sum(E, na.rm = TRUE) == 0) {
+            next()
+        }
+        tmp <- suppressWarnings(graph_cor(E, A))
+        if (is.na(tmp)) {
+            next()
+        }
+        if (tmp > optcorr) {
+            optperm <- evabs
+            optcorr <- tmp
+        }
+    }
+    list(vec = optperm, corr = optcorr)
+}
+
+cp_fct1__0 <- function(A, cvec) {
+    # core=1 periphery=0
     cvec <- round(cvec)
     delta <- outer(cvec, cvec, "+")
     delta[delta == 1] <- NA
