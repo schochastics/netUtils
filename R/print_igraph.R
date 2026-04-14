@@ -52,35 +52,8 @@ str.igraph <- function(object, ...) {
         gattr_str <- paste0(gattr_str, "\n", short_delim)
     }
 
-    # vertex attrs
-    vattr_str <- ""
-    for (l in seq_along(vattrs)) {
-        peek <- head_dot(vattrs[[l]], nchar(names(vattrs)[l]) + 4)
-        if (l == 1) {
-            vattr_str <- "-Vertex Attributes:\n "
-            vattr_str <- paste0(vattr_str, paste0(names(vattrs)[l], "(", substr(mode(vattrs[[l]]), 1, 1), "): ", peek, "\n"))
-        } else {
-            vattr_str <- paste0(vattr_str, paste0(" ", names(vattrs)[l], "(", substr(mode(vattrs[[l]]), 1, 1), "): ", peek, "\n"))
-        }
-    }
-    if (length(vattrs) > 0) {
-        vattr_str <- paste0(vattr_str, short_delim)
-    }
-
-    eattr_str <- ""
-    for (l in seq_along(eattrs)) {
-        peek <- head_dot(eattrs[[l]], nchar(names(eattrs)[l]) + 4)
-        if (l == 1) {
-            eattr_str <- "-Edge Attributes:\n "
-            eattr_str <- paste0(eattr_str, paste0(names(eattrs)[l], "(", substr(mode(eattrs[[l]]), 1, 1), "): ", peek, "\n"))
-        } else {
-            eattr_str <- paste0(eattr_str, paste0(" ", names(eattrs)[l], "(", substr(mode(eattrs[[l]]), 1, 1), "): ", peek, "\n"))
-        }
-    }
-
-    if (length(eattrs) > 0) {
-        eattr_str <- paste0(eattr_str, short_delim)
-    }
+    vattr_str <- format_attr_section(vattrs, "Vertex", short_delim)
+    eattr_str <- format_attr_section(eattrs, "Edge", short_delim)
     if (igraph::ecount(object) > 0) {
         edges <- igraph::get.edgelist(object)[1:min(c(10, igraph::ecount(object))), ]
         edges <- strwrap(paste0(apply(edges, 1, paste0, collapse = c("--", "->")[igraph::is.directed(object) + 1]), collapse = " "))
@@ -96,6 +69,16 @@ str.igraph <- function(object, ...) {
     cat(delim, head, delim, gstats, gattr_str, vattr_str, eattr_str, edges, sep = "")
 }
 
+
+format_attr_section <- function(attrs, label, short_delim) {
+    if (length(attrs) == 0) return("")
+    lines <- vapply(seq_along(attrs), function(l) {
+        peek <- head_dot(attrs[[l]], nchar(names(attrs)[l]) + 4)
+        prefix <- if (l == 1) "" else " "
+        paste0(prefix, names(attrs)[l], "(", substr(mode(attrs[[l]]), 1, 1), "): ", peek, "\n")
+    }, character(1))
+    paste0("-", label, " Attributes:\n ", paste0(lines, collapse = ""), short_delim)
+}
 
 head_dot <- function(x, lname) {
     stri <- strwrap(paste0(x, collapse = ", "), width = 0.9 * getOption("width") - lname)[1]
