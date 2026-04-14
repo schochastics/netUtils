@@ -1,6 +1,12 @@
 # Changelog
 
+## netUtils 0.8.5
+
+- fix igraph deprecations
+
 ## netUtils 0.8.4
+
+CRAN release: 2026-01-24
 
 - fixed M1mac issues
 

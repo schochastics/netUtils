@@ -31,8 +31,8 @@ David Schoch
 ``` r
 # 3-partite graph with equal sized groups
 graph_kpartite(n = 15, grp = c(5, 5, 5))
-#> IGRAPH 2fd0336 U--- 15 75 -- 
-#> + edges from 2fd0336:
+#> IGRAPH c2e487b U--- 15 75 -- 
+#> + edges from c2e487b:
 #>  [1]  1-- 6  2-- 6  3-- 6  4-- 6  5-- 6  1-- 7  2-- 7  3-- 7  4-- 7  5-- 7
 #> [11]  1-- 8  2-- 8  3-- 8  4-- 8  5-- 8  1-- 9  2-- 9  3-- 9  4-- 9  5-- 9
 #> [21]  1--10  2--10  3--10  4--10  5--10  1--11  2--11  3--11  4--11  5--11

@@ -37,9 +37,9 @@ library(igraph)
 g <- make_ring(4)
 h <- make_full_graph(2)
 graph_cartesian(g, h)
-#> IGRAPH 5158ba8 UN-- 8 12 -- 
+#> IGRAPH 90858ab UN-- 8 12 -- 
 #> + attr: name (v/c)
-#> + edges from 5158ba8 (vertex names):
+#> + edges from 90858ab (vertex names):
 #>  [1] 1-1--2-1 1-2--2-2 2-1--3-1 2-2--3-2 3-1--4-1 3-2--4-2 1-1--4-1 1-2--4-2
 #>  [9] 1-1--1-2 2-1--2-2 3-1--3-2 4-1--4-2
 ```

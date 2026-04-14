@@ -53,7 +53,7 @@ David Schoch
 library(igraph)
 g <- sample_gnp(20, p = 0.3, directed = TRUE)
 reciprocity(g)
-#> [1] 0.3252033
+#> [1] 0.3779528
 reciprocity_cor(g)
-#> [1] 0.002246054
+#> [1] 0.06569979
 ```
