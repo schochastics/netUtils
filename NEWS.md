@@ -1,3 +1,7 @@
+# netUtils 0.8.5
+
+* fix igraph deprecations
+
 # netUtils 0.8.4
 
 * fixed M1mac issues

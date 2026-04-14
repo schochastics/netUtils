@@ -1,3 +1,3 @@
-## Update from 0.8.3 to 0.8.4
+## Update from 0.8.4 to 0.8.5
 
-* fix M1mac issues
+* fix igraph deprecations
