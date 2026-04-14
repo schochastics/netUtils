@@ -68,10 +68,12 @@ add_lower_nodes <- function(cores, indices, g, k) {
     if (k == 0) {
         return(g)
     }
+    all_edges <- integer(0)
     for (v in indices[[k + 1]]) {
         randv <- sample(higher_nodes, k, replace = FALSE)
-        g <- igraph::add_edges(g, c(t(cbind(randv, v))))
+        all_edges <- c(all_edges, c(t(cbind(randv, v))))
     }
+    g <- igraph::add_edges(g, all_edges)
     return(add_lower_nodes(cores, indices, g, k - 1))
 }
 
@@ -81,6 +83,7 @@ generate_k_graph <- function(C, N, g) {
         g <- igraph::add_edges(g, edges = c(t(cbind(1:(N - 1), 2:N))))
         g <- igraph::add_edges(g, edges = c(1, N))
         z <- ceiling((N - C + 1) / 2)
+        all_edges <- integer(0)
         for (i in 0:(N - 1)) {
             start <- (i + z + 1) %% (N) # BUG POTENTIAL!!!
             stop <- (i - z) %% (N) # BUG POTENTIAL!!!
@@ -92,9 +95,10 @@ generate_k_graph <- function(C, N, g) {
                 listv <- c((0:(N - 1))[0:(stop)], (0:(N - 1))[(start + 1):N])
                 edges <- c(t(cbind(listv, i)))
             }
-            g <- igraph::add_edges(g, edges + 1)
-            g <- igraph::simplify(g)
+            all_edges <- c(all_edges, edges + 1)
         }
+        g <- igraph::add_edges(g, all_edges)
+        g <- igraph::simplify(g)
     } else {
         g <- generate_k_graph(C, N - 1, g)
         g <- igraph::add_vertices(g, 1)
