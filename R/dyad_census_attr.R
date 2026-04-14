@@ -33,11 +33,12 @@ dyad_census_attr <- function(g, vattr) {
     edges[["reci"]] <- igraph::which_mutual(g)
     edges[["count"]] <- 1
 
+    empty_grid <- cbind(expand.grid(from_attr = 1:max(attr), to_attr = 1:max(attr)), count = 0)
     asym <- tryCatch(stats::aggregate(count ~ from_attr + to_attr, data = edges[!edges[["reci"]], ], FUN = sum),
-        error = function(e) cbind(expand.grid(from_attr = 1:max(attr), to_attr = 1:max(attr)), count = 0)
+        error = function(e) empty_grid
     )
     sym <- tryCatch(stats::aggregate(count ~ from_attr + to_attr, data = edges[edges[["reci"]], ], FUN = sum),
-        error = function(e) cbind(expand.grid(from_attr = 1:max(attr), to_attr = 1:max(attr)), count = 0)
+        error = function(e) empty_grid
     )
 
     idxx <- sym[["from_attr"]] == sym[["to_attr"]]
