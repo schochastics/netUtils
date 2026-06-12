@@ -12,16 +12,7 @@
 #' dyad_census_attr(g, "attr")
 #' @export
 dyad_census_attr <- function(g, vattr) {
-    if (!igraph::is_directed(g)) {
-        stop("g must be a directed graph")
-    }
-    if (!vattr %in% igraph::vertex_attr_names(g)) {
-        stop(paste0("there is no vertex attribute called ", vattr))
-    }
-    attr <- igraph::vertex_attr(g, vattr)
-    if (!all(is.numeric(attr))) {
-        stop("vertex attribute must be numeric ")
-    }
+    attr <- validate_vattr(g, vattr)
     ns <- table(attr)
 
     df <- igraph::as_data_frame(g, "both")
