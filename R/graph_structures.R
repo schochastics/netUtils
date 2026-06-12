@@ -11,7 +11,7 @@
 #' @export
 as_adj_list1 <- function(g) {
     n <- igraph::vcount(g)
-    lapply(1:n, function(i) {
+    lapply(seq_len(n), function(i) {
         x <- g[[i]][[1]]
         attr(x, "env") <- NULL
         attr(x, "graph") <- NULL
@@ -59,7 +59,7 @@ clique_vertex_mat <- function(g) {
     }
     if (igraph::is_directed(g)) {
         warning("g is directed. Underlying undirected graph is used")
-        g <- igraph::as.undirected(g)
+        g <- igraph::as_undirected(g)
     }
     mcl <- igraph::max_cliques(g)
     M <- matrix(0, length(mcl), igraph::vcount(g))
@@ -79,7 +79,7 @@ clique_vertex_mat <- function(g) {
 #' @author David Schoch
 #' @export
 as_multi_adj <- function(g_lst, attr = NULL, sparse = FALSE) {
-    if (!all(unlist(lapply(g_lst, igraph::is.igraph)))) {
+    if (!all(unlist(lapply(g_lst, igraph::is_igraph)))) {
         stop("all entries of g_lst must be igraph objects")
     }
     lapply(g_lst, function(x) {
