@@ -29,7 +29,7 @@ bipartite_from_data_frame <- function(d, type1, type2, attr = NULL, weighted = T
     }
     el <- cbind(d[[type1]], d[[type2]])
 
-    g <- igraph::graph.empty(directed = FALSE)
+    g <- igraph::make_empty_graph(directed = FALSE)
     g <- igraph::add_vertices(g, nv = length(mode1), attr = list(name = mode1, type = TRUE))
     g <- igraph::add_vertices(g, nv = length(mode2), attr = list(name = mode2, type = FALSE))
     if (!is.null(attr)) {
@@ -113,10 +113,10 @@ graph_from_multi_edgelist <- function(d, from = NULL, to = NULL, type = NULL, we
 #' @export
 
 graph_kpartite <- function(n = 10, grp = c(5, 5)) {
-    g <- igraph::graph.empty(n = n, directed = FALSE)
+    g <- igraph::make_empty_graph(n = n, directed = FALSE)
     cur_node <- 1
-    nodes <- 1:n
-    for (i in 1:(length(grp) - 1)) {
+    nodes <- seq_len(n)
+    for (i in seq_len(length(grp) - 1)) {
         add_nodes <- cur_node:(cur_node + grp[i] - 1)
         add_edges <- c(t(expand.grid(add_nodes, nodes[nodes > max(add_nodes)])))
         g <- igraph::add_edges(g, add_edges)
