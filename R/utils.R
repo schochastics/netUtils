@@ -19,3 +19,19 @@ biggest_component <- function(g) {
 delete_isolates <- function(g) {
     igraph::delete_vertices(g, which(igraph::degree(g) == 0))
 }
+
+# validate that `g` is a directed graph carrying a numeric vertex attribute
+# `vattr`, and return that attribute vector. Used by the *_census_attr functions.
+validate_vattr <- function(g, vattr) {
+    if (!igraph::is_directed(g)) {
+        stop("g must be a directed graph", call. = FALSE)
+    }
+    if (!vattr %in% igraph::vertex_attr_names(g)) {
+        stop("there is no vertex attribute called ", vattr, call. = FALSE)
+    }
+    attr <- igraph::vertex_attr(g, vattr)
+    if (!all(is.numeric(attr))) {
+        stop("vertex attribute must be numeric ", call. = FALSE)
+    }
+    attr
+}
