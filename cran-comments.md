@@ -1,3 +1,5 @@
-## Update from 0.8.4 to 0.8.5
+## Update from 0.8.5 to 0.8.6
 
-* fix igraph deprecations
+* modernized remaining deprecated igraph calls
+* internal refactoring to reduce code duplication
+* added tests for `str.igraph`
