@@ -9,6 +9,7 @@ packages.
 You can install the development version of netUtils with:
 
 ``` r
+
 # install.packages("remotes")
 remotes::install_github("schochastics/netUtils")
 ```
