@@ -53,6 +53,4 @@ graph_cor.matrix <- function(object1, object2) {
 #' @rdname graph_cor
 #' @method graph_cor array
 #' @export
-graph_cor.array <- function(object1, object2) {
-    stats::cor(c(object1), c(object2), use = "complete.obs")
-}
+graph_cor.array <- graph_cor.matrix

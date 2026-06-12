@@ -19,7 +19,7 @@ structural_equivalence <- function(g) {
         g <- igraph::make_empty_graph()
         g <- igraph::add_vertices(g, nrow(P))
         g <- igraph::add_edges(g, c(t(MSE)))
-        g <- igraph::as.undirected(g)
+        g <- igraph::as_undirected(g)
         MSE <- igraph::components(g, "weak")$membership
     } else {
         MSE <- seq_len(nrow(P))

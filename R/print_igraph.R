@@ -7,11 +7,11 @@
 #' @export
 str.igraph <- function(object, ...) {
     maxpr <- getOption("width")
-    gattrs <- igraph::graph.attributes(object)
-    vattrs <- igraph::vertex.attributes(object)
-    eattrs <- igraph::edge.attributes(object)
+    gattrs <- igraph::graph_attr(object)
+    vattrs <- igraph::vertex_attr(object)
+    eattrs <- igraph::edge_attr(object)
     comps <- igraph::components(object)
-    dens <- igraph::graph.density(object)
+    dens <- igraph::edge_density(object)
 
     # header
     if (!"name" %in% names(gattrs)) {
@@ -21,10 +21,10 @@ str.igraph <- function(object, ...) {
     }
 
     head <- paste(toupper(gname), " ",
-        c("(undirected", "(directed")[igraph::is.directed(object) + 1], ", ",
-        c("unweighted", "weighted")[igraph::is.weighted(object) + 1], ", ",
+        c("(undirected", "(directed")[igraph::is_directed(object) + 1], ", ",
+        c("unweighted", "weighted")[igraph::is_weighted(object) + 1], ", ",
         c("", "signed, ")["sign" %in% names(eattrs) + 1],
-        c("one-mode", "two-mode")[igraph::is.bipartite(object) + 1], " ",
+        c("one-mode", "two-mode")[igraph::is_bipartite(object) + 1], " ",
         "network)",
         sep = ""
     )
@@ -55,8 +55,8 @@ str.igraph <- function(object, ...) {
     vattr_str <- format_attr_section(vattrs, "Vertex", short_delim)
     eattr_str <- format_attr_section(eattrs, "Edge", short_delim)
     if (igraph::ecount(object) > 0) {
-        edges <- igraph::get.edgelist(object)[1:min(c(10, igraph::ecount(object))), ]
-        edges <- strwrap(paste0(apply(edges, 1, paste0, collapse = c("--", "->")[igraph::is.directed(object) + 1]), collapse = " "))
+        edges <- igraph::as_edgelist(object)[seq_len(min(c(10, igraph::ecount(object)))), ]
+        edges <- strwrap(paste0(apply(edges, 1, paste0, collapse = c("--", "->")[igraph::is_directed(object) + 1]), collapse = " "))
         edges <- paste(edges, collapse = "\n")
         if (igraph::ecount(object) > 10) {
             edges <- c("-Edges (first 10): \n ", edges)
