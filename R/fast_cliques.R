@@ -10,7 +10,7 @@
 #' @author David Schoch
 #' @references Kazuhisa Makino, Takeaki Uno, "New Algorithms for Enumerating All Maximal Cliques", Lecture Notes in Computer Science 3111 (Proceedings of SWAT 2004), Springer, pp.260-272, 2004
 fast_cliques <- function(g, what = "M", min = NULL, max = NULL, outfile = NA) {
-    if (!igraph::is.igraph(g)) {
+    if (!igraph::is_igraph(g)) {
         stop("g must be an igraph object")
     }
     what <- match.arg(what, c("M", "C"))
@@ -28,7 +28,7 @@ fast_cliques <- function(g, what = "M", min = NULL, max = NULL, outfile = NA) {
         fout <- outfile
     }
     adj <- as_adj_list1(g)
-    adj <- lapply(1:length(adj), function(x) {
+    adj <- lapply(seq_along(adj), function(x) {
         neigh <- adj[[x]]
         neigh[neigh > x] - 1
     })
