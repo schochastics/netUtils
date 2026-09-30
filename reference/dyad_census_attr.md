@@ -20,11 +20,32 @@ dyad_census_attr(g, vattr)
 
 ## Value
 
-dyad census as a data.frame.
+dyad census as a data.frame with one row per unordered pair of attribute
+values `from_attr <= to_attr` and columns
+
+- asym_ab:
+
+  asymmetric dyads with the edge pointing from `from_attr` to `to_attr`.
+  For within-group rows (`from_attr == to_attr`) this is the total
+  number of asymmetric dyads.
+
+- asym_ba:
+
+  asymmetric dyads with the edge pointing from `to_attr` to `from_attr`.
+  `NA` for within-group rows, where the direction is not defined.
+
+- sym:
+
+  mutual dyads
+
+- null:
+
+  empty dyads
 
 ## Details
 
-The node attribute should be integers from 1 to max(attr)
+The node attribute should be integers from 1 to max(attr). Multiple
+edges and loops are ignored.
 
 ## Author
 
@@ -38,7 +59,7 @@ g <- sample_gnp(10, 0.4, directed = TRUE)
 V(g)$attr <- c(rep(1, 5), rep(2, 5))
 dyad_census_attr(g, "attr")
 #>   from_attr to_attr asym_ab asym_ba sym null
-#> 1         1       1       0       0   1    9
+#> 1         1       1       1      NA   1    8
 #> 2         1       2       6       6   1   12
-#> 3         2       2       0       0   5    5
+#> 3         2       2       3      NA   5    2
 ```

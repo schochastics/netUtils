@@ -1,6 +1,25 @@
 # Changelog
 
+## netUtils (development version)
+
+- [`dyad_census_attr()`](https://schochastics.github.io/netUtils/reference/dyad_census_attr.md)
+  fixed: asymmetric dyads were dropped when a group pair had edges in
+  one direction only, and within-group asymmetric dyads were always
+  reported as 0. Named vertices returned all zeros and graphs without
+  edges errored. Within-group rows now report the total asymmetric count
+  in `asym_ab` and `NA` in `asym_ba`. Multiple edges and loops are
+  ignored.
+- [`dyad_census_attr()`](https://schochastics.github.io/netUtils/reference/dyad_census_attr.md)
+  and
+  [`triad_census_attr()`](https://schochastics.github.io/netUtils/reference/triad_census_attr.md)
+  now validate that the vertex attribute holds positive integers without
+  missing values.
+- `core_periphery(method = "SA")` now actually runs the GA method as
+  announced in its deprecation warning (it returned nothing before).
+
 ## netUtils 0.8.6
+
+CRAN release: 2026-06-12
 
 - modernized remaining deprecated igraph calls
 - internal refactoring to reduce code duplication

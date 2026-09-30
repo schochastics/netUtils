@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">netUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.6.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,16 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.8.6" id="netutils-086">netUtils 0.8.6<a class="anchor" aria-label="anchor" href="#netutils-086"></a></h2>
+<h2 class="pkg-version" data-toc-text="development version" id="netutils-development-version">netUtils (development version)<a class="anchor" aria-label="anchor" href="#netutils-development-version"></a></h2>
+<ul><li>
+<code><a href="../reference/dyad_census_attr.html">dyad_census_attr()</a></code> fixed: asymmetric dyads were dropped when a group pair had edges in one direction only, and within-group asymmetric dyads were always reported as 0. Named vertices returned all zeros and graphs without edges errored. Within-group rows now report the total asymmetric count in <code>asym_ab</code> and <code>NA</code> in <code>asym_ba</code>. Multiple edges and loops are ignored.</li>
+<li>
+<code><a href="../reference/dyad_census_attr.html">dyad_census_attr()</a></code> and <code><a href="../reference/triad_census_attr.html">triad_census_attr()</a></code> now validate that the vertex attribute holds positive integers without missing values.</li>
+<li>
+<code>core_periphery(method = "SA")</code> now actually runs the GA method as announced in its deprecation warning (it returned nothing before).</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.8.6" id="netutils-086">netUtils 0.8.6<a class="anchor" aria-label="anchor" href="#netutils-086"></a></h2><p class="text-muted">CRAN release: 2026-06-12</p>
 <ul><li>modernized remaining deprecated igraph calls</li>
 <li>internal refactoring to reduce code duplication</li>
 <li>added tests for <code>str.igraph</code>
@@ -105,7 +114,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>
