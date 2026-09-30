@@ -14,38 +14,46 @@ sample_lfr(
   min_community = NULL,
   max_community = NULL,
   on = 0,
-  om = 0
+  om = 0,
+  verbose = FALSE
 )
 }
 \arguments{
 \item{n}{Number of nodes in the created graph.}
 
-\item{tau1}{Power law exponent for the degree distribution of the created graph. This value must be strictly greater than one}
+\item{tau1}{Power law exponent for the degree distribution of the created graph. This value must be at least one.}
 
-\item{tau2}{Power law exponent for the community size distribution in the created graph. This value must be strictly greater than one}
+\item{tau2}{Power law exponent for the community size distribution in the created graph. This value must be at least one.}
 
 \item{mu}{Fraction of inter-community edges incident to each node. This value must be in the interval 0 to 1.}
 
-\item{average_degree}{Desired average degree of nodes in the created graph. This value must be in the interval 0 to n. Exactly one of this and \code{min_degree} must be specified, otherwise an error is raised}
+\item{average_degree}{Desired average degree of nodes in the created graph. This value must be in the interval (0, n] and is required.}
 
-\item{max_degree}{Maximum degree of nodes in the created graph. If not specified, this is set to n-1.}
+\item{max_degree}{Maximum degree of nodes in the created graph. This value must be in the interval (0, n] and is required.}
 
-\item{min_community}{Minimum size of communities in the graph. If not specified, this is set to \code{min_degree}}
+\item{min_community}{Minimum size of communities in the graph. Either both or none of \code{min_community} and \code{max_community} must be specified.
+If none are specified, the community size range is set automatically to \verb{[max(k_min, 3), max_degree]},
+where \code{k_min} is the minimum degree implied by \code{average_degree}, \code{max_degree} and \code{tau1}.}
 
-\item{max_community}{Maximum size of communities in the graph. If not specified, this is set to n, the total number of nodes in the graph.}
+\item{max_community}{Maximum size of communities in the graph. Must be at least \code{min_community}.}
 
-\item{on}{number of overlapping nodes}
+\item{on}{number of overlapping nodes (a non-negative integer not larger than \code{n}).}
 
-\item{om}{number of memberships of the overlapping nodes}
+\item{om}{number of memberships of the overlapping nodes. Must be at least 2 if \code{on > 0}.}
+
+\item{verbose}{logical. Should progress messages of the generator be printed?}
 }
 \value{
-an igraph object
+an igraph object with two vertex attributes: \code{membership}, an integer vector
+holding the (first) community of each vertex, and \code{memberships}, a list holding
+all communities of each vertex (only overlapping vertices have more than one).
 }
 \description{
 Generates benchmark networks for clustering tasks with a priori known communities. The algorithm accounts for the heterogeneity in the distributions of node degrees and of community sizes.
 }
 \details{
-code adapted from \url{https://github.com/synwalk/synwalk-analysis/tree/master/lfr_generator}
+code adapted from \url{https://github.com/synwalk/synwalk-analysis/tree/master/lfr_generator}.
+Random numbers are drawn from R's random number generator, so results can be reproduced with \code{\link[=set.seed]{set.seed()}}.
 }
 \examples{
 # Simple Girven-Newman benchmark graphs

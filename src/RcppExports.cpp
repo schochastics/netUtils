@@ -11,8 +11,8 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // benchmark
-Rcpp::List benchmark(bool excess, bool defect, int num_nodes, double average_k, int max_degree, double tau, double tau2, double mixing_parameter, int overlapping_nodes, int overlap_membership, int nmin, int nmax, bool fixed_range);
-RcppExport SEXP _netUtils_benchmark(SEXP excessSEXP, SEXP defectSEXP, SEXP num_nodesSEXP, SEXP average_kSEXP, SEXP max_degreeSEXP, SEXP tauSEXP, SEXP tau2SEXP, SEXP mixing_parameterSEXP, SEXP overlapping_nodesSEXP, SEXP overlap_membershipSEXP, SEXP nminSEXP, SEXP nmaxSEXP, SEXP fixed_rangeSEXP) {
+Rcpp::List benchmark(bool excess, bool defect, int num_nodes, double average_k, int max_degree, double tau, double tau2, double mixing_parameter, int overlapping_nodes, int overlap_membership, int nmin, int nmax, bool fixed_range, bool verbose);
+RcppExport SEXP _netUtils_benchmark(SEXP excessSEXP, SEXP defectSEXP, SEXP num_nodesSEXP, SEXP average_kSEXP, SEXP max_degreeSEXP, SEXP tauSEXP, SEXP tau2SEXP, SEXP mixing_parameterSEXP, SEXP overlapping_nodesSEXP, SEXP overlap_membershipSEXP, SEXP nminSEXP, SEXP nmaxSEXP, SEXP fixed_rangeSEXP, SEXP verboseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -29,7 +29,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type nmin(nminSEXP);
     Rcpp::traits::input_parameter< int >::type nmax(nmaxSEXP);
     Rcpp::traits::input_parameter< bool >::type fixed_range(fixed_rangeSEXP);
-    rcpp_result_gen = Rcpp::wrap(benchmark(excess, defect, num_nodes, average_k, max_degree, tau, tau2, mixing_parameter, overlapping_nodes, overlap_membership, nmin, nmax, fixed_range));
+    Rcpp::traits::input_parameter< bool >::type verbose(verboseSEXP);
+    rcpp_result_gen = Rcpp::wrap(benchmark(excess, defect, num_nodes, average_k, max_degree, tau, tau2, mixing_parameter, overlapping_nodes, overlap_membership, nmin, nmax, fixed_range, verbose));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -63,7 +64,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_netUtils_benchmark", (DL_FUNC) &_netUtils_benchmark, 13},
+    {"_netUtils_benchmark", (DL_FUNC) &_netUtils_benchmark, 14},
     {"_netUtils_mse", (DL_FUNC) &_netUtils_mse, 2},
     {"_netUtils_triadCensusCol", (DL_FUNC) &_netUtils_triadCensusCol, 6},
     {NULL, NULL, 0}
