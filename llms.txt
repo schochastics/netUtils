@@ -44,7 +44,7 @@ calculates triad census with node attributes.
 [`core_periphery()`](https://schochastics.github.io/netUtils/reference/core_periphery.md)
 fits a discrete core periphery model.  
 [`graph_kpartite()`](https://schochastics.github.io/netUtils/reference/graph_kpartite.md)
-creates a random k-partite network.  
+creates a complete k-partite network.  
 [`split_graph()`](https://schochastics.github.io/netUtils/reference/split_graph.md)
 sample graph with perfect core periphery structure.  
 [`sample_coreseq()`](https://schochastics.github.io/netUtils/reference/sample_coreseq.md)
@@ -84,8 +84,6 @@ extracts the dense weighted adjacency matrix fast.
   : Discrete core-periphery model
 - [`dyad_census_attr()`](https://schochastics.github.io/netUtils/reference/dyad_census_attr.md)
   : dyad census with node attributes
-- [`fast_cliques()`](https://schochastics.github.io/netUtils/reference/fast_cliques.md)
-  : Find Cliques, maximal or not, fast
 - [`graph_cartesian()`](https://schochastics.github.io/netUtils/reference/graph_cartesian.md)
   : Cartesian product of two graphs
 - [`graph_cor()`](https://schochastics.github.io/netUtils/reference/graph_cor.md)

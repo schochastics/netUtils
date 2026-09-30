@@ -44,7 +44,7 @@ calculates triad census with node attributes.
 [`core_periphery()`](https://schochastics.github.io/netUtils/reference/core_periphery.md)
 fits a discrete core periphery model.  
 [`graph_kpartite()`](https://schochastics.github.io/netUtils/reference/graph_kpartite.md)
-creates a random k-partite network.  
+creates a complete k-partite network.  
 [`split_graph()`](https://schochastics.github.io/netUtils/reference/split_graph.md)
 sample graph with perfect core periphery structure.  
 [`sample_coreseq()`](https://schochastics.github.io/netUtils/reference/sample_coreseq.md)

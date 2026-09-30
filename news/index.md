@@ -32,7 +32,8 @@
   or factor codes), and merging multiple edges no longer fails with
   non-numeric edge attributes.
 - [`structural_equivalence()`](https://schochastics.github.io/netUtils/reference/structural_equivalence.md)
-  now works with multiple edges.
+  now works with multiple edges and no longer needs memory quadratic in
+  the number of vertices.
 - [`sample_coreseq()`](https://schochastics.github.io/netUtils/reference/sample_coreseq.md)
   now rejects impossible coreness sequences (a k-core needs at least k +
   1 nodes) and invalid input.
@@ -43,6 +44,30 @@
 - [`as_adj_list1()`](https://schochastics.github.io/netUtils/reference/as_adj_list1.md)
   now returns all neighbors of directed graphs, as documented (it
   returned only out-neighbors).
+- [`graph_cor()`](https://schochastics.github.io/netUtils/reference/graph_cor.md)
+  now excludes the diagonal by default, the standard definition of graph
+  correlation. Use `diag = TRUE` for the previous behavior. For igraph
+  objects, the new `attr` argument selects an edge attribute as weights.
+- [`graph_kpartite()`](https://schochastics.github.io/netUtils/reference/graph_kpartite.md)
+  now uses
+  [`igraph::make_full_multipartite()`](https://r.igraph.org/reference/make_full_multipartite.html),
+  errors if the partition sizes do not sum to `n` and stores the
+  partition in the vertex attribute `type`. The documentation now
+  correctly says it creates a complete k-partite graph.
+- [`graph_from_multi_edgelist()`](https://schochastics.github.io/netUtils/reference/graph_from_multi_edgelist.md)
+  stores the `weight` column as edge attribute `weight`, so the graphs
+  are weighted, and validates it.
+- [`split_graph()`](https://schochastics.github.io/netUtils/reference/split_graph.md)
+  validates `core`.
+- [`as_adj_weighted()`](https://schochastics.github.io/netUtils/reference/as_adj_weighted.md),
+  [`as_multi_adj()`](https://schochastics.github.io/netUtils/reference/as_multi_adj.md),
+  [`graph_cor()`](https://schochastics.github.io/netUtils/reference/graph_cor.md)
+  and
+  [`core_periphery()`](https://schochastics.github.io/netUtils/reference/core_periphery.md)
+  work with the upcoming igraph 3.0.0 and keep using unweighted
+  adjacency matrices unless an edge attribute is given.
+- removed the internal, unexported `fast_cliques()`.
+- requires igraph \>= 2.3.0.
 - [`sample_pa_homophilic()`](https://schochastics.github.io/netUtils/reference/sample_pa_homophilic.md)
   is faster, validates its input and has working examples; results for a
   given seed are unchanged.
@@ -140,5 +165,4 @@ added
   [`graph_cartesian()`](https://schochastics.github.io/netUtils/reference/graph_cartesian.md)
   and
   [`graph_direct()`](https://schochastics.github.io/netUtils/reference/graph_direct.md)
-- added fast max clique routine
-  [`fast_cliques()`](https://schochastics.github.io/netUtils/reference/fast_cliques.md)
+- added fast max clique routine `fast_cliques()`

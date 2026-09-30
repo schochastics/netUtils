@@ -16,8 +16,6 @@
   : Discrete core-periphery model
 - [`dyad_census_attr()`](https://schochastics.github.io/netUtils/reference/dyad_census_attr.md)
   : dyad census with node attributes
-- [`fast_cliques()`](https://schochastics.github.io/netUtils/reference/fast_cliques.md)
-  : Find Cliques, maximal or not, fast
 - [`graph_cartesian()`](https://schochastics.github.io/netUtils/reference/graph_cartesian.md)
   : Cartesian product of two graphs
 - [`graph_cor()`](https://schochastics.github.io/netUtils/reference/graph_cor.md)

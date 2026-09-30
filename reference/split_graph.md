@@ -35,9 +35,9 @@ David Schoch
 ``` r
 # split graph with 20 nodes and a core size of 10
 split_graph(n = 20, p = 0.4, 0.5)
-#> IGRAPH f4fe14c U--- 20 82 -- 
+#> IGRAPH d855223 U--- 20 82 -- 
 #> + attr: core (v/l)
-#> + edges from f4fe14c:
+#> + edges from d855223:
 #>  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  1-- 7  1-- 8  1-- 9  1--10  1--12
 #> [11]  1--16  1--20  2-- 3  2-- 4  2-- 5  2-- 6  2-- 7  2-- 8  2-- 9  2--10
 #> [21]  2--16  2--19  2--20  3-- 4  3-- 5  3-- 6  3-- 7  3-- 8  3-- 9  3--10

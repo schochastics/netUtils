@@ -74,9 +74,9 @@ David Schoch
 ``` r
 # maximally heterophilic network
 sample_pa_homophilic(n = 50, m = 2, minority_fraction = 0.2, h_ab = 1)
-#> IGRAPH 2042080 U--- 50 84 -- 
+#> IGRAPH de9dd99 U--- 50 84 -- 
 #> + attr: minority (v/l)
-#> + edges from 2042080:
+#> + edges from de9dd99:
 #>  [1]  5-- 9  7-- 9  9--10  1--10  5--11 10--11 11--12  9--12  9--13 11--13
 #> [11] 10--14 12--14 14--15  1--15 11--16  9--16 11--17 14--17 14--18  9--18
 #> [21] 11--19 14--19 14--20  1--20  9--21 14--21  9--22  1--22  9--23  1--23
@@ -88,9 +88,9 @@ sample_pa_homophilic(n = 50, m = 2, minority_fraction = 0.2, h_ab = 1)
 #> + ... omitted several edges
 # maximally homophilic network
 sample_pa_homophilic(n = 50, m = 2, minority_fraction = 0.2, h_ab = 0)
-#> IGRAPH 069564c U--- 50 92 -- 
+#> IGRAPH b3bb204 U--- 50 92 -- 
 #> + attr: minority (v/l)
-#> + edges from 069564c:
+#> + edges from b3bb204:
 #>  [1]  1-- 3  2-- 3  3-- 4  2-- 4  4-- 5  2-- 5  3-- 6  1-- 6  3-- 8  6-- 8
 #> [11]  6-- 9  3-- 9  3--10  8--10  3--11  8--11  8--12  3--12  3--13  6--13
 #> [21]  6--14  2--14  6--15  2--15  3--16  8--16 11--17  2--17 16--18  8--18

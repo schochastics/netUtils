@@ -45,13 +45,25 @@
 <li>
 <code><a href="../reference/bipartite_from_data_frame.html">bipartite_from_data_frame()</a></code> now handles numeric and factor columns (they were used as vertex ids or factor codes), and merging multiple edges no longer fails with non-numeric edge attributes.</li>
 <li>
-<code><a href="../reference/structural_equivalence.html">structural_equivalence()</a></code> now works with multiple edges.</li>
+<code><a href="../reference/structural_equivalence.html">structural_equivalence()</a></code> now works with multiple edges and no longer needs memory quadratic in the number of vertices.</li>
 <li>
 <code><a href="../reference/sample_coreseq.html">sample_coreseq()</a></code> now rejects impossible coreness sequences (a k-core needs at least k + 1 nodes) and invalid input.</li>
 <li>
 <code><a href="../reference/graph_cartesian.html">graph_cartesian()</a></code> and <code><a href="../reference/graph_direct.html">graph_direct()</a></code> keep vertex pairs without edges, and are vectorized.</li>
 <li>
 <code><a href="../reference/as_adj_list1.html">as_adj_list1()</a></code> now returns all neighbors of directed graphs, as documented (it returned only out-neighbors).</li>
+<li>
+<code><a href="../reference/graph_cor.html">graph_cor()</a></code> now excludes the diagonal by default, the standard definition of graph correlation. Use <code>diag = TRUE</code> for the previous behavior. For igraph objects, the new <code>attr</code> argument selects an edge attribute as weights.</li>
+<li>
+<code><a href="../reference/graph_kpartite.html">graph_kpartite()</a></code> now uses <code><a href="https://r.igraph.org/reference/make_full_multipartite.html" class="external-link">igraph::make_full_multipartite()</a></code>, errors if the partition sizes do not sum to <code>n</code> and stores the partition in the vertex attribute <code>type</code>. The documentation now correctly says it creates a complete k-partite graph.</li>
+<li>
+<code><a href="../reference/graph_from_multi_edgelist.html">graph_from_multi_edgelist()</a></code> stores the <code>weight</code> column as edge attribute <code>weight</code>, so the graphs are weighted, and validates it.</li>
+<li>
+<code><a href="../reference/split_graph.html">split_graph()</a></code> validates <code>core</code>.</li>
+<li>
+<code><a href="../reference/as_adj_weighted.html">as_adj_weighted()</a></code>, <code><a href="../reference/as_multi_adj.html">as_multi_adj()</a></code>, <code><a href="../reference/graph_cor.html">graph_cor()</a></code> and <code><a href="../reference/core_periphery.html">core_periphery()</a></code> work with the upcoming igraph 3.0.0 and keep using unweighted adjacency matrices unless an edge attribute is given.</li>
+<li>removed the internal, unexported <code>fast_cliques()</code>.</li>
+<li>requires igraph &gt;= 2.3.0.</li>
 <li>
 <code><a href="../reference/sample_pa_homophilic.html">sample_pa_homophilic()</a></code> is faster, validates its input and has working examples; results for a given seed are unchanged.</li>
 <li>
@@ -121,7 +133,7 @@
 <li>added tests</li>
 <li>added graph products <code><a href="../reference/graph_cartesian.html">graph_cartesian()</a></code> and <code><a href="../reference/graph_direct.html">graph_direct()</a></code>
 </li>
-<li>added fast max clique routine <code><a href="../reference/fast_cliques.html">fast_cliques()</a></code>
+<li>added fast max clique routine <code>fast_cliques()</code>
 </li>
 </ul></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

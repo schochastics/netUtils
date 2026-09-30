@@ -37,7 +37,8 @@ graph_from_multi_edgelist(
 
 - weight:
 
-  optional column name of edge weights. Ignored if NULL.
+  optional column name of edge weights. The column is stored as edge
+  attribute `weight`. Ignored if NULL.
 
 - directed:
 
@@ -61,21 +62,21 @@ d <- data.frame(
 )
 graph_from_multi_edgelist(d, "from", "to", "type", "weight")
 #> $a
-#> IGRAPH 33f545a UNW- 3 3 -- 
+#> IGRAPH 746bb25 UNW- 3 3 -- 
 #> + attr: name (v/c), weight (e/n), type (e/c)
-#> + edges from 33f545a (vertex names):
+#> + edges from 746bb25 (vertex names):
 #> [1] 1--2 2--3 1--3
 #> 
 #> $b
-#> IGRAPH e048c39 UNW- 3 3 -- 
+#> IGRAPH c31e08b UNW- 3 3 -- 
 #> + attr: name (v/c), weight (e/n), type (e/c)
-#> + edges from e048c39 (vertex names):
+#> + edges from c31e08b (vertex names):
 #> [1] 1--2 2--3 1--3
 #> 
 #> $c
-#> IGRAPH c0f4d43 UNW- 3 3 -- 
+#> IGRAPH 83f739d UNW- 3 3 -- 
 #> + attr: name (v/c), weight (e/n), type (e/c)
-#> + edges from c0f4d43 (vertex names):
+#> + edges from 83f739d (vertex names):
 #> [1] 1--2 2--3 1--3
 #> 
 ```
