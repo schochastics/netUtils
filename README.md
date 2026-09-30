@@ -48,7 +48,7 @@ edgelist.
 `dyad_census_attr()` calculates dyad census with node attributes.  
 `triad_census_attr()` calculates triad census with node attributes.  
 `core_periphery()` fits a discrete core periphery model.  
-`graph_kpartite()` creates a random k-partite network.  
+`graph_kpartite()` creates a complete k-partite network.  
 `split_graph()` sample graph with perfect core periphery structure.  
 `sample_coreseq()` creates a random graph with given coreness
 sequence.  

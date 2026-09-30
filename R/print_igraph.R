@@ -47,7 +47,7 @@ str.igraph <- function(object, ...) {
     # graph attrs
     gattr_str <- ""
     if (length(gattrs) > 0) {
-        gattr_str <- apply(cbind(names(gattrs), paste0("(", substr(sapply(gattrs, mode), 1, 1), ")")), 1, paste0, collapse = "")
+        gattr_str <- apply(cbind(names(gattrs), paste0("(", substr(vapply(gattrs, mode, character(1)), 1, 1), ")")), 1, paste0, collapse = "")
         gattr_str <- paste("-Graph Attributes:\n ", paste0(gattr_str, collapse = ", "))
         gattr_str <- paste0(gattr_str, "\n", short_delim)
     }

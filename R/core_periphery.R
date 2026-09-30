@@ -16,7 +16,7 @@
 #' core_periphery(sg)
 #' @export
 core_periphery <- function(graph, method = "rk1_dc", iter = 500, ...) {
-    A <- igraph::as_adjacency_matrix(graph, type = "both", sparse = FALSE)
+    A <- adjacency_matrix(graph, sparse = FALSE)
     if (method == "SA") {
         warning("method='SA' is deprecated, using 'GA' instead", call. = FALSE)
         method <- "GA"

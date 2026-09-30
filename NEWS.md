@@ -7,10 +7,17 @@
 * dropped the RcppArmadillo dependency.
 * `str.igraph()` no longer fails for graphs with a single edge and only appends "..." to truncated attributes.
 * `bipartite_from_data_frame()` now handles numeric and factor columns (they were used as vertex ids or factor codes), and merging multiple edges no longer fails with non-numeric edge attributes.
-* `structural_equivalence()` now works with multiple edges.
+* `structural_equivalence()` now works with multiple edges and no longer needs memory quadratic in the number of vertices.
 * `sample_coreseq()` now rejects impossible coreness sequences (a k-core needs at least k + 1 nodes) and invalid input.
 * `graph_cartesian()` and `graph_direct()` keep vertex pairs without edges, and are vectorized.
 * `as_adj_list1()` now returns all neighbors of directed graphs, as documented (it returned only out-neighbors).
+* `graph_cor()` now excludes the diagonal by default, the standard definition of graph correlation. Use `diag = TRUE` for the previous behavior. For igraph objects, the new `attr` argument selects an edge attribute as weights.
+* `graph_kpartite()` now uses `igraph::make_full_multipartite()`, errors if the partition sizes do not sum to `n` and stores the partition in the vertex attribute `type`. The documentation now correctly says it creates a complete k-partite graph.
+* `graph_from_multi_edgelist()` stores the `weight` column as edge attribute `weight`, so the graphs are weighted, and validates it.
+* `split_graph()` validates `core`.
+* `as_adj_weighted()`, `as_multi_adj()`, `graph_cor()` and `core_periphery()` work with the upcoming igraph 3.0.0 and keep using unweighted adjacency matrices unless an edge attribute is given.
+* removed the internal, unexported `fast_cliques()`.
+* requires igraph >= 2.3.0.
 * `sample_pa_homophilic()` is faster, validates its input and has working examples; results for a given seed are unchanged.
 * `core_periphery(method = "SA")` now actually runs the GA method as announced in its deprecation warning (it returned nothing before).
 

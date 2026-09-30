@@ -15,7 +15,7 @@ LinkingTo:
     Rcpp
 Imports: 
     Rcpp,
-    igraph (>= 2.0.0),
+    igraph (>= 2.3.0),
     stats
 Suggests: 
     covr,
