@@ -15,17 +15,25 @@
 #'
 #' Espín-Noboa, L., Wagner, C., Strohmaier, M., & Karimi, F. (2022). Inequality and inequity in network-based ranking and recommendation algorithms. Scientific reports, 12(1), 1-14. (https://www.nature.com/articles/s41598-022-05434-1)
 #' @author David Schoch
-#' #maximally heterophilic network
-#' sample_pa_homophilic(n = 50, m = 2,minority_fraction = 0.2,h_ab = 1)
-#' #maximally homophilic network
-#' sample_pa_homophilic(n = 50, m = 2,minority_fraction = 0.2,h_ab = 0)
+#' @examples
+#' # maximally heterophilic network
+#' sample_pa_homophilic(n = 50, m = 2, minority_fraction = 0.2, h_ab = 1)
+#' # maximally homophilic network
+#' sample_pa_homophilic(n = 50, m = 2, minority_fraction = 0.2, h_ab = 0)
 #' @export
 sample_pa_homophilic <- function(n, m, minority_fraction, h_ab, h_ba = NULL, directed = FALSE) {
     if (is.null(h_ba)) {
         h_ba <- h_ab
     }
-    h_aa <- 1 - h_ab
-    h_bb <- 1 - h_ba
+    if (length(n) != 1 || length(m) != 1 || n != round(n) || m != round(m) || m < 1 || n <= m) {
+        stop("n and m must be positive integers with m < n")
+    }
+    if (minority_fraction < 0 || minority_fraction > 1) {
+        stop("minority_fraction must be in the interval [0, 1]")
+    }
+    if (h_ab < 0 || h_ab > 1 || h_ba < 0 || h_ba > 1) {
+        stop("h_ab and h_ba must be in the interval [0, 1]")
+    }
     minority_attr <- sample(
         c(
             rep(TRUE, floor(minority_fraction * n)),
@@ -33,38 +41,34 @@ sample_pa_homophilic <- function(n, m, minority_fraction, h_ab, h_ba = NULL, dir
         )
     )
 
-    g <- igraph::make_empty_graph(n = 0, directed = directed)
-    g <- igraph::add_vertices(g, n, attr = list(minority = minority_attr))
+    # attachment weight by group of source (rows) and target (columns),
+    # index 1 = majority, 2 = minority
+    homophily <- matrix(c(1 - h_ba, h_ab, h_ba, 1 - h_ab), 2, 2)
+    grp <- minority_attr + 1
 
-    dist <- matrix(NA, n, n)
-    dist[outer(minority_attr, minority_attr, "&")] <- h_aa # within minority
-    dist[outer(!minority_attr, !minority_attr, "&")] <- h_bb # within majority
-    dist[outer(minority_attr, !minority_attr, "&")] <- h_ab # min->maj
-    dist[outer(!minority_attr, minority_attr, "&")] <- h_ba # maj->min
-
-
+    deg <- numeric(n)
+    edges <- vector("list", n)
     target_list <- seq_len(m)
-    source <- m + 1
-    while (source <= n) {
-        deg <- igraph::degree(g)
-        targets <- pick_targets(deg, source, target_list, dist, m)
-        if (length(targets != 0)) {
-            el <- rbind(source, targets)
-            g <- igraph::add_edges(g, c(el))
+    for (source in seq(m + 1, n)) {
+        targets <- pick_targets(deg, source, target_list, homophily, grp, m)
+        if (length(targets) != 0) {
+            edges[[source]] <- rbind(source, targets)
+            deg[source] <- deg[source] + length(targets)
+            deg[targets] <- deg[targets] + 1
         }
         target_list <- c(target_list, source)
-        source <- source + 1
     }
-    return(g)
+
+    g <- igraph::make_empty_graph(n = 0, directed = directed)
+    g <- igraph::add_vertices(g, n, attr = list(minority = minority_attr))
+    igraph::add_edges(g, unlist(edges))
 }
 
-pick_targets <- function(deg, source, target_list, dist, m) {
-    target_prob <- dist[source, target_list] * (deg[target_list] + 1e-5)
+pick_targets <- function(deg, source, target_list, homophily, grp, m) {
+    target_prob <- homophily[grp[source], grp[target_list]] * (deg[target_list] + 1e-5)
 
     if (sum(target_prob > 0) < m) {
         return(c())
-    } else {
-        targets <- sample(target_list, m, prob = target_prob)
-        return(targets)
     }
+    sample(target_list, m, prob = target_prob)
 }

@@ -11,3 +11,21 @@ test_that("kcore sampling works", {
     expect_error(sample_coreseq(coresNA))
     expect_equal(coreness(sample_coreseq(coresCl)), coresCl)
 })
+
+test_that("kcore sampling rejects impossible sequences", {
+    expect_error(sample_coreseq(c(2, 2)), "valid kcore")
+    expect_error(sample_coreseq(1), "valid kcore")
+    expect_error(sample_coreseq(c(1.5, 1)), "non-negative integers")
+    expect_error(sample_coreseq(c(-1, 1)), "non-negative integers")
+})
+
+test_that("kcore sampling reproduces random coreness sequences", {
+    set.seed(1)
+    for (i in 1:20) {
+        g <- igraph::sample_gnp(30, stats::runif(1, 0.05, 0.4))
+        k <- igraph::coreness(g)
+        h <- sample_coreseq(k)
+        expect_equal(sort(igraph::coreness(h)), sort(unname(k)))
+        expect_true(igraph::is_simple(h))
+    }
+})

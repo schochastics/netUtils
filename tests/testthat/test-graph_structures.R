@@ -5,6 +5,15 @@ test_that("as_adj_list1 works", {
     expect_equal(l, as_adj_list1(g))
 })
 
+test_that("as_adj_list1 returns all neighbors of directed graphs", {
+    g <- igraph::make_graph(c(1, 2, 3, 1), directed = TRUE)
+    expect_equal(as_adj_list1(g), list(c(2L, 3L), 1L, 1L))
+    expect_equal(
+        as_adj_list1(g),
+        lapply(unname(igraph::as_adj_list(g, mode = "all")), as.integer)
+    )
+})
+
 test_that("as_adj_weighted works", {
     library(igraph)
     A <- matrix(c(0, 3, 3, 3, 0, 3, 3, 3, 0), 3, 3)

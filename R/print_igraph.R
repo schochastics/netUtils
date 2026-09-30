@@ -55,7 +55,7 @@ str.igraph <- function(object, ...) {
     vattr_str <- format_attr_section(vattrs, "Vertex", short_delim)
     eattr_str <- format_attr_section(eattrs, "Edge", short_delim)
     if (igraph::ecount(object) > 0) {
-        edges <- igraph::as_edgelist(object)[seq_len(min(c(10, igraph::ecount(object)))), ]
+        edges <- igraph::as_edgelist(object)[seq_len(min(c(10, igraph::ecount(object)))), , drop = FALSE]
         edges <- strwrap(paste0(apply(edges, 1, paste0, collapse = c("--", "->")[igraph::is_directed(object) + 1]), collapse = " "))
         edges <- paste(edges, collapse = "\n")
         if (igraph::ecount(object) > 10) {
@@ -81,6 +81,6 @@ format_attr_section <- function(attrs, label, short_delim) {
 }
 
 head_dot <- function(x, lname) {
-    stri <- strwrap(paste0(x, collapse = ", "), width = 0.9 * getOption("width") - lname)[1]
-    paste0(stri, " ...")
+    stri <- strwrap(paste0(x, collapse = ", "), width = 0.9 * getOption("width") - lname)
+    if (length(stri) > 1) paste0(stri[1], " ...") else stri
 }

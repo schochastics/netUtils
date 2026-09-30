@@ -10,7 +10,8 @@ structural_equivalence <- function(g) {
         stop("g must be undirected")
     }
     adj <- lapply(igraph::neighborhood(g, mindist = 1), function(x) x - 1)
-    deg <- igraph::degree(g)
+    # number of distinct neighbors (degree would count multiple edges and loops)
+    deg <- lengths(adj)
     P <- mse(adj, deg)
     MSE <- which((P + t(P)) == 2, arr.ind = TRUE)
     if (length(MSE) >= 1) {

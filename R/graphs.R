@@ -6,7 +6,12 @@
 #' @param type2 column name of mode 2
 #' @param attr named list of edge attributes
 #' @param weighted should a weighted graph be created if multiple edges occur
-#' @return two mode network as igraph object
+#' @return two mode network as igraph object. The vertex attribute `type` is
+#'   `TRUE` for vertices from `type1` and `FALSE` for vertices from `type2`.
+#' @details Vertex identifiers are converted to character, so numeric and factor
+#'   columns are matched by their values. If `weighted = TRUE`, multiple edges are
+#'   merged, their count is stored in the edge attribute `weight`, numeric edge
+#'   attributes are summed and other edge attributes keep their first value.
 #' @author David Schoch
 #' @examples
 #' library(igraph)
@@ -22,12 +27,12 @@ bipartite_from_data_frame <- function(d, type1, type2, attr = NULL, weighted = T
         stop(paste0("no column named ", type2, " found in data frame"))
     }
 
-    mode1 <- unique(d[[type1]])
-    mode2 <- unique(d[[type2]])
+    mode1 <- unique(as.character(d[[type1]]))
+    mode2 <- unique(as.character(d[[type2]]))
     if (any(mode1 %in% mode2)) {
         stop("some nodes appear in both modes. Modes in a two-mode network must be distinct.")
     }
-    el <- cbind(d[[type1]], d[[type2]])
+    el <- cbind(as.character(d[[type1]]), as.character(d[[type2]]))
 
     g <- igraph::make_empty_graph(directed = FALSE)
     g <- igraph::add_vertices(g, nv = length(mode1), attr = list(name = mode1, type = TRUE))
@@ -39,10 +44,11 @@ bipartite_from_data_frame <- function(d, type1, type2, attr = NULL, weighted = T
     }
     if (igraph::any_multiple(g) && weighted) {
         igraph::E(g)$weight <- 1
+        comb <- lapply(igraph::edge_attr(g), function(x) if (is.numeric(x)) "sum" else "first")
         g <- igraph::simplify(g,
             remove.multiple = TRUE,
             remove.loops = TRUE,
-            edge.attr.comb = "sum"
+            edge.attr.comb = comb
         )
     }
     g

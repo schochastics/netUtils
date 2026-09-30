@@ -16,7 +16,7 @@ A list of numeric vectors.
 Create adjacency lists from a graph, either for adjacent edges or for neighboring vertices. This version is faster than the version of igraph but less general.
 }
 \details{
-The function does not have a mode parameter and only returns the adjacency list comparable to as_adj_list(g,mode="all)
+The function does not have a mode parameter and returns the same neighbors as \code{as_adj_list(g, mode = "all")}, as plain integer vectors. For directed graphs, both in- and out-neighbors are returned.
 }
 \examples{
 library(igraph)
