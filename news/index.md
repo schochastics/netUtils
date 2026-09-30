@@ -14,6 +14,16 @@
   [`triad_census_attr()`](https://schochastics.github.io/netUtils/reference/triad_census_attr.md)
   now validate that the vertex attribute holds positive integers without
   missing values.
+- [`triad_census_attr()`](https://schochastics.github.io/netUtils/reference/triad_census_attr.md)
+  rewritten: it now runs in roughly O(m \* max degree) instead of
+  O(n^3), e.g. seconds instead of hours for thousands of nodes.
+- [`triad_census_attr()`](https://schochastics.github.io/netUtils/reference/triad_census_attr.md)
+  fixed: the two orientations of cyclic triads (030C) with three
+  distinct attributes were merged into `T030C-abc`; `T030C-cba` is now
+  counted correctly. With more than nine attribute values, names are
+  separated by dots (`T030C-1.2.10`) to avoid ambiguous labels. Multiple
+  edges and loops are ignored.
+- dropped the RcppArmadillo dependency.
 - `core_periphery(method = "SA")` now actually runs the GA method as
   announced in its deprecation warning (it returned nothing before).
 

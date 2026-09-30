@@ -36,6 +36,11 @@
 <li>
 <code><a href="../reference/dyad_census_attr.html">dyad_census_attr()</a></code> and <code><a href="../reference/triad_census_attr.html">triad_census_attr()</a></code> now validate that the vertex attribute holds positive integers without missing values.</li>
 <li>
+<code><a href="../reference/triad_census_attr.html">triad_census_attr()</a></code> rewritten: it now runs in roughly O(m * max degree) instead of O(n^3), e.g. seconds instead of hours for thousands of nodes.</li>
+<li>
+<code><a href="../reference/triad_census_attr.html">triad_census_attr()</a></code> fixed: the two orientations of cyclic triads (030C) with three distinct attributes were merged into <code>T030C-abc</code>; <code>T030C-cba</code> is now counted correctly. With more than nine attribute values, names are separated by dots (<code>T030C-1.2.10</code>) to avoid ambiguous labels. Multiple edges and loops are ignored.</li>
+<li>dropped the RcppArmadillo dependency.</li>
+<li>
 <code>core_periphery(method = "SA")</code> now actually runs the GA method as announced in its deprecation warning (it returned nothing before).</li>
 </ul></div>
     <div class="section level2">
