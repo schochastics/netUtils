@@ -19,7 +19,9 @@ triad census with node attributes
 }
 \details{
 The node attribute should be integers from 1 to max(attr).
-The output is a named vector where the names are of the form Txxx-abc, where xxx corresponds to the standard triad census notation and "abc" are the attributes of the involved nodes.
+The output is a named vector where the names are of the form Txxx-abc, where xxx corresponds to the standard triad census notation and "abc" are the attributes of the involved nodes. If there are more than nine attribute values, the attributes are separated by dots (Txxx-a.b.c).
+For cyclic triads (030C) with three distinct attributes, the two orientations are counted separately: "abc" if the edges point from the smallest to the middle attribute value, "cba" otherwise.
+Multiple edges and loops are ignored.
 
 The implemented algorithm is comparable to the algorithm in Lienert et al.
 }
