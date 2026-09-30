@@ -46,7 +46,8 @@
 <span>  min_community <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  max_community <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  on <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  om <span class="op">=</span> <span class="fl">0</span></span>
+<span>  om <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -59,11 +60,11 @@
 
 
 <dt id="arg-tau-">tau1<a class="anchor" aria-label="anchor" href="#arg-tau-"></a></dt>
-<dd><p>Power law exponent for the degree distribution of the created graph. This value must be strictly greater than one</p></dd>
+<dd><p>Power law exponent for the degree distribution of the created graph. This value must be at least one.</p></dd>
 
 
 <dt id="arg-tau-">tau2<a class="anchor" aria-label="anchor" href="#arg-tau-"></a></dt>
-<dd><p>Power law exponent for the community size distribution in the created graph. This value must be strictly greater than one</p></dd>
+<dd><p>Power law exponent for the community size distribution in the created graph. This value must be at least one.</p></dd>
 
 
 <dt id="arg-mu">mu<a class="anchor" aria-label="anchor" href="#arg-mu"></a></dt>
@@ -71,36 +72,45 @@
 
 
 <dt id="arg-average-degree">average_degree<a class="anchor" aria-label="anchor" href="#arg-average-degree"></a></dt>
-<dd><p>Desired average degree of nodes in the created graph. This value must be in the interval 0 to n. Exactly one of this and <code>min_degree</code> must be specified, otherwise an error is raised</p></dd>
+<dd><p>Desired average degree of nodes in the created graph. This value must be in the interval (0, n] and is required.</p></dd>
 
 
 <dt id="arg-max-degree">max_degree<a class="anchor" aria-label="anchor" href="#arg-max-degree"></a></dt>
-<dd><p>Maximum degree of nodes in the created graph. If not specified, this is set to n-1.</p></dd>
+<dd><p>Maximum degree of nodes in the created graph. This value must be in the interval (0, n] and is required.</p></dd>
 
 
 <dt id="arg-min-community">min_community<a class="anchor" aria-label="anchor" href="#arg-min-community"></a></dt>
-<dd><p>Minimum size of communities in the graph. If not specified, this is set to <code>min_degree</code></p></dd>
+<dd><p>Minimum size of communities in the graph. Either both or none of <code>min_community</code> and <code>max_community</code> must be specified.
+If none are specified, the community size range is set automatically to <code>[max(k_min, 3), max_degree]</code>,
+where <code>k_min</code> is the minimum degree implied by <code>average_degree</code>, <code>max_degree</code> and <code>tau1</code>.</p></dd>
 
 
 <dt id="arg-max-community">max_community<a class="anchor" aria-label="anchor" href="#arg-max-community"></a></dt>
-<dd><p>Maximum size of communities in the graph. If not specified, this is set to n, the total number of nodes in the graph.</p></dd>
+<dd><p>Maximum size of communities in the graph. Must be at least <code>min_community</code>.</p></dd>
 
 
 <dt id="arg-on">on<a class="anchor" aria-label="anchor" href="#arg-on"></a></dt>
-<dd><p>number of overlapping nodes</p></dd>
+<dd><p>number of overlapping nodes (a non-negative integer not larger than <code>n</code>).</p></dd>
 
 
 <dt id="arg-om">om<a class="anchor" aria-label="anchor" href="#arg-om"></a></dt>
-<dd><p>number of memberships of the overlapping nodes</p></dd>
+<dd><p>number of memberships of the overlapping nodes. Must be at least 2 if <code>on &gt; 0</code>.</p></dd>
+
+
+<dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
+<dd><p>logical. Should progress messages of the generator be printed?</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>an igraph object</p>
+    <p>an igraph object with two vertex attributes: <code>membership</code>, an integer vector
+holding the (first) community of each vertex, and <code>memberships</code>, a list holding
+all communities of each vertex (only overlapping vertices have more than one).</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>code adapted from <a href="https://github.com/synwalk/synwalk-analysis/tree/master/lfr_generator" class="external-link">https://github.com/synwalk/synwalk-analysis/tree/master/lfr_generator</a></p>
+    <p>code adapted from <a href="https://github.com/synwalk/synwalk-analysis/tree/master/lfr_generator" class="external-link">https://github.com/synwalk/synwalk-analysis/tree/master/lfr_generator</a>.
+Random numbers are drawn from R's random number generator, so results can be reproduced with <code><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed()</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>

@@ -39,8 +39,8 @@ library(igraph)
 g <- make_ring(4)
 h <- make_full_graph(2)
 graph_direct(g, h)
-#> IGRAPH 385bd98 UN-- 8 8 -- 
+#> IGRAPH bd198ce UN-- 8 8 -- 
 #> + attr: name (v/c)
-#> + edges from 385bd98 (vertex names):
+#> + edges from bd198ce (vertex names):
 #> [1] 1-1--2-2 1-2--2-1 2-1--3-2 2-2--3-1 3-1--4-2 3-2--4-1 1-1--4-2 1-2--4-1
 ```

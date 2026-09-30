@@ -68,6 +68,14 @@
 <code><a href="../reference/sample_pa_homophilic.html">sample_pa_homophilic()</a></code> is faster, validates its input and has working examples; results for a given seed are unchanged.</li>
 <li>
 <code>core_periphery(method = "SA")</code> now actually runs the GA method as announced in its deprecation warning (it returned nothing before).</li>
+<li>
+<code><a href="../reference/sample_lfr.html">sample_lfr()</a></code> now uses R’s random number generator, so results are reproducible with <code><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed()</a></code> (before, <code><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed()</a></code> had no effect).</li>
+<li>
+<code><a href="../reference/sample_lfr.html">sample_lfr()</a></code> with overlapping nodes (<code>on &gt; 0</code>) now works (it errored before): <code>V(g)$membership</code> holds the first community of each vertex and the new list attribute <code>V(g)$memberships</code> holds all communities of each vertex.</li>
+<li>
+<code><a href="../reference/sample_lfr.html">sample_lfr()</a></code> now reports invalid parameter combinations detected by the generator as informative R errors instead of “negative length vectors are not allowed”, validates <code>on</code>, <code>om</code>, <code>min_community</code> and <code>max_community</code>, and is silent unless the new <code>verbose = TRUE</code> is set. It warns if the degree sequence had to be changed.</li>
+<li>
+<code><a href="../reference/sample_lfr.html">sample_lfr()</a></code> can be interrupted and no longer risks endless loops when rewiring links. Unused C++ code of the LFR generator was removed.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.6" id="netutils-086">netUtils 0.8.6<a class="anchor" aria-label="anchor" href="#netutils-086"></a></h2><p class="text-muted">CRAN release: 2026-06-12</p>

@@ -73,6 +73,24 @@
   given seed are unchanged.
 - `core_periphery(method = "SA")` now actually runs the GA method as
   announced in its deprecation warning (it returned nothing before).
+- [`sample_lfr()`](https://schochastics.github.io/netUtils/reference/sample_lfr.md)
+  now uses R’s random number generator, so results are reproducible with
+  [`set.seed()`](https://rdrr.io/r/base/Random.html) (before,
+  [`set.seed()`](https://rdrr.io/r/base/Random.html) had no effect).
+- [`sample_lfr()`](https://schochastics.github.io/netUtils/reference/sample_lfr.md)
+  with overlapping nodes (`on > 0`) now works (it errored before):
+  `V(g)$membership` holds the first community of each vertex and the new
+  list attribute `V(g)$memberships` holds all communities of each
+  vertex.
+- [`sample_lfr()`](https://schochastics.github.io/netUtils/reference/sample_lfr.md)
+  now reports invalid parameter combinations detected by the generator
+  as informative R errors instead of “negative length vectors are not
+  allowed”, validates `on`, `om`, `min_community` and `max_community`,
+  and is silent unless the new `verbose = TRUE` is set. It warns if the
+  degree sequence had to be changed.
+- [`sample_lfr()`](https://schochastics.github.io/netUtils/reference/sample_lfr.md)
+  can be interrupted and no longer risks endless loops when rewiring
+  links. Unused C++ code of the LFR generator was removed.
 
 ## netUtils 0.8.6
 
