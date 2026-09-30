@@ -18,6 +18,10 @@
 #'
 #' @export
 sample_coreseq <- function(cores) {
+    if (!is.numeric(cores) || length(cores) == 0 || anyNA(cores) ||
+        any(cores < 0) || any(cores != round(cores))) {
+        stop("cores must be a non-empty vector of non-negative integers")
+    }
     cores <- sort(cores, decreasing = TRUE)
 
     if (!is_kcoreseq(cores)) {
@@ -55,10 +59,10 @@ sample_coreseq <- function(cores) {
     }
 }
 
+# a k-core with k > 0 needs at least k + 1 vertices
 is_kcoreseq <- function(cores) {
-    cores <- sort(cores, decreasing = TRUE)
-    num_max_core_val <- sum(cores == max(cores))
-    return(num_max_core_val >= cores[1])
+    K <- max(cores)
+    K == 0 || sum(cores == K) >= K + 1
 }
 
 add_lower_nodes <- function(cores, indices, g, k) {
@@ -68,12 +72,11 @@ add_lower_nodes <- function(cores, indices, g, k) {
     if (k == 0) {
         return(g)
     }
-    all_edges <- integer(0)
-    for (v in indices[[k + 1]]) {
+    all_edges <- lapply(indices[[k + 1]], function(v) {
         randv <- sample(higher_nodes, k, replace = FALSE)
-        all_edges <- c(all_edges, c(t(cbind(randv, v))))
-    }
-    g <- igraph::add_edges(g, all_edges)
+        c(t(cbind(randv, v)))
+    })
+    g <- igraph::add_edges(g, unlist(all_edges))
     return(add_lower_nodes(cores, indices, g, k - 1))
 }
 
@@ -83,21 +86,17 @@ generate_k_graph <- function(C, N, g) {
         g <- igraph::add_edges(g, edges = c(t(cbind(1:(N - 1), 2:N))))
         g <- igraph::add_edges(g, edges = c(1, N))
         z <- ceiling((N - C + 1) / 2)
-        all_edges <- integer(0)
-        for (i in 0:(N - 1)) {
-            start <- (i + z + 1) %% (N) # BUG POTENTIAL!!!
-            stop <- (i - z) %% (N) # BUG POTENTIAL!!!
-
+        all_edges <- lapply(0:(N - 1), function(i) {
+            start <- (i + z + 1) %% N
+            stop <- (i - z) %% N
             if (stop >= start) {
-                listv <- start:(stop - 1) # BUG POTENTIAL!!!
-                edges <- c(t(cbind(listv, i)))
+                listv <- start:(stop - 1)
             } else {
                 listv <- c((0:(N - 1))[0:(stop)], (0:(N - 1))[(start + 1):N])
-                edges <- c(t(cbind(listv, i)))
             }
-            all_edges <- c(all_edges, edges + 1)
-        }
-        g <- igraph::add_edges(g, all_edges)
+            c(t(cbind(listv, i))) + 1
+        })
+        g <- igraph::add_edges(g, unlist(all_edges))
         g <- igraph::simplify(g)
     } else {
         g <- generate_k_graph(C, N - 1, g)

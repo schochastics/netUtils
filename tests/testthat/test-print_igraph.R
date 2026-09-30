@@ -23,3 +23,20 @@ test_that("str.igraph handles a minimal graph with no attributes or edges", {
     expect_true(grepl("Edges: 0", out))
     expect_true(grepl("Isolates: 3", out))
 })
+
+test_that("str.igraph handles a graph with a single edge", {
+    g <- igraph::make_graph(c(1, 2), directed = FALSE)
+    out <- paste(capture.output(str(g)), collapse = "\n")
+    expect_true(grepl("1--2", out))
+})
+
+test_that("str.igraph only marks truncated attributes", {
+    g <- igraph::make_graph(c(1, 2), directed = FALSE)
+    igraph::V(g)$x <- 1:2
+    out <- paste(capture.output(str(g)), collapse = "\n")
+    expect_false(grepl("1, 2 ...", out, fixed = TRUE))
+    g <- igraph::make_empty_graph(500)
+    igraph::V(g)$x <- 1:500
+    out <- paste(capture.output(str(g)), collapse = "\n")
+    expect_true(grepl("...", out, fixed = TRUE))
+})

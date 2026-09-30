@@ -18,7 +18,9 @@ Direct product as igraph object
 Compute the direct product of two graphs
 }
 \details{
-See https://en.wikipedia.org/wiki/Tensor_product_of_graphs
+See https://en.wikipedia.org/wiki/Tensor_product_of_graphs.
+The result is undirected and its vertices are named "u-v", where u and v are
+the names (or ids) of the vertices in \code{g} and \code{h}.
 }
 \examples{
 library(igraph)

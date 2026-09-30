@@ -1,7 +1,7 @@
 #' @title Adjacency list
 #' @description Create adjacency lists from a graph, either for adjacent edges or for neighboring vertices. This version is faster than the version of igraph but less general.
 #' @param g An igraph object
-#' @details The function does not have a mode parameter and only returns the adjacency list comparable to as_adj_list(g,mode="all)
+#' @details The function does not have a mode parameter and returns the same neighbors as `as_adj_list(g, mode = "all")`, as plain integer vectors. For directed graphs, both in- and out-neighbors are returned.
 #' @return A list of numeric vectors.
 #' @author David Schoch
 #' @examples
@@ -10,14 +10,7 @@
 #' as_adj_list1(g)
 #' @export
 as_adj_list1 <- function(g) {
-    n <- igraph::vcount(g)
-    lapply(seq_len(n), function(i) {
-        x <- g[[i]][[1]]
-        attr(x, "env") <- NULL
-        attr(x, "graph") <- NULL
-        class(x) <- NULL
-        x
-    })
+    lapply(unname(igraph::as_adj_list(g, mode = "all")), as.integer)
 }
 
 #' @title weighted dense adjacency matrix

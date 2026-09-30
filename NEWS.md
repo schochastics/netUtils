@@ -5,6 +5,13 @@
 * `triad_census_attr()` rewritten: it now runs in roughly O(m * max degree) instead of O(n^3), e.g. seconds instead of hours for thousands of nodes.
 * `triad_census_attr()` fixed: the two orientations of cyclic triads (030C) with three distinct attributes were merged into `T030C-abc`; `T030C-cba` is now counted correctly. With more than nine attribute values, names are separated by dots (`T030C-1.2.10`) to avoid ambiguous labels. Multiple edges and loops are ignored.
 * dropped the RcppArmadillo dependency.
+* `str.igraph()` no longer fails for graphs with a single edge and only appends "..." to truncated attributes.
+* `bipartite_from_data_frame()` now handles numeric and factor columns (they were used as vertex ids or factor codes), and merging multiple edges no longer fails with non-numeric edge attributes.
+* `structural_equivalence()` now works with multiple edges.
+* `sample_coreseq()` now rejects impossible coreness sequences (a k-core needs at least k + 1 nodes) and invalid input.
+* `graph_cartesian()` and `graph_direct()` keep vertex pairs without edges, and are vectorized.
+* `as_adj_list1()` now returns all neighbors of directed graphs, as documented (it returned only out-neighbors).
+* `sample_pa_homophilic()` is faster, validates its input and has working examples; results for a given seed are unchanged.
 * `core_periphery(method = "SA")` now actually runs the GA method as announced in its deprecation warning (it returned nothing before).
 
 # netUtils 0.8.6

@@ -37,6 +37,12 @@ degree, depending on the homophily parameters.
 \details{
 The code is an adaption of the python code from https://github.com/gesiscss/HomophilicNtwMinorities/
 }
+\examples{
+# maximally heterophilic network
+sample_pa_homophilic(n = 50, m = 2, minority_fraction = 0.2, h_ab = 1)
+# maximally homophilic network
+sample_pa_homophilic(n = 50, m = 2, minority_fraction = 0.2, h_ab = 0)
+}
 \references{
 Karimi, F., Génois, M., Wagner, C., Singer, P., & Strohmaier, M. (2018). Homophily influences ranking of minorities in social networks. Scientific reports, 8(1), 1-12. (https://www.nature.com/articles/s41598-018-29405-7)
 
@@ -44,8 +50,4 @@ Espín-Noboa, L., Wagner, C., Strohmaier, M., & Karimi, F. (2022). Inequality an
 }
 \author{
 David Schoch
-#maximally heterophilic network
-sample_pa_homophilic(n = 50, m = 2,minority_fraction = 0.2,h_ab = 1)
-#maximally homophilic network
-sample_pa_homophilic(n = 50, m = 2,minority_fraction = 0.2,h_ab = 0)
 }

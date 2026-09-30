@@ -18,10 +18,17 @@ bipartite_from_data_frame(d, type1, type2, attr = NULL, weighted = TRUE)
 \item{weighted}{should a weighted graph be created if multiple edges occur}
 }
 \value{
-two mode network as igraph object
+two mode network as igraph object. The vertex attribute \code{type} is
+\code{TRUE} for vertices from \code{type1} and \code{FALSE} for vertices from \code{type2}.
 }
 \description{
 Create a two-mode network from a data.frame
+}
+\details{
+Vertex identifiers are converted to character, so numeric and factor
+columns are matched by their values. If \code{weighted = TRUE}, multiple edges are
+merged, their count is stored in the edge attribute \code{weight}, numeric edge
+attributes are summed and other edge attributes keep their first value.
 }
 \examples{
 library(igraph)
