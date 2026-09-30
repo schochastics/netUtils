@@ -22,8 +22,9 @@ A list of numeric vectors.
 
 ## Details
 
-The function does not have a mode parameter and only returns the
-adjacency list comparable to as_adj_list(g,mode="all)
+The function does not have a mode parameter and returns the same
+neighbors as `as_adj_list(g, mode = "all")`, as plain integer vectors.
+For directed graphs, both in- and out-neighbors are returned.
 
 ## Author
 

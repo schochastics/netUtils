@@ -24,7 +24,9 @@ Direct product as igraph object
 
 ## Details
 
-See https://en.wikipedia.org/wiki/Tensor_product_of_graphs
+See https://en.wikipedia.org/wiki/Tensor_product_of_graphs. The result
+is undirected and its vertices are named "u-v", where u and v are the
+names (or ids) of the vertices in `g` and `h`.
 
 ## Author
 
@@ -37,8 +39,8 @@ library(igraph)
 g <- make_ring(4)
 h <- make_full_graph(2)
 graph_direct(g, h)
-#> IGRAPH f7a25e4 UN-- 8 8 -- 
+#> IGRAPH b92f142 UN-- 8 8 -- 
 #> + attr: name (v/c)
-#> + edges from f7a25e4 (vertex names):
-#> [1] 1-1--2-2 2-1--1-2 2-1--3-2 2-2--3-1 3-1--4-2 3-2--4-1 1-1--4-2 1-2--4-1
+#> + edges from b92f142 (vertex names):
+#> [1] 1-1--2-2 1-2--2-1 2-1--3-2 2-2--3-1 3-1--4-2 3-2--4-1 1-1--4-2 1-2--4-1
 ```

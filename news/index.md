@@ -24,6 +24,28 @@
   separated by dots (`T030C-1.2.10`) to avoid ambiguous labels. Multiple
   edges and loops are ignored.
 - dropped the RcppArmadillo dependency.
+- [`str.igraph()`](https://schochastics.github.io/netUtils/reference/str.igraph.md)
+  no longer fails for graphs with a single edge and only appends “…” to
+  truncated attributes.
+- [`bipartite_from_data_frame()`](https://schochastics.github.io/netUtils/reference/bipartite_from_data_frame.md)
+  now handles numeric and factor columns (they were used as vertex ids
+  or factor codes), and merging multiple edges no longer fails with
+  non-numeric edge attributes.
+- [`structural_equivalence()`](https://schochastics.github.io/netUtils/reference/structural_equivalence.md)
+  now works with multiple edges.
+- [`sample_coreseq()`](https://schochastics.github.io/netUtils/reference/sample_coreseq.md)
+  now rejects impossible coreness sequences (a k-core needs at least k +
+  1 nodes) and invalid input.
+- [`graph_cartesian()`](https://schochastics.github.io/netUtils/reference/graph_cartesian.md)
+  and
+  [`graph_direct()`](https://schochastics.github.io/netUtils/reference/graph_direct.md)
+  keep vertex pairs without edges, and are vectorized.
+- [`as_adj_list1()`](https://schochastics.github.io/netUtils/reference/as_adj_list1.md)
+  now returns all neighbors of directed graphs, as documented (it
+  returned only out-neighbors).
+- [`sample_pa_homophilic()`](https://schochastics.github.io/netUtils/reference/sample_pa_homophilic.md)
+  is faster, validates its input and has working examples; results for a
+  given seed are unchanged.
 - `core_periphery(method = "SA")` now actually runs the GA method as
   announced in its deprecation warning (it returned nothing before).
 

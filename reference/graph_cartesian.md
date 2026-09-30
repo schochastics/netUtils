@@ -24,7 +24,9 @@ Cartesian product as igraph object
 
 ## Details
 
-See https://en.wikipedia.org/wiki/Cartesian_product_of_graphs
+See https://en.wikipedia.org/wiki/Cartesian_product_of_graphs. The
+result is undirected and its vertices are named "u-v", where u and v are
+the names (or ids) of the vertices in `g` and `h`.
 
 ## Author
 
@@ -37,9 +39,9 @@ library(igraph)
 g <- make_ring(4)
 h <- make_full_graph(2)
 graph_cartesian(g, h)
-#> IGRAPH c6783f4 UN-- 8 12 -- 
+#> IGRAPH 6c3c547 UN-- 8 12 -- 
 #> + attr: name (v/c)
-#> + edges from c6783f4 (vertex names):
+#> + edges from 6c3c547 (vertex names):
 #>  [1] 1-1--2-1 1-2--2-2 2-1--3-1 2-2--3-2 3-1--4-1 3-2--4-2 1-1--4-1 1-2--4-2
 #>  [9] 1-1--1-2 2-1--2-2 3-1--3-2 4-1--4-2
 ```

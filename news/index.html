@@ -41,6 +41,20 @@
 <code><a href="../reference/triad_census_attr.html">triad_census_attr()</a></code> fixed: the two orientations of cyclic triads (030C) with three distinct attributes were merged into <code>T030C-abc</code>; <code>T030C-cba</code> is now counted correctly. With more than nine attribute values, names are separated by dots (<code>T030C-1.2.10</code>) to avoid ambiguous labels. Multiple edges and loops are ignored.</li>
 <li>dropped the RcppArmadillo dependency.</li>
 <li>
+<code><a href="../reference/str.igraph.html">str.igraph()</a></code> no longer fails for graphs with a single edge and only appends “…” to truncated attributes.</li>
+<li>
+<code><a href="../reference/bipartite_from_data_frame.html">bipartite_from_data_frame()</a></code> now handles numeric and factor columns (they were used as vertex ids or factor codes), and merging multiple edges no longer fails with non-numeric edge attributes.</li>
+<li>
+<code><a href="../reference/structural_equivalence.html">structural_equivalence()</a></code> now works with multiple edges.</li>
+<li>
+<code><a href="../reference/sample_coreseq.html">sample_coreseq()</a></code> now rejects impossible coreness sequences (a k-core needs at least k + 1 nodes) and invalid input.</li>
+<li>
+<code><a href="../reference/graph_cartesian.html">graph_cartesian()</a></code> and <code><a href="../reference/graph_direct.html">graph_direct()</a></code> keep vertex pairs without edges, and are vectorized.</li>
+<li>
+<code><a href="../reference/as_adj_list1.html">as_adj_list1()</a></code> now returns all neighbors of directed graphs, as documented (it returned only out-neighbors).</li>
+<li>
+<code><a href="../reference/sample_pa_homophilic.html">sample_pa_homophilic()</a></code> is faster, validates its input and has working examples; results for a given seed are unchanged.</li>
+<li>
 <code>core_periphery(method = "SA")</code> now actually runs the GA method as announced in its deprecation warning (it returned nothing before).</li>
 </ul></div>
     <div class="section level2">
