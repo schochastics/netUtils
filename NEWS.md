@@ -1,4 +1,6 @@
-# netUtils (development version)
+# netUtils 1.0.0
+
+This release fixes a number of bugs found in a code review. Some fixes change results, notably `dyad_census_attr()`, `triad_census_attr()` (030C orientations), `graph_cor()` (diagonal now excluded by default) and `sample_lfr()` (now uses R's random number generator).
 
 * `dyad_census_attr()` fixed: asymmetric dyads were dropped when a group pair had edges in one direction only, and within-group asymmetric dyads were always reported as 0. Named vertices returned all zeros and graphs without edges errored. Within-group rows now report the total asymmetric count in `asym_ab` and `NA` in `asym_ba`. Multiple edges and loops are ignored.
 * `dyad_census_attr()` and `triad_census_attr()` now validate that the vertex attribute holds positive integers without missing values.
