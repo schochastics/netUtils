@@ -20,6 +20,10 @@
 * requires igraph >= 2.3.0.
 * `sample_pa_homophilic()` is faster, validates its input and has working examples; results for a given seed are unchanged.
 * `core_periphery(method = "SA")` now actually runs the GA method as announced in its deprecation warning (it returned nothing before).
+* `sample_lfr()` now uses R's random number generator, so results are reproducible with `set.seed()` (before, `set.seed()` had no effect).
+* `sample_lfr()` with overlapping nodes (`on > 0`) now works (it errored before): `V(g)$membership` holds the first community of each vertex and the new list attribute `V(g)$memberships` holds all communities of each vertex.
+* `sample_lfr()` now reports invalid parameter combinations detected by the generator as informative R errors instead of "negative length vectors are not allowed", validates `on`, `om`, `min_community` and `max_community`, and is silent unless the new `verbose = TRUE` is set. It warns if the degree sequence had to be changed.
+* `sample_lfr()` can be interrupted and no longer risks endless loops when rewiring links. Unused C++ code of the LFR generator was removed.
 
 # netUtils 0.8.6
 
