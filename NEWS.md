@@ -2,6 +2,9 @@
 
 * `dyad_census_attr()` fixed: asymmetric dyads were dropped when a group pair had edges in one direction only, and within-group asymmetric dyads were always reported as 0. Named vertices returned all zeros and graphs without edges errored. Within-group rows now report the total asymmetric count in `asym_ab` and `NA` in `asym_ba`. Multiple edges and loops are ignored.
 * `dyad_census_attr()` and `triad_census_attr()` now validate that the vertex attribute holds positive integers without missing values.
+* `triad_census_attr()` rewritten: it now runs in roughly O(m * max degree) instead of O(n^3), e.g. seconds instead of hours for thousands of nodes.
+* `triad_census_attr()` fixed: the two orientations of cyclic triads (030C) with three distinct attributes were merged into `T030C-abc`; `T030C-cba` is now counted correctly. With more than nine attribute values, names are separated by dots (`T030C-1.2.10`) to avoid ambiguous labels. Multiple edges and loops are ignored.
+* dropped the RcppArmadillo dependency.
 * `core_periphery(method = "SA")` now actually runs the GA method as announced in its deprecation warning (it returned nothing before).
 
 # netUtils 0.8.6

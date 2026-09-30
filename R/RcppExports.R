@@ -9,11 +9,7 @@ mse <- function(adjList, deg) {
     .Call(`_netUtils_mse`, adjList, deg)
 }
 
-sortxy <- function(x, y) {
-    .Call(`_netUtils_sortxy`, x, y)
-}
-
-triadCensusCol <- function(A, attr, orbitClasses, triads) {
-    .Call(`_netUtils_triadCensusCol`, A, attr, orbitClasses, triads)
+triadCensusCol <- function(outList, nbList, attr, k, lookup, nclass) {
+    .Call(`_netUtils_triadCensusCol`, outList, nbList, attr, k, lookup, nclass)
 }
 

@@ -1,72 +1,78 @@
-// [[Rcpp::depends(RcppArmadillo)]]
-#include <RcppArmadillo.h>
+#include <Rcpp.h>
+#include <algorithm>
+#include <vector>
 using namespace Rcpp;
 
-// [[Rcpp::export]]
-IntegerVector sortxy(IntegerVector x, IntegerVector y) {
-  IntegerVector idx = seq_along(x) - 1;
-  std::sort(idx.begin(), idx.end(), [&](int i, int j){return y[i] < y[j];});
-  for(int i=0; i<2;i++){
-    if((y[idx[i]]==y[idx[i+1]]) && (x[idx[i]]>x[idx[i+1]])){
-      int tmp= idx[i+1];
-      idx[i+1]=idx[i];
-      idx[i]=tmp;
-    }
-  }
-  for(int i=0; i<2;i++){
-    if((y[idx[i]]==y[idx[i+1]]) && (x[idx[i]]>x[idx[i+1]])){
-      int tmp= idx[i+1];
-      idx[i+1]=idx[i];
-      idx[i]=tmp;
-    }
-  }
-  return x[idx];
+// isomorphism class of the triad (p0, p1, p2), looked up by its 6-bit arc code
+// and the attributes of the three positions
+static inline int triad_class(const std::vector<std::vector<int> >& out,
+                              const IntegerVector& attr,
+                              const IntegerVector& lookup,
+                              int k, int p0, int p1, int p2) {
+  auto arc = [&](int a, int b) {
+    return std::binary_search(out[a].begin(), out[a].end(), b) ? 1 : 0;
+  };
+  int code = arc(p0, p1) + 2 * arc(p0, p2) + 4 * arc(p1, p0) +
+             8 * arc(p1, p2) + 16 * arc(p2, p0) + 32 * arc(p2, p1);
+  return lookup[((code * k + attr[p0]) * k + attr[p1]) * k + attr[p2]];
 }
 
+// Colored triad census following Batagelj & Mrvar (2001): connected triads are
+// enumerated from each connected pair, dyadic triads are counted per color of
+// the isolated vertex. Empty (003) triads are derived in R from the totals.
+// outList: sorted out-neighbors (0-based), nbList: sorted undirected neighbors,
+// attr: 0-based colors, lookup: class id for (code, attr_p0, attr_p1, attr_p2)
 // [[Rcpp::export]]
-NumericVector triadCensusCol(const arma::sp_mat& A,
-                   IntegerVector attr,
-                   IntegerMatrix orbitClasses,
-                   NumericVector triads){
-  int code=0;
-  int n=attr.size();
-  IntegerVector trorbits(3);
-  IntegerVector orbits(3);
-  IntegerVector trattr(3);
-  IntegerVector attrOrder(3);
-  IntegerVector idx(3);
-  IntegerVector vattr(3);
-  std::string orbStr;
-  std::string attrStr;
-  IntegerVector tritypes = {1,2,2,3,2,4,6,8,2,6,5,7,3,8,7,11,
-                2,6,4,8,5,9,9,13,6,10,9,14,7,14,12,15,
-                2,5,6,7,6,9,10,14,4,9,9,12,8,13,14,15,
-                3,7,8,11,7,12,14,15,8,14,13,15,11,15,15,16};
+NumericVector triadCensusCol(List outList, List nbList, IntegerVector attr,
+                             int k, IntegerVector lookup, int nclass) {
+  int n = attr.size();
+  std::vector<std::vector<int> > out(n), nb(n);
+  for (int i = 0; i < n; ++i) {
+    out[i] = as<std::vector<int> >(outList[i]);
+    nb[i] = as<std::vector<int> >(nbList[i]);
+  }
+  std::vector<double> ns(k, 0.0);
+  for (int i = 0; i < n; ++i) ns[attr[i]] += 1;
 
-  for(int u=0;u<n;++u){
-    for(int v=0;v<n;++v){
-      for(int w=0;w<n;++w){
-        if((u<v) && (v<w)){
-          code = A(u,v)+2*A(u,w)+4*A(v,u)+8*A(v,w)+16*A(w,u)+32*A(w,v);
-          orbits = orbitClasses(code,_);
+  NumericVector counts(nclass);
+  std::vector<int> mark(n, -1);
+  std::vector<int> S;
+  std::vector<double> scol(k);
+  int pair_id = 0;
 
-          idx = {u,v,w};
+  for (int v = 0; v < n; ++v) {
+    Rcpp::checkUserInterrupt();
+    for (int u : nb[v]) {
+      if (u <= v) continue;
+      // S = N(u) | N(v) \ {u, v}
+      S.clear();
+      mark[u] = pair_id;
+      mark[v] = pair_id;
+      for (int w : nb[u]) if (mark[w] != pair_id) { mark[w] = pair_id; S.push_back(w); }
+      for (int w : nb[v]) if (mark[w] != pair_id) { mark[w] = pair_id; S.push_back(w); }
 
-          vattr = attr[idx];
-
-          trattr = sortxy(vattr,orbits);
-          trorbits = orbits.sort();
-
-          orbStr = std::to_string(trorbits[0]) + std::to_string(trorbits[1])+std::to_string(trorbits[2]);
-          attrStr= std::to_string(trattr[0]) + std::to_string(trattr[1])+std::to_string(trattr[2]);
-
-          double b = triads[orbStr+"-"+attrStr];
-          b+=1;
-          triads[orbStr+"-"+attrStr]=b;
+      // dyadic triads: w adjacent to neither u nor v
+      std::fill(scol.begin(), scol.end(), 0.0);
+      scol[attr[u]] += 1;
+      scol[attr[v]] += 1;
+      for (int w : S) scol[attr[w]] += 1;
+      for (int c = 0; c < k; ++c) {
+        double cnt = ns[c] - scol[c];
+        if (cnt > 0) {
+          int code = (std::binary_search(out[v].begin(), out[v].end(), u) ? 1 : 0) +
+                     (std::binary_search(out[u].begin(), out[u].end(), v) ? 4 : 0);
+          counts[lookup[((code * k + attr[v]) * k + attr[u]) * k + c]] += cnt;
         }
       }
+
+      // connected triads, each counted exactly once
+      for (int w : S) {
+        if (u < w || (v < w && w < u && !std::binary_search(nb[v].begin(), nb[v].end(), w))) {
+          counts[triad_class(out, attr, lookup, k, v, u, w)] += 1;
+        }
+      }
+      ++pair_id;
     }
   }
-  return triads;
+  return counts;
 }
-
