@@ -1,6 +1,16 @@
 # Changelog
 
-## netUtils (development version)
+## netUtils 1.0.0
+
+This release fixes a number of bugs found in a code review. Some fixes
+change results, notably
+[`dyad_census_attr()`](https://schochastics.github.io/netUtils/reference/dyad_census_attr.md),
+[`triad_census_attr()`](https://schochastics.github.io/netUtils/reference/triad_census_attr.md)
+(030C orientations),
+[`graph_cor()`](https://schochastics.github.io/netUtils/reference/graph_cor.md)
+(diagonal now excluded by default) and
+[`sample_lfr()`](https://schochastics.github.io/netUtils/reference/sample_lfr.md)
+(now uses R’s random number generator).
 
 - [`dyad_census_attr()`](https://schochastics.github.io/netUtils/reference/dyad_census_attr.md)
   fixed: asymmetric dyads were dropped when a group pair had edges in

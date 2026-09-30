@@ -53,8 +53,8 @@ David Schoch
 library(igraph)
 edges <- data.frame(mode1 = 1:5, mode2 = letters[1:5])
 bipartite_from_data_frame(edges, "mode1", "mode2")
-#> IGRAPH 5120cdd UN-B 10 5 -- 
+#> IGRAPH b7b7711 UN-B 10 5 -- 
 #> + attr: name (v/c), type (v/l)
-#> + edges from 5120cdd (vertex names):
+#> + edges from b7b7711 (vertex names):
 #> [1] 1--a 2--b 3--c 4--d 5--e
 ```

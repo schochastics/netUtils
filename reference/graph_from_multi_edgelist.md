@@ -62,21 +62,21 @@ d <- data.frame(
 )
 graph_from_multi_edgelist(d, "from", "to", "type", "weight")
 #> $a
-#> IGRAPH 808f0b2 UNW- 3 3 -- 
+#> IGRAPH 4774d7a UNW- 3 3 -- 
 #> + attr: name (v/c), weight (e/n), type (e/c)
-#> + edges from 808f0b2 (vertex names):
+#> + edges from 4774d7a (vertex names):
 #> [1] 1--2 2--3 1--3
 #> 
 #> $b
-#> IGRAPH bb0df08 UNW- 3 3 -- 
+#> IGRAPH 5011380 UNW- 3 3 -- 
 #> + attr: name (v/c), weight (e/n), type (e/c)
-#> + edges from bb0df08 (vertex names):
+#> + edges from 5011380 (vertex names):
 #> [1] 1--2 2--3 1--3
 #> 
 #> $c
-#> IGRAPH 36f4254 UNW- 3 3 -- 
+#> IGRAPH c91d74b UNW- 3 3 -- 
 #> + attr: name (v/c), weight (e/n), type (e/c)
-#> + edges from 36f4254 (vertex names):
+#> + edges from c91d74b (vertex names):
 #> [1] 1--2 2--3 1--3
 #> 
 ```

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">netUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.6.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,8 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="netutils-development-version">netUtils (development version)<a class="anchor" aria-label="anchor" href="#netutils-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.0.0" id="netutils-100">netUtils 1.0.0<a class="anchor" aria-label="anchor" href="#netutils-100"></a></h2>
+<p>This release fixes a number of bugs found in a code review. Some fixes change results, notably <code><a href="../reference/dyad_census_attr.html">dyad_census_attr()</a></code>, <code><a href="../reference/triad_census_attr.html">triad_census_attr()</a></code> (030C orientations), <code><a href="../reference/graph_cor.html">graph_cor()</a></code> (diagonal now excluded by default) and <code><a href="../reference/sample_lfr.html">sample_lfr()</a></code> (now uses R’s random number generator).</p>
 <ul><li>
 <code><a href="../reference/dyad_census_attr.html">dyad_census_attr()</a></code> fixed: asymmetric dyads were dropped when a group pair had edges in one direction only, and within-group asymmetric dyads were always reported as 0. Named vertices returned all zeros and graphs without edges errored. Within-group rows now report the total asymmetric count in <code>asym_ab</code> and <code>NA</code> in <code>asym_ba</code>. Multiple edges and loops are ignored.</li>
 <li>
