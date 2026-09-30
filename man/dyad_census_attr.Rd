@@ -12,13 +12,23 @@ dyad_census_attr(g, vattr)
 \item{vattr}{name of vertex attribute to be used.}
 }
 \value{
-dyad census as a data.frame.
+dyad census as a data.frame with one row per unordered pair of
+attribute values \code{from_attr <= to_attr} and columns
+\describe{
+\item{asym_ab}{asymmetric dyads with the edge pointing from \code{from_attr} to \code{to_attr}.
+For within-group rows (\code{from_attr == to_attr}) this is the total number of asymmetric dyads.}
+\item{asym_ba}{asymmetric dyads with the edge pointing from \code{to_attr} to \code{from_attr}.
+\code{NA} for within-group rows, where the direction is not defined.}
+\item{sym}{mutual dyads}
+\item{null}{empty dyads}
+}
 }
 \description{
 dyad census with node attributes
 }
 \details{
-The node attribute should be integers from 1 to max(attr)
+The node attribute should be integers from 1 to max(attr).
+Multiple edges and loops are ignored.
 }
 \examples{
 library(igraph)

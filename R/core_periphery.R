@@ -18,9 +18,10 @@
 core_periphery <- function(graph, method = "rk1_dc", iter = 500, ...) {
     A <- igraph::as_adjacency_matrix(graph, type = "both", sparse = FALSE)
     if (method == "SA") {
-        warning("method='SA' is deprecated, using 'GA' instead")
+        warning("method='SA' is deprecated, using 'GA' instead", call. = FALSE)
         method <- "GA"
-    } else if (method == "GA") {
+    }
+    if (method == "GA") {
         if (!requireNamespace("GA", quietly = TRUE)) {
             stop("The package 'GA' is needed for method='GA'")
         }
@@ -49,7 +50,7 @@ core_periphery <- function(graph, method = "rk1_dc", iter = 500, ...) {
         ev <- round(igraph::eigen_centrality(graph)$vector, 8)
         return(cp_rk1_optimize(ev, A))
     } else {
-        stop("method must be one of 'SA', 'rk1_dc', or 'rk1_ec'")
+        stop("method must be one of 'GA', 'rk1_dc', or 'rk1_ec'", call. = FALSE)
     }
 }
 

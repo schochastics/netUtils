@@ -20,9 +20,13 @@ delete_isolates <- function(g) {
     igraph::delete_vertices(g, which(igraph::degree(g) == 0))
 }
 
-# validate that `g` is a directed graph carrying a numeric vertex attribute
-# `vattr`, and return that attribute vector. Used by the *_census_attr functions.
+# validate that `g` is a directed graph carrying a vertex attribute `vattr`
+# with positive integer values, and return that attribute as an integer
+# vector. Used by the *_census_attr functions.
 validate_vattr <- function(g, vattr) {
+    if (!igraph::is_igraph(g)) {
+        stop("g must be an igraph object", call. = FALSE)
+    }
     if (!igraph::is_directed(g)) {
         stop("g must be a directed graph", call. = FALSE)
     }
@@ -30,8 +34,11 @@ validate_vattr <- function(g, vattr) {
         stop("there is no vertex attribute called ", vattr, call. = FALSE)
     }
     attr <- igraph::vertex_attr(g, vattr)
-    if (!all(is.numeric(attr))) {
-        stop("vertex attribute must be numeric ", call. = FALSE)
+    if (!is.numeric(attr)) {
+        stop("vertex attribute must be numeric", call. = FALSE)
     }
-    attr
+    if (anyNA(attr) || any(attr != round(attr)) || any(attr < 1)) {
+        stop("vertex attribute must contain positive integers without missing values", call. = FALSE)
+    }
+    as.integer(attr)
 }
