@@ -22,7 +22,7 @@ graph_from_multi_edgelist(
 
 \item{type}{type attribute to split the edgelist. If NULL, defaults to third column.}
 
-\item{weight}{optional column name of edge weights. Ignored if NULL.}
+\item{weight}{optional column name of edge weights. The column is stored as edge attribute \code{weight}. Ignored if NULL.}
 
 \item{directed}{logical scalar, whether or not to create a directed graph.}
 }

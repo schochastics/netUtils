@@ -8,27 +8,32 @@
 \alias{graph_cor.array}
 \title{Graph correlation}
 \usage{
-graph_cor(object1, object2)
+graph_cor(object1, object2, ...)
 
-\method{graph_cor}{default}(object1, object2)
+\method{graph_cor}{default}(object1, object2, ...)
 
-\method{graph_cor}{igraph}(object1, object2, ...)
+\method{graph_cor}{igraph}(object1, object2, diag = FALSE, attr = NULL, ...)
 
-\method{graph_cor}{matrix}(object1, object2)
+\method{graph_cor}{matrix}(object1, object2, diag = FALSE, ...)
 
-\method{graph_cor}{array}(object1, object2)
+\method{graph_cor}{array}(object1, object2, diag = FALSE, ...)
 }
 \arguments{
 \item{object1}{igraph object or adjacency matrix}
 
 \item{object2}{igraph object or adjacency matrix over the same vertex set as object1}
 
-\item{...}{additional arguments}
+\item{...}{additional arguments (currently unused)}
+
+\item{diag}{logical. Should the diagonal of the adjacency matrices be included?
+Defaults to \code{FALSE}, the standard definition of graph correlation.}
+
+\item{attr}{Either NULL or a character string giving an edge attribute name used as edge weights for igraph objects. If NULL, the unweighted adjacency matrices are used.}
 }
 \value{
 correlation between graphs
 }
 \description{
 This function computes the correlation between networks. Implemented methods expect
-the graph to be an adjacency matrix, an igraph, or a network object.
+the graph to be an adjacency matrix or an igraph object.
 }

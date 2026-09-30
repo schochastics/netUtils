@@ -61,7 +61,7 @@ bipartite_from_data_frame <- function(d, type1, type2, attr = NULL, weighted = T
 #' @param from column name of sender. If NULL, defaults to first column.
 #' @param to column of receiver. If NULL, defaults to second column.
 #' @param type type attribute to split the edgelist. If NULL, defaults to third column.
-#' @param weight optional column name of edge weights. Ignored if NULL.
+#' @param weight optional column name of edge weights. The column is stored as edge attribute `weight`. Ignored if NULL.
 #' @param directed logical scalar, whether or not to create a directed graph.
 #' @return list of igraph objects.
 #' @author David Schoch
@@ -76,7 +76,7 @@ bipartite_from_data_frame <- function(d, type1, type2, attr = NULL, weighted = T
 
 graph_from_multi_edgelist <- function(d, from = NULL, to = NULL, type = NULL, weight = NULL, directed = FALSE) {
     d <- as.data.frame(d)
-    if (ncol(d) < 2) {
+    if (ncol(d) < 3) {
         stop("the data frame should contain at least three columns")
     }
     dnames <- names(d)
@@ -90,6 +90,9 @@ graph_from_multi_edgelist <- function(d, from = NULL, to = NULL, type = NULL, we
     if (!is.null(type) && !type %in% dnames) {
         stop(paste0(type, " is not a valid column name"))
     }
+    if (!is.null(weight) && !weight %in% dnames) {
+        stop(paste0(weight, " is not a valid column name"))
+    }
 
     if (is.null(from)) from <- dnames[1]
     if (is.null(to)) to <- dnames[2]
@@ -99,6 +102,7 @@ graph_from_multi_edgelist <- function(d, from = NULL, to = NULL, type = NULL, we
         d <- d[, c(from, to, type)]
     } else {
         d <- d[, c(from, to, weight, type)]
+        names(d)[3] <- "weight"
     }
 
     d_lst <- split(d, d[[type]])
@@ -107,11 +111,11 @@ graph_from_multi_edgelist <- function(d, from = NULL, to = NULL, type = NULL, we
 }
 
 #' @title k partite graphs
-#' @description  Create a random k-partite graph.
+#' @description  Create a complete k-partite graph.
 #'
 #' @param n number of nodes
-#' @param grp vector of partition sizes
-#' @return igraph object
+#' @param grp vector of partition sizes. Must sum to `n`.
+#' @return igraph object with vertex attribute `type` giving the partition of each vertex
 #' @author David Schoch
 #' @examples
 #' # 3-partite graph with equal sized groups
@@ -119,16 +123,12 @@ graph_from_multi_edgelist <- function(d, from = NULL, to = NULL, type = NULL, we
 #' @export
 
 graph_kpartite <- function(n = 10, grp = c(5, 5)) {
-    g <- igraph::make_empty_graph(n = n, directed = FALSE)
-    cur_node <- 1
-    nodes <- seq_len(n)
-    for (i in seq_len(length(grp) - 1)) {
-        add_nodes <- cur_node:(cur_node + grp[i] - 1)
-        add_edges <- c(t(expand.grid(add_nodes, nodes[nodes > max(add_nodes)])))
-        g <- igraph::add_edges(g, add_edges)
-        cur_node <- cur_node + grp[i]
+    if (sum(grp) != n) {
+        stop("the partition sizes in grp must sum to n")
     }
-    return(g)
+    g <- igraph::make_full_multipartite(n = grp, directed = FALSE)
+    igraph::graph_attr(g) <- list()
+    g
 }
 
 #' @title split graph
@@ -144,6 +144,9 @@ graph_kpartite <- function(n = 10, grp = c(5, 5)) {
 #' split_graph(n = 20, p = 0.4, 0.5)
 #' @export
 split_graph <- function(n, p, core) {
+    if (core <= 0 || core > 1) {
+        stop("core must be in the interval (0, 1]")
+    }
     ncore <- floor(n * core)
     nperi <- n - ncore
     Acore <- matrix(1, ncore, ncore)
@@ -151,6 +154,6 @@ split_graph <- function(n, p, core) {
     A <- rbind(cbind(Acore, Aperi), cbind(t(Aperi), matrix(0, nperi, nperi)))
     g <- igraph::graph_from_adjacency_matrix(A, "undirected", diag = FALSE)
     igraph::V(g)$core <- FALSE
-    igraph::V(g)$core[1:ncore] <- TRUE
+    igraph::V(g)$core[seq_len(ncore)] <- TRUE
     g
 }

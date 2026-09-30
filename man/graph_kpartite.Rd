@@ -9,13 +9,13 @@ graph_kpartite(n = 10, grp = c(5, 5))
 \arguments{
 \item{n}{number of nodes}
 
-\item{grp}{vector of partition sizes}
+\item{grp}{vector of partition sizes. Must sum to \code{n}.}
 }
 \value{
-igraph object
+igraph object with vertex attribute \code{type} giving the partition of each vertex
 }
 \description{
-Create a random k-partite graph.
+Create a complete k-partite graph.
 }
 \examples{
 # 3-partite graph with equal sized groups

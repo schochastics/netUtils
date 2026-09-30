@@ -9,21 +9,24 @@ structural_equivalence <- function(g) {
     if (igraph::is_directed(g)) {
         stop("g must be undirected")
     }
-    adj <- lapply(igraph::neighborhood(g, mindist = 1), function(x) x - 1)
+    n <- igraph::vcount(g)
+    adj <- lapply(igraph::neighborhood(g, mindist = 1), function(x) as.integer(x) - 1L)
     # number of distinct neighbors (degree would count multiple edges and loops)
     deg <- lengths(adj)
-    P <- mse(adj, deg)
-    MSE <- which((P + t(P)) == 2, arr.ind = TRUE)
-    if (length(MSE) >= 1) {
-        MSE <- t(apply(MSE, 1, sort))
-        MSE <- MSE[!duplicated(MSE), ]
-        g <- igraph::make_empty_graph()
-        g <- igraph::add_vertices(g, nrow(P))
-        g <- igraph::add_edges(g, c(t(MSE)))
-        g <- igraph::as_undirected(g)
-        MSE <- igraph::components(g, "weak")$membership
-    } else {
-        MSE <- seq_len(nrow(P))
+    dom <- mse(adj, deg) + 1L
+    # u and v are equivalent if each dominates the other
+    key <- (dom[, 1] - 1) * n + dom[, 2]
+    rev_key <- (dom[, 2] - 1) * n + dom[, 1]
+    equiv <- dom[key %in% rev_key & dom[, 1] < dom[, 2], , drop = FALSE]
+    # all isolates are equivalent
+    iso <- which(deg == 0)
+    if (length(iso) > 1) {
+        equiv <- rbind(equiv, cbind(iso[-length(iso)], iso[-1]))
     }
-    return(MSE)
+    if (nrow(equiv) == 0) {
+        return(seq_len(n))
+    }
+    h <- igraph::make_empty_graph(n, directed = FALSE)
+    h <- igraph::add_edges(h, c(t(equiv)))
+    igraph::components(h)$membership
 }
